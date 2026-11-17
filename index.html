@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendidikan Sejarah 25A UNRI | Portal Kelas Resmi</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Font: Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <!-- Firebase SDK (Modular ESM) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, doc, setDoc, getDocs, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Expose Firebase modules globally for app logic
+        window.firebaseAppInit = async function() {
+            try {
+                const appId = typeof __app_id !== 'undefined' ? __app_id : 'sejarah-25a-unri-default';
+                const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : { apiKey: "demo", projectId: "demo" };
+                
+                const app = initializeApp(firebaseConfig);
+                const auth = getAuth(app);
+                const db = getFirestore(app);
+
+                window.db = db;
+                window.auth = auth;
+                window.appId = appId;
+
+                // Authenticate
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                console.log("Firebase connected successfully for App ID:", appId);
+                window.initFirestoreListeners();
+            } catch (err) {
+                console.error("Firebase init error, falling back to local memory:", err);
+                window.initLocalStorageFallback();
+            }
+        };
+    </script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        history: {
+                            50: '#fdfbf7',
+                            100: '#f4ede2',
+                            200: '#e5d5be',
+                            600: '#9a7b55',
+                            750: '#5c4033',
+                            800: '#3d2817',
+                            900: '#26190e'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .vintage-gradient {
+            background: linear-gradient(135deg, #26190e 0%, #3d2817 50%, #5c4033 100%);
+        }
+        .hero-pattern {
+            background: linear-gradient(rgba(38, 25, 14, 0.85), rgba(38, 25, 14, 0.90)), url('https://lh3.googleusercontent.com/d/1Z8q6DlogjS_e4wmfSFJGhOaG-gH_Q3l6');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body class="bg-history-50 text-history-900 font-sans antialiased selection:bg-history-600 selection:text-white">
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-history-800 text-white px-6 py-3 rounded-xl shadow-2xl flex items-center space-x-3 border border-history-600/30">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-amber-400 text-lg"></i>
+        <span id="toast-message" class="font-medium text-sm">Notifikasi berhasil!</span>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="fixed top-0 left-0 right-0 z-40 bg-history-900/95 backdrop-blur-md text-white border-b border-history-800 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="flex items-center space-x-2">
+                    <img src="https://lh3.googleusercontent.com/d/1CnUZXuuNCV370L-dmAdcZ1hG0cUsg8nY" alt="Logo UNRI" class="w-10 h-10 object-contain drop-shadow" onerror="this.src='8281.png'; this.onerror=function(){this.src='https://placehold.co/40x40/26190e/ffffff?text=UNRI'}">
+                    <img src="https://lh3.googleusercontent.com/d/13Oc1Qey4THsxJOnP5sPjFF_1fGXUNnX8" alt="Logo Himapro Sejarah" class="w-10 h-10 object-contain rounded-lg drop-shadow bg-white p-0.5" onerror="this.src='8280.jpg'; this.onerror=function(){this.src='https://placehold.co/40x40/26190e/ffffff?text=SEJ'}">
+                </div>
+                <div>
+                    <span class="font-serif font-bold text-lg tracking-wide block text-amber-100">Sejarah 25A</span>
+                    <span class="text-xs text-history-200 tracking-wider uppercase font-semibold">FKIP UNRI</span>
+                </div>
+            </div>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8 font-medium text-sm">
+                <a href="#beranda" class="text-amber-200 hover:text-white transition">Beranda</a>
+                <a href="#visimisi" class="text-history-200 hover:text-amber-200 transition">Visi & Misi</a>
+                <a href="#tugas" class="text-history-200 hover:text-amber-200 transition">Pengumpulan Tugas</a>
+                <a href="#galeri" class="text-history-200 hover:text-amber-200 transition">Galeri & Kenangan</a>
+                <a href="#pengumuman" class="text-history-200 hover:text-amber-200 transition">Pengumuman</a>
+            </div>
+
+            <!-- Mobile Hamburger Button -->
+            <button id="menu-btn" class="md:hidden text-history-200 hover:text-white focus:outline-none p-2">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-history-900 border-t border-history-800 px-6 py-4 space-y-3 font-medium">
+            <a href="#beranda" class="block text-amber-200 py-1 mobile-link">Beranda</a>
+            <a href="#visimisi" class="block text-history-200 py-1 mobile-link">Visi & Misi</a>
+            <a href="#tugas" class="block text-history-200 py-1 mobile-link">Pengumpulan Tugas</a>
+            <a href="#galeri" class="block text-history-200 py-1 mobile-link">Galeri & Kenangan</a>
+            <a href="#pengumuman" class="block text-history-200 py-1 mobile-link">Pengumuman</a>
+        </div>
+    </nav>
+
+    <!-- Admin Status Banner / Control Bar -->
+    <div class="bg-history-800 text-amber-100 py-2.5 px-4 text-xs border-b border-history-700 mt-20">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+            <div class="flex items-center space-x-2">
+                <i id="admin-status-icon" class="fa-solid fa-shield text-amber-400"></i>
+                <span id="admin-status-text">Mode Akses: <strong>Mahasiswa Umum</strong> (Tidak dapat melihat daftar tugas terkumpul milik orang lain)</span>
+            </div>
+            <div>
+                <button id="admin-toggle-btn" type="button" onclick="toggleAdminMode()" class="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-lg font-semibold transition flex items-center space-x-1.5 shadow-sm cursor-pointer z-50 relative pointer-events-auto">
+                    <i class="fa-solid fa-key"></i>
+                    <span>Login Admin / Dosen</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="beranda" class="pt-20 pb-20 md:pt-32 md:pb-32 hero-pattern text-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+                <div class="md:col-span-7 space-y-6 text-center md:text-left">
+                    <div class="inline-flex items-center space-x-2 bg-amber-500/20 border border-amber-400/30 px-3 py-1.5 rounded-full text-amber-300 text-xs font-semibold tracking-wider uppercase">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <span>Angkatan 2025 • FKIP UNRI</span>
+                    </div>
+                    <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white leading-tight">
+                        Pendidikan Sejarah <span class="text-amber-400 underline decoration-amber-500/50 underline-offset-8">25A</span>
+                    </h1>
+                    <p class="text-history-100 text-base sm:text-lg max-w-2xl font-light leading-relaxed">
+                        Portal resmi kelas dan pengumpulan tugas terintegrasi. Wadah kolaborasi digital untuk mencetak calon pendidik sejarah yang profesional, berkarakter, dan solid.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 pt-4">
+                        <a href="#tugas" class="w-full sm:w-auto bg-amber-500 hover:bg-amber-600 text-history-900 font-bold px-8 py-3.5 rounded-xl shadow-lg transition transform hover:-translate-y-0.5 text-center flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                            <span>Kumpul Tugas</span>
+                        </a>
+                        <a href="#galeri" class="w-full sm:w-auto bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold px-8 py-3.5 rounded-xl backdrop-blur-sm transition text-center flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-images"></i>
+                            <span>Lihat Kenangan</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="md:col-span-5 flex justify-center">
+                    <div class="relative w-full max-w-md">
+                        <div class="absolute -inset-1.5 bg-gradient-to-r from-amber-600 to-amber-300 rounded-2xl blur opacity-30"></div>
+                        <div class="relative bg-history-800 border border-history-600/50 p-6 rounded-2xl shadow-2xl space-y-6">
+                            <div class="flex items-center justify-between border-b border-history-700 pb-4">
+                                <div class="flex items-center space-x-2">
+                                    <div class="flex space-x-1.5 bg-white/10 p-1.5 rounded-xl">
+                                        <img src="https://lh3.googleusercontent.com/d/1CnUZXuuNCV370L-dmAdcZ1hG0cUsg8nY" alt="UNRI" class="w-7 h-7 object-contain" onerror="this.src='8281.png'">
+                                        <img src="https://lh3.googleusercontent.com/d/13Oc1Qey4THsxJOnP5sPjFF_1fGXUNnX8" alt="SEJ" class="w-7 h-7 object-contain rounded bg-white p-0.5" onerror="this.src='8280.jpg'">
+                                    </div>
+                                    <span class="font-serif font-bold text-amber-200 text-sm">Resmi Angkatan 25A</span>
+                                </div>
+                                <span class="text-xs bg-amber-400/20 text-amber-300 px-2.5 py-1 rounded-md font-semibold">Aktif</span>
+                            </div>
+                            <div class="space-y-4 text-sm text-history-200">
+                                <div class="bg-history-900/60 p-3.5 rounded-xl border border-history-700/50">
+                                    <p class="font-semibold text-white mb-1">Mata Kuliah Hari Ini</p>
+                                    <p class="text-xs text-amber-200/80">Media Pembelajaran Sejarah (08.00 WIB) • Ruang A1</p>
+                                </div>
+                                <div class="bg-history-900/60 p-3.5 rounded-xl border border-history-700/50">
+                                    <p class="font-semibold text-white mb-1">Tenggat Tugas Terdekat</p>
+                                    <p class="text-xs text-amber-200/80">Ujian Akhir Semester</p>
+                                </div>
+                            </div>
+                            <div class="text-center pt-2">
+                                <span class="text-xs text-history-300 italic"><i class="fa-solid fa-shield-halved mr-1"></i> Dikelola oleh Pengurus Kelas 25A</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visi & Misi Section -->
+    <section id="visimisi" class="py-20 bg-history-100/70 border-b border-history-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+                <span class="text-amber-700 font-semibold text-xs tracking-widest uppercase bg-amber-100 px-3 py-1 rounded-full border border-amber-300/50">Arah & Tujuan</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-history-900">Visi & Misi Kelas 25A</h2>
+                <p class="text-history-700 text-sm sm:text-base">Komitmen bersama civitas akademik Pendidikan Sejarah 25A UNRI di bawah kepemimpinan Komting Sahnan.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+                <!-- Visi Card -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-history-200 hover:shadow-md transition flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-eye"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl font-bold text-history-900">Visi Kelas</h3>
+                        <p class="text-history-700 leading-relaxed italic bg-history-50 p-5 rounded-xl border-l-4 border-amber-600 text-base">
+                            "Sukses bersama dibawah naungan komting Sahnan"
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-history-100 text-xs text-history-600 flex items-center justify-between">
+                        <span>Pimpinan Kelas</span>
+                        <span class="font-semibold text-history-900">Komting Sahnan</span>
+                    </div>
+                </div>
+
+                <!-- Misi Card -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-history-200 hover:shadow-md transition flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-bullseye"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl font-bold text-history-900">Misi Kelas</h3>
+                        <ul class="space-y-3 text-history-700 text-sm sm:text-base">
+                            <li class="flex items-start space-x-3">
+                                <span class="bg-amber-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold mt-0.5 flex-shrink-0">1</span>
+                                <span>Lulus Tepat Waktu</span>
+                            </li>
+                            <li class="flex items-start space-x-3">
+                                <span class="bg-amber-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold mt-0.5 flex-shrink-0">2</span>
+                                <span>Mendapat nilai yang baik</span>
+                            </li>
+                            <li class="flex items-start space-x-3">
+                                <span class="bg-amber-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold mt-0.5 flex-shrink-0">3</span>
+                                <span>Sukses sukses solid</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-history-100 text-xs text-history-600 flex items-center justify-between">
+                        <span>Pilar Utama</span>
+                        <span class="font-semibold text-history-900">Solidaritas & Prestasi</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Assignment Submission (Google Classroom Style) Section -->
+    <section id="tugas" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div class="space-y-2">
+                    <span class="text-amber-700 font-semibold text-xs tracking-widest uppercase bg-amber-100 px-3 py-1 rounded-full border border-amber-300/50">Portal Akademik</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-history-900">Pengumpulan Tugas Kelas</h2>
+                    <p class="text-history-700 text-sm sm:text-base">Kumpulkan tugas mata kuliah Anda di sini secara sistematis layaknya Google Classroom. Data tersimpan real-time di perangkat.</p>
+                </div>
+                <button onclick="openModal('modal-buat-tugas')" class="mt-4 md:mt-0 bg-history-900 hover:bg-history-800 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition flex items-center space-x-2 shadow-md">
+                    <i class="fa-solid fa-plus-circle text-amber-400"></i>
+                    <span>Buat Tugas Baru (Penanggung Jawab)</span>
+                </button>
+            </div>
+
+            <!-- Tugas Grid / List Container -->
+            <div id="tugas-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Data Tugas akan dirender secara dinamis oleh JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Photo Gallery & Memories Section -->
+    <section id="galeri" class="py-20 bg-history-100/70 border-t border-history-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div class="space-y-2">
+                    <span class="text-amber-700 font-semibold text-xs tracking-widest uppercase bg-amber-100 px-3 py-1 rounded-full border border-amber-300/50">Album Angkatan</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-history-900">Galeri & Foto Kenangan</h2>
+                    <p class="text-history-700 text-sm sm:text-base">Momen kebersamaan, kegiatan lapangan, dan perkuliahan Pendidikan Sejarah 25A UNRI.</p>
+                </div>
+                <button onclick="openModal('modal-upload-foto')" class="mt-4 md:mt-0 bg-amber-600 hover:bg-amber-700 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition flex items-center space-x-2 shadow-md">
+                    <i class="fa-solid fa-camera"></i>
+                    <span>Unggah Foto Kenangan</span>
+                </button>
+            </div>
+
+            <!-- Gallery Grid (Empty Initially) -->
+            <div id="gallery-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div id="empty-gallery-msg" class="col-span-full text-center py-12 bg-white rounded-2xl border border-history-200">
+                    <i class="fa-solid fa-images text-4xl text-amber-600 mb-3"></i>
+                    <p class="font-bold text-history-900">Belum ada foto kenangan yang diunggah.</p>
+                    <p class="text-xs text-history-600 mt-1">Silakan klik tombol "Unggah Foto Kenangan" di atas untuk menambahkan foto pertama kelas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Announcement & Info Section -->
+    <section id="pengumuman" class="py-20 bg-white border-t border-history-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div class="space-y-3">
+                    <span class="text-amber-700 font-semibold text-xs tracking-widest uppercase bg-amber-100 px-3 py-1 rounded-full border border-amber-300/50">Warta Kelas</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-history-900">Pengumuman Terbaru</h2>
+                    <p class="text-history-700 text-sm sm:text-base">Informasi penting seputar jadwal kuliah, dosen pengampu, dan kegiatan kemahasiswaan.</p>
+                </div>
+                <div id="admin-announcement-btn-container" class="hidden mt-4 md:mt-0">
+                    <button onclick="openModal('modal-buat-pengumuman')" class="bg-history-900 hover:bg-history-800 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition flex items-center space-x-2 shadow-md">
+                        <i class="fa-solid fa-bullhorn text-amber-400"></i>
+                        <span>Tambah Warta Kelas (Admin)</span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="pengumuman-container" class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                <!-- Announcements rendered dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="vintage-gradient text-white py-12 border-t border-history-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-8">
+                <div class="md:col-span-6 space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="flex items-center space-x-2">
+                            <img src="https://lh3.googleusercontent.com/d/1CnUZXuuNCV370L-dmAdcZ1hG0cUsg8nY" alt="Logo UNRI" class="w-10 h-10 object-contain drop-shadow" onerror="this.src='8281.png'">
+                            <img src="https://lh3.googleusercontent.com/d/13Oc1Qey4THsxJOnP5sPjFF_1fGXUNnX8" alt="Logo Himapro" class="w-10 h-10 object-contain rounded-lg drop-shadow bg-white p-0.5" onerror="this.src='8280.jpg'">
+                        </div>
+                        <div>
+                            <span class="font-serif font-bold text-lg tracking-wide block text-amber-100">Pendidikan Sejarah 25A</span>
+                            <span class="text-xs text-history-200 tracking-wider uppercase font-semibold">Universitas Riau</span>
+                        </div>
+                    </div>
+                    <p class="text-history-200 text-sm max-w-md font-light leading-relaxed">
+                        Portal kolaborasi digital kelas Pendidikan Sejarah Angkatan 2025 FKIP UNRI. Wadah merajut kebersamaan dan prestasi ilmiah.
+                    </p>
+                </div>
+                <div class="md:col-span-3 space-y-3">
+                    <h5 class="font-bold text-amber-300 text-sm tracking-wider uppercase">Tautan Cepat</h5>
+                    <ul class="space-y-2 text-sm text-history-200">
+                        <li><a href="#beranda" class="hover:text-white transition">Beranda</a></li>
+                        <li><a href="#visimisi" class="hover:text-white transition">Visi & Misi</a></li>
+                        <li><a href="#tugas" class="hover:text-white transition">Pengumpulan Tugas</a></li>
+                        <li><a href="#galeri" class="hover:text-white transition">Galeri Kenangan</a></li>
+                    </ul>
+                </div>
+                <div class="md:col-span-3 space-y-3">
+                    <h5 class="font-bold text-amber-300 text-sm tracking-wider uppercase">Kampus</h5>
+                    <p class="text-history-200 text-sm leading-relaxed">
+                        Fakultas Keguruan dan Ilmu Pendidikan<br>
+                        Universitas Riau, Kampus Bina Widya Simpang Baru, Pekanbaru.
+                    </p>
+                </div>
+            </div>
+            <div class="border-t border-history-800 pt-8 text-center text-xs text-history-300">
+                <p>&copy; 2025/2026 Pendidikan Sejarah 25A UNRI. Dibuat dengan bangga untuk kemajuan literasi sejarah Indonesia.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL 1: Kumpul Tugas (Google Classroom Style) -->
+    <div id="modal-kumpul" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-history-200 space-y-6 relative transform transition-all max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between border-b border-history-100 pb-4">
+                <div>
+                    <span id="modal-matkul" class="text-xs font-bold text-amber-700 bg-amber-100 px-2.5 py-1 rounded-full uppercase">Mata Kuliah</span>
+                    <h3 id="modal-judul-tugas" class="font-serif font-bold text-xl text-history-900 mt-1">Judul Tugas</h3>
+                </div>
+                <button onclick="closeModal('modal-kumpul')" class="text-gray-400 hover:text-history-900 p-2 rounded-lg">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            
+            <form id="form-kumpul" onsubmit="submitTugas(event)" class="space-y-4">
+                <input type="hidden" id="modal-tugas-id">
+                <div>
+                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Nama Lengkap Mahasiswa</label>
+                    <input type="text" id="nama-mhs" required placeholder="Contoh: Muhammad Rizki" class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-600 transition">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">NIM (Nomor Induk Mahasiswa)</label>
+                    <input type="text" id="nim-mhs" required placeholder="Contoh: 2505112001" class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-600 transition">
+                </div>
+                
+                <!-- Tab / Choice between Direct File Upload or Link -->
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold text-history-700 uppercase">Metode Pengiriman Tugas</label>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button type="button" id="tab-btn-file" onclick="switchSubmitMode('file')" class="py-2 px-3 text-xs font-semibold rounded-xl border border-amber-600 bg-amber-600 text-white transition flex items-center justify-center space-x-1.5">
+                            <i class="fa-solid fa-file-arrow-up"></i>
+                            <span>Upload File (PDF/Word)</span>
+                        </button>
+                        <button type="button" id="tab-btn-link" onclick="switchSubmitMode('link')" class="py-2 px-3 text-xs font-semibold rounded-xl border border-history-200 bg-history-50 text-history-700 transition flex items-center justify-center space-x-1.5">
+                            <i class="fa-brands fa-google-drive"></i>
+                            <span>Link Google Drive</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- File Input Container -->
+                <div id="container-file-input">
+                    <label class="flex flex-col items-center justify-center w-full h-28 border-2 border-history-200 border-dashed rounded-xl cursor-pointer bg-history-50 hover:bg-history-100 transition">
+                        <div class="flex flex-col items-center justify-center pt-4 pb-4 px-4 text-center">
+                            <i class="fa-solid fa-file-pdf text-xl text-amber-600 mb-1"></i>
+                            <p id="assignment-file-label" class="text-xs text-history-700 font-medium">Pilih file tugas (.pdf, .doc, .docx, .zip)</p>
+                            <p class="text-[10px] text-history-500 mt-0.5">Tersimpan permanen di Cloud Database & Sinkron Google Drive Kelas</p>
+                        </div>
+                        <input type="file" id="tugas-file-input" accept=".pdf,.doc,.docx,.ppt,.pptx,.zip,.rar" class="hidden" onchange="updateAssignmentFileLabel(this)">
+                    </label>
+                </div>
+
+                <!-- Link Input Container (Hidden by default) -->
+                <div id="container-link-input" class="hidden space-y-1">
+                    <input type="url" id="link-tugas" placeholder="https://drive.google.com/..." class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-600 transition">
+                    <p class="text-[10px] text-amber-700 font-medium">
+                        <i class="fa-solid fa-cloud-arrow-up mr-1"></i> Simpan file tugas Anda di <a href="https://drive.google.com/drive/folders/13usJC_eMNo0xeldGETmGjEyKepZbc7nv" target="_blank" class="underline font-bold text-amber-800">Google Drive Kelas 25A</a> lalu tempel linknya di sini untuk penyimpanan permanen.
+                    </p>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Catatan untuk Dosen / Penanggung Jawab (Opsional)</label>
+                    <textarea id="catatan-tugas" rows="2" placeholder="Tuliskan keterangan tambahan..." class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-600 transition resize-none"></textarea>
+                </div>
+                
+                <div class="border-t border-history-100 pt-4 mt-2">
+                    <h4 class="text-xs font-bold text-history-800 uppercase mb-3"><i class="fa-solid fa-users-viewfinder mr-1"></i> Daftar Mahasiswa yang Telah Mengumpulkan:</h4>
+                    <div id="daftar-pengumpulan-list" class="max-h-40 overflow-y-auto space-y-2 bg-history-50 p-3 rounded-xl border border-history-200 text-xs">
+                        <!-- List submission -->
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-end space-x-3 pt-2">
+                    <button type="button" onclick="closeModal('modal-kumpul')" class="px-5 py-2.5 rounded-xl border border-history-200 text-history-700 font-semibold text-sm hover:bg-history-50 transition">Tutup</button>
+                    <button type="submit" class="px-6 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-sm shadow-md transition flex items-center space-x-2">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <span>Kirim Tugas Saya</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 2: Buat Tugas Baru (Untuk PJ / Admin) -->
+    <div id="modal-buat-tugas" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-history-200 space-y-6 relative">
+            <div class="flex items-center justify-between border-b border-history-100 pb-4">
+                <div>
+                    <span class="text-xs font-bold text-amber-700 bg-amber-100 px-2.5 py-1 rounded-full uppercase">Penanggung Jawab Kelas</span>
+                    <h3 class="font-serif font-bold text-xl text-history-900 mt-1">Tambah Penugasan Baru</h3>
+                </div>
+                <button onclick="closeModal('modal-buat-tugas')" class="text-gray-400 hover:text-history-900 p-2 rounded-lg">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <form id="form-buat-tugas" onsubmit="buatTugasBaru(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Mata Kuliah</label>
+                    <input type="text" id="new-matkul" required placeholder="Contoh: Sejarah Nasional Indonesia" class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-600 transition">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Judul Tugas</label>
+                    <input type="text" id="new-judul" required placeholder="Contoh: Analisis Perjanjian Bongaya" class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-600 transition">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Deskripsi & Instruksi</label>
+                    <textarea id="new-desk" rows="3" required placeholder="Jelaskan instruksi tugas..." class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-600 transition resize-none"></textarea>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Tenggat Waktu (Deadline)</label>
+                    <input type="text" id="new-deadline" required placeholder="Contoh: Jumat, 23:59 WIB" class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-600 transition">
+                </div>
+                <div class="flex items-center justify-end space-x-3 pt-2">
+                    <button type="button" onclick="closeModal('modal-buat-tugas')" class="px-5 py-2.5 rounded-xl border border-history-200 text-history-700 font-semibold text-sm hover:bg-history-50 transition">Batal</button>
+                    <button type="submit" class="px-6 py-2.5 rounded-xl bg-history-900 hover:bg-history-800 text-white font-semibold text-sm shadow-md transition flex items-center space-x-2">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Publikasikan Tugas</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 5: Buat Pengumuman Baru (Admin Only) -->
+    <div id="modal-buat-pengumuman" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-history-200 space-y-6 relative">
+            <div class="flex items-center justify-between border-b border-history-100 pb-4">
+                <div>
+                    <span class="text-xs font-bold text-amber-700 bg-amber-100 px-2.5 py-1 rounded-full uppercase">Warta Kelas</span>
+                    <h3 class="font-serif font-bold text-xl text-history-900 mt-1">Publikasi Pengumuman Baru</h3>
+                </div>
+                <button onclick="closeModal('modal-buat-pengumuman')" class="text-gray-400 hover:text-history-900 p-2 rounded-lg">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <form id="form-buat-pengumuman" onsubmit="buatPengumumanBaru(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Judul Pengumuman</label>
+                    <input type="text" id="ann-judul" required placeholder="Contoh: Perubahan Ruang Kuliah Sejarah" class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-600 transition">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Kategori Warta</label>
+                    <select id="ann-kat" class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-600 transition">
+                        <option value="Akademik">Akademik</option>
+                        <option value="HIMA / Ormawa">HIMA / Ormawa</option>
+                        <option value="Perkuliahan">Perkuliahan</option>
+                        <option value="Penting">Penting</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Isi / Pesan Pengumuman</label>
+                    <textarea id="ann-isi" rows="4" required placeholder="Tuliskan isi pengumuman secara lengkap..." class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-600 transition resize-none"></textarea>
+                </div>
+                <div class="flex items-center justify-end space-x-3 pt-2">
+                    <button type="button" onclick="closeModal('modal-buat-pengumuman')" class="px-5 py-2.5 rounded-xl border border-history-200 text-history-700 font-semibold text-sm hover:bg-history-50 transition">Batal</button>
+                    <button type="submit" class="px-6 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-sm shadow-md transition flex items-center space-x-2">
+                        <i class="fa-solid fa-bullhorn"></i>
+                        <span>Publikasikan Warta</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 4: Admin Passcode Login Modal -->
+    <div id="modal-admin-login" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-history-200 space-y-6 relative">
+            <div class="flex items-center justify-between border-b border-history-100 pb-4">
+                <div>
+                    <span class="text-xs font-bold text-amber-700 bg-amber-100 px-2.5 py-1 rounded-full uppercase">Keamanan Sistem</span>
+                    <h3 class="font-serif font-bold text-xl text-history-900 mt-1">Masuk Admin</h3>
+                </div>
+                <button onclick="closeModal('modal-admin-login')" class="text-gray-400 hover:text-history-900 p-2 rounded-lg">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <form id="form-admin-login" onsubmit="verifyAdminPasscode(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Kode Akses Admin / Dosen</label>
+                    <input type="password" id="admin-pass-input" required placeholder="Masukkan PIN rahasia..." class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-600 transition">
+                    <p class="text-[10px] text-history-500 mt-1">Default PIN: <strong class="text-amber-700">sejarah25a</strong></p>
+                </div>
+                <div class="flex items-center justify-end space-x-3 pt-2">
+                    <button type="button" onclick="closeModal('modal-admin-login')" class="px-4 py-2 rounded-xl border border-history-200 text-history-700 font-semibold text-xs hover:bg-history-50 transition">Batal</button>
+                    <button type="submit" class="px-5 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-xs shadow-md transition flex items-center space-x-1.5">
+                        <i class="fa-solid fa-lock-open"></i>
+                        <span>Verifikasi</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 3: Unggah Foto Kenangan -->
+    <div id="modal-upload-foto" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-history-200 space-y-6 relative">
+            <div class="flex items-center justify-between border-b border-history-100 pb-4">
+                <div>
+                    <span class="text-xs font-bold text-amber-700 bg-amber-100 px-2.5 py-1 rounded-full uppercase">Galeri Kelas</span>
+                    <h3 class="font-serif font-bold text-xl text-history-900 mt-1">Unggah Foto Kenangan</h3>
+                </div>
+                <button onclick="closeModal('modal-upload-foto')" class="text-gray-400 hover:text-history-900 p-2 rounded-lg">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <form id="form-upload-foto" onsubmit="uploadFotoBaru(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Pilih File Foto (PNG / JPG)</label>
+                    <div class="flex items-center justify-center w-full">
+                        <label class="flex flex-col items-center justify-center w-full h-32 border-2 border-history-200 border-dashed rounded-xl cursor-pointer bg-history-50 hover:bg-history-100 transition">
+                            <div class="flex flex-col items-center justify-center pt-5 pb-6 px-4 text-center">
+                                <i class="fa-solid fa-cloud-arrow-up text-2xl text-amber-600 mb-2"></i>
+                                <p id="file-label-text" class="text-xs text-history-700 font-medium">Klik untuk memilih file foto (PNG, JPG)</p>
+                                <p class="text-[10px] text-history-500 mt-1">Maks. ukuran file 5MB</p>
+                            </div>
+                            <input type="file" id="foto-file" accept="image/png, image/jpeg, image/jpg" required class="hidden" onchange="updateFileLabel(this)">
+                        </label>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Keterangan / Judul Foto</label>
+                    <input type="text" id="foto-ket" required placeholder="Contoh: Kunjungan Museum Sang Nila Utama" class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-600 transition">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Kategori Kegiatan</label>
+                    <select id="foto-kat" class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-600 transition">
+                        <option value="Perkuliahan">Perkuliahan</option>
+                        <option value="Keakraban">Keakraban / Makrab</option>
+                        <option value="Kunjungan Lapangan">Kunjungan Lapangan</option>
+                        <option value="Lainnya">Lainnya</option>
+                    </select>
+                </div>
+                <div class="flex items-center justify-end space-x-3 pt-2">
+                    <button type="button" onclick="closeModal('modal-upload-foto')" class="px-5 py-2.5 rounded-xl border border-history-200 text-history-700 font-semibold text-sm hover:bg-history-50 transition">Batal</button>
+                    <button type="submit" class="px-6 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-sm shadow-md transition flex items-center space-x-2">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <span>Unggah Foto</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript Interactive Logic -->
+    <script>
+        // Database State in LocalStorage for persistence across reloads
+        let classTasks = JSON.parse(localStorage.getItem('sejarah_25a_tugas')) || [
+            {
+                id: 'tugas-1',
+                matkul: 'Pengantar Ilmu Sejarah',
+                judul: 'Makalah Konsep Dasar Ruang & Waktu',
+                desk: 'Buat analisis ringkas mengenai pemahaman ruang dan waktu dalam peristiwa sejarah lokal Riau dalam bentuk file PDF (Maksimal 10 halaman).',
+                deadline: 'Besok, 23:59 WIB',
+                status: 'Aktif',
+                submissions: []
+            },
+            {
+                id: 'tugas-2',
+                matkul: 'Historiografi Indonesia',
+                judul: 'Review Buku Historiografi Kolonial',
+                desk: 'Lakukan resensi terhadap buku babon historiografi kolonial karya sejarawan Belanda dan kumpulkan ringkasan poin penting.',
+                deadline: '3 Hari Lagi',
+                status: 'Aktif',
+                submissions: []
+            }
+        ];
+        
+        let isAdminLoggedIn = localStorage.getItem('sejarah_25a_admin') === 'true';
+        let classAnnouncements = JSON.parse(localStorage.getItem('sejarah_25a_announcements')) || [];
+        let classGallery = JSON.parse(localStorage.getItem('sejarah_25a_gallery')) || [];
+
+        // Firebase Cloud Persistence Sync
+        window.initFirestoreListeners = function() {
+            if (!window.db || !window.appId) return;
+            try {
+                const colRef = collection(window.db, 'artifacts', window.appId, 'public', 'data', 'tasks');
+                onSnapshot(colRef, (snapshot) => {
+                    if (!snapshot.empty) {
+                        const cloudTasks = [];
+                        snapshot.forEach((docSnap) => {
+                            cloudTasks.push({ id: docSnap.id, ...docSnap.data() });
+                        });
+                        classTasks = cloudTasks;
+                        renderTugas();
+                    }
+                }, (error) => {
+                    console.error("Firestore sync error:", error);
+                });
+
+                const annRef = collection(window.db, 'artifacts', window.appId, 'public', 'data', 'announcements');
+                onSnapshot(annRef, (snapshot) => {
+                    if (!snapshot.empty) {
+                        const cloudAnns = [];
+                        snapshot.forEach((docSnap) => {
+                            cloudAnns.push({ id: docSnap.id, ...docSnap.data() });
+                        });
+                        classAnnouncements = cloudAnns;
+                        renderAnnouncements();
+                    }
+                }, (err) => {
+                    console.error("Announcements sync error:", err);
+                });
+
+                const galRef = collection(window.db, 'artifacts', window.appId, 'public', 'data', 'gallery');
+                onSnapshot(galRef, (snapshot) => {
+                    if (!snapshot.empty) {
+                        const cloudPhotos = [];
+                        snapshot.forEach((docSnap) => {
+                            cloudPhotos.push({ id: docSnap.id, ...docSnap.data() });
+                        });
+                        classGallery = cloudPhotos;
+                        renderGallery();
+                    }
+                }, (err) => {
+                    console.error("Gallery sync error:", err);
+                });
+            } catch(e) {
+                console.log("Using local storage fallback mode");
+            }
+        };
+
+        window.initLocalStorageFallback = function() {
+            renderTugas();
+            renderAnnouncements();
+            renderGallery();
+        };
+
+        async function saveTaskToCloud(tugas) {
+            localStorage.setItem('sejarah_25a_tugas', JSON.stringify(classTasks));
+            if(window.db && window.appId) {
+                try {
+                    await setDoc(doc(window.db, 'artifacts', window.appId, 'public', 'data', 'tasks', tugas.id), tugas);
+                } catch(e) {
+                    console.error("Error saving task:", e);
+                }
+            }
+        }
+
+        async function deleteTaskFromCloud(taskId) {
+            classTasks = classTasks.filter(t => t.id !== taskId);
+            localStorage.setItem('sejarah_25a_tugas', JSON.stringify(classTasks));
+            renderTugas();
+            if(window.db && window.appId) {
+                try {
+                    await deleteDoc(doc(window.db, 'artifacts', window.appId, 'public', 'data', 'tasks', taskId));
+                } catch(e) {
+                    console.error("Error deleting task:", e);
+                }
+            }
+        }
+
+        async function saveAnnouncementToCloud(ann) {
+            localStorage.setItem('sejarah_25a_announcements', JSON.stringify(classAnnouncements));
+            renderAnnouncements();
+            if(window.db && window.appId) {
+                try {
+                    await setDoc(doc(window.db, 'artifacts', window.appId, 'public', 'data', 'announcements', ann.id), ann);
+                } catch(e) {
+                    console.error("Error saving announcement:", e);
+                }
+            }
+        }
+
+        async function deleteAnnouncementFromCloud(annId) {
+            classAnnouncements = classAnnouncements.filter(a => a.id !== annId);
+            localStorage.setItem('sejarah_25a_announcements', JSON.stringify(classAnnouncements));
+            renderAnnouncements();
+            if(window.db && window.appId) {
+                try {
+                    await deleteDoc(doc(window.db, 'artifacts', window.appId, 'public', 'data', 'announcements', annId));
+                } catch(e) {
+                    console.error("Error deleting announcement:", e);
+                }
+            }
+        }
+
+        async function savePhotoToCloud(foto) {
+            localStorage.setItem('sejarah_25a_gallery', JSON.stringify(classGallery));
+            renderGallery();
+            if(window.db && window.appId) {
+                try {
+                    await setDoc(doc(window.db, 'artifacts', window.appId, 'public', 'data', 'gallery', foto.id), foto);
+                } catch(e) {
+                    console.error("Error saving photo:", e);
+                }
+            }
+        }
+
+        async function deletePhotoFromCloud(fotoId) {
+            classGallery = classGallery.filter(f => f.id !== fotoId);
+            localStorage.setItem('sejarah_25a_gallery', JSON.stringify(classGallery));
+            renderGallery();
+            if(window.db && window.appId) {
+                try {
+                    await deleteDoc(doc(window.db, 'artifacts', window.appId, 'public', 'data', 'gallery', fotoId));
+                } catch(e) {
+                    console.error("Error deleting photo:", e);
+                }
+            }
+        }
+
+        function renderGallery() {
+            const container = document.getElementById('gallery-container');
+            if(!container) return;
+
+            if(classGallery.length === 0) {
+                container.innerHTML = `
+                    <div id="empty-gallery-msg" class="col-span-full text-center py-12 bg-white rounded-2xl border border-history-200">
+                        <i class="fa-solid fa-images text-4xl text-amber-600 mb-3"></i>
+                        <p class="font-bold text-history-900">Belum ada foto kenangan yang diunggah.</p>
+                        <p class="text-xs text-history-600 mt-1">Silakan klik tombol "Unggah Foto Kenangan" di atas untuk menambahkan foto pertama kelas.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = '';
+            classGallery.forEach((foto) => {
+                const item = document.createElement('div');
+                item.className = "group relative bg-white rounded-2xl overflow-hidden shadow-sm border border-history-200 hover:shadow-xl transition";
+                
+                let deleteBtnHtml = '';
+                if(isAdminLoggedIn) {
+                    deleteBtnHtml = `
+                        <button onclick="hapusFoto('${foto.id}')" title="Hapus Foto" class="absolute top-4 right-4 bg-rose-100 hover:bg-rose-600 text-rose-700 hover:text-white w-8 h-8 rounded-full flex items-center justify-center transition shadow-md cursor-pointer z-20">
+                            <i class="fa-solid fa-trash text-xs"></i>
+                        </button>
+                    `;
+                }
+
+                item.innerHTML = `
+                    ${deleteBtnHtml}
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="${foto.imageUrl}" alt="${foto.ket}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x400/3d2817/f4ede2?text=Sejarah+25A'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-history-900/80 via-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
+                            <p class="text-white text-sm font-medium">${foto.ket}</p>
+                        </div>
+                    </div>
+                    <div class="p-4 flex items-center justify-between text-xs text-history-600">
+                        <span class="font-semibold text-history-900"><i class="fa-solid fa-calendar-days mr-1 text-amber-600"></i> ${foto.tanggal}</span>
+                        <span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-medium">${foto.kat}</span>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function hapusFoto(fotoId) {
+            if(!isAdminLoggedIn) return;
+            if(confirm('Hapus foto kenangan ini dari galeri kelas?')) {
+                deletePhotoFromCloud(fotoId);
+                showToast('Foto kenangan berhasil dihapus.');
+            }
+        }
+
+        function renderAnnouncements() {
+            const container = document.getElementById('pengumuman-container');
+            const adminBtnContainer = document.getElementById('admin-announcement-btn-container');
+
+            if(isAdminLoggedIn) {
+                adminBtnContainer.classList.remove('hidden');
+            } else {
+                adminBtnContainer.classList.add('hidden');
+            }
+
+            if(classAnnouncements.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-10 bg-history-50 rounded-2xl border border-history-200">
+                        <i class="fa-solid fa-bullhorn text-3xl text-amber-600 mb-2"></i>
+                        <p class="font-semibold text-history-900 text-sm">Belum ada pengumuman baru.</p>
+                        <p class="text-xs text-history-600 mt-1">Pengurus kelas akan mempublikasikan informasi penting di sini.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = '';
+            classAnnouncements.forEach((ann) => {
+                const card = document.createElement('div');
+                card.className = "bg-history-50 border border-history-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between relative";
+
+                let deleteBtnHtml = '';
+                if(isAdminLoggedIn) {
+                    deleteBtnHtml = `
+                        <button onclick="hapusPengumuman('${ann.id}')" title="Hapus Pengumuman" class="absolute top-4 right-4 bg-rose-100 hover:bg-rose-600 text-rose-700 hover:text-white w-7 h-7 rounded-full flex items-center justify-center transition shadow-sm">
+                            <i class="fa-solid fa-trash text-xs"></i>
+                        </button>
+                    `;
+                }
+
+                card.innerHTML = `
+                    ${deleteBtnHtml}
+                    <div>
+                        <div class="flex items-center space-x-2 mb-3">
+                            <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">${ann.kategori}</span>
+                            <span class="text-xs text-history-500"><i class="fa-regular fa-clock mr-1"></i> ${ann.tanggal}</span>
+                        </div>
+                        <h3 class="font-serif font-bold text-lg text-history-900 mb-2 pr-6">${ann.judul}</h3>
+                        <p class="text-history-700 text-sm whitespace-pre-line leading-relaxed">${ann.isi}</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-history-200 text-[11px] text-history-500 flex items-center justify-between">
+                        <span>Dipublikasikan oleh: <strong>Admin Kelas 25A</strong></span>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function buatPengumumanBaru(e) {
+            e.preventDefault();
+            const judul = document.getElementById('ann-judul').value;
+            const kategori = document.getElementById('ann-kat').value;
+            const isi = document.getElementById('ann-isi').value;
+
+            const newAnn = {
+                id: 'ann-' + Date.now(),
+                judul,
+                kategori,
+                isi,
+                tanggal: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })
+            };
+
+            classAnnouncements.unshift(newAnn);
+            saveAnnouncementToCloud(newAnn);
+
+            closeModal('modal-buat-pengumuman');
+            document.getElementById('form-buat-pengumuman').reset();
+            showToast('Warta kelas berhasil dipublikasikan!');
+        }
+
+        function hapusPengumuman(annId) {
+            if(!isAdminLoggedIn) return;
+            if(confirm('Hapus warta kelas ini?')) {
+                deleteAnnouncementFromCloud(annId);
+                showToast('Warta kelas berhasil dihapus.');
+            }
+        }
+
+        // Admin Mode Management
+        function updateAdminUI() {
+            const statusIcon = document.getElementById('admin-status-icon');
+            const statusText = document.getElementById('admin-status-text');
+            const toggleBtn = document.getElementById('admin-toggle-btn');
+
+            if(isAdminLoggedIn) {
+                statusIcon.className = "fa-solid fa-shield-halved text-emerald-400";
+                statusText.innerHTML = `Mode Akses: <strong class="text-emerald-300">ADMIN / DOSEN</strong> (Anda memiliki hak penuh melihat & mengunduh tugas terkumpul)`;
+                toggleBtn.className = "bg-rose-700 hover:bg-rose-800 text-white px-3 py-1.5 rounded-lg font-semibold transition flex items-center space-x-1.5 shadow-sm cursor-pointer z-50 relative pointer-events-auto";
+                toggleBtn.innerHTML = `<i class="fa-solid fa-lock"></i><span>Keluar Admin</span>`;
+            } else {
+                statusIcon.className = "fa-solid fa-shield text-amber-400";
+                statusText.innerHTML = `Mode Akses: <strong>Mahasiswa Umum</strong> (Tidak dapat melihat daftar tugas terkumpul milik orang lain)`;
+                toggleBtn.className = "bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-lg font-semibold transition flex items-center space-x-1.5 shadow-sm cursor-pointer z-50 relative pointer-events-auto";
+                toggleBtn.innerHTML = `<i class="fa-solid fa-key"></i><span>Login Admin / Dosen</span>`;
+            }
+            renderTugas();
+            renderAnnouncements();
+            renderGallery();
+        }
+
+        function toggleAdminMode() {
+            if(isAdminLoggedIn) {
+                isAdminLoggedIn = false;
+                localStorage.setItem('sejarah_25a_admin', 'false');
+                showToast('Anda telah keluar dari mode admin.');
+                updateAdminUI();
+            } else {
+                openModal('modal-admin-login');
+            }
+        }
+
+        function verifyAdminPasscode(e) {
+            e.preventDefault();
+            const pin = document.getElementById('admin-pass-input').value;
+            if(pin === 'sejarah25a') {
+                isAdminLoggedIn = true;
+                localStorage.setItem('sejarah_25a_admin', 'true');
+                closeModal('modal-admin-login');
+                document.getElementById('form-admin-login').reset();
+                showToast('Berhasil masuk sebagai Admin / Dosen!');
+                updateAdminUI();
+            } else {
+                showToast('Kode akses salah! Silakan coba lagi.', 'error');
+            }
+        }
+
+        let submitMode = 'file'; // 'file' or 'link'
+        function switchSubmitMode(mode) {
+            submitMode = mode;
+            const btnFile = document.getElementById('tab-btn-file');
+            const btnLink = document.getElementById('tab-btn-link');
+            const boxFile = document.getElementById('container-file-input');
+            const boxLink = document.getElementById('container-link-input');
+            const fileInput = document.getElementById('tugas-file-input');
+            const linkInput = document.getElementById('link-tugas');
+
+            if(mode === 'file') {
+                btnFile.className = "py-2 px-3 text-xs font-semibold rounded-xl border border-amber-600 bg-amber-600 text-white transition flex items-center justify-center space-x-1.5";
+                btnLink.className = "py-2 px-3 text-xs font-semibold rounded-xl border border-history-200 bg-history-50 text-history-700 transition flex items-center justify-center space-x-1.5";
+                boxFile.classList.remove('hidden');
+                boxLink.classList.add('hidden');
+                fileInput.required = true;
+                linkInput.required = false;
+            } else {
+                btnLink.className = "py-2 px-3 text-xs font-semibold rounded-xl border border-amber-600 bg-amber-600 text-white transition flex items-center justify-center space-x-1.5";
+                btnFile.className = "py-2 px-3 text-xs font-semibold rounded-xl border border-history-200 bg-history-50 text-history-700 transition flex items-center justify-center space-x-1.5";
+                boxLink.classList.remove('hidden');
+                boxFile.classList.add('hidden');
+                linkInput.required = true;
+                fileInput.required = false;
+            }
+        }
+
+        function updateAssignmentFileLabel(input) {
+            const label = document.getElementById('assignment-file-label');
+            if(input.files && input.files[0]) {
+                label.innerText = `Terpilih: ${input.files[0].name}`;
+            } else {
+                label.innerText = "Pilih file tugas (.pdf, .doc, .docx, .zip)";
+            }
+        }
+
+        // Render Tugas to DOM
+        function renderTugas() {
+            const container = document.getElementById('tugas-container');
+            if(!container) return;
+            container.innerHTML = '';
+
+            if(classTasks.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-12 bg-history-50 rounded-2xl border border-history-200">
+                        <i class="fa-solid fa-folder-open text-4xl text-amber-600 mb-3"></i>
+                        <p class="font-bold text-history-900">Belum ada tugas yang dipublikasikan.</p>
+                        <p class="text-xs text-history-600 mt-1">Penanggung jawab kelas dapat membuat penugasan baru melalui tombol di atas.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            classTasks.forEach((tugas) => {
+                const subCount = tugas.submissions ? tugas.submissions.length : 0;
+                const isClosed = tugas.status === 'Ditutup';
+                
+                const card = document.createElement('div');
+                card.className = "bg-history-50 border border-history-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between relative group/card";
+                
+                let deleteBtnHtml = '';
+                if(isAdminLoggedIn) {
+                    deleteBtnHtml = `
+                        <button onclick="hapusTugas('${tugas.id}')" title="Hapus Tugas" class="absolute top-4 right-4 bg-rose-100 hover:bg-rose-600 text-rose-700 hover:text-white w-8 h-8 rounded-full flex items-center justify-center transition shadow-sm cursor-pointer z-20" aria-label="Hapus Tugas">
+                            <i class="fa-solid fa-trash text-xs"></i>
+                        </button>
+                    `;
+                }
+
+                card.innerHTML = `
+                    ${deleteBtnHtml}
+                    <div>
+                        <div class="flex items-center justify-between mb-4 pr-8">
+                            <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full">${tugas.matkul}</span>
+                            <span class="text-xs ${isClosed ? 'text-gray-500' : 'text-red-600'} font-semibold flex items-center">
+                                <i class="fa-regular fa-clock mr-1"></i> ${tugas.deadline}
+                            </span>
+                        </div>
+                        <h3 class="font-bold text-lg text-history-900 mb-2">${tugas.judul}</h3>
+                        <p class="text-history-700 text-sm mb-4 line-clamp-3">${tugas.desk}</p>
+                    </div>
+                    <div class="border-t border-history-200 pt-4 mt-2">
+                        <div class="flex items-center justify-between text-xs text-history-600 mb-3">
+                            <span>Terkumpul: <strong class="text-history-900">${isAdminLoggedIn ? subCount : 'Dirahasiakan'}</strong> ${isAdminLoggedIn ? 'Mahasiswa' : '(Terkunci)'}</span>
+                            <span class="${isClosed ? 'text-green-700' : 'text-amber-700'} font-semibold">${tugas.status}</span>
+                        </div>
+                        <button onclick="openKumpulModal('${tugas.id}')" class="w-full ${isClosed && !isAdminLoggedIn ? 'bg-history-300 hover:bg-history-400 text-history-800' : 'bg-amber-600 hover:bg-amber-700 text-white'} font-semibold py-2.5 rounded-xl text-sm transition flex items-center justify-center space-x-2 shadow-sm cursor-pointer">
+                            <i class="${isAdminLoggedIn ? 'fa-solid fa-folder-open' : 'fa-solid fa-cloud-arrow-up'}"></i>
+                            <span>${isAdminLoggedIn ? 'Kelola & Lihat Tugas Terkumpul' : 'Kumpulkan Tugas Saya'}</span>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Hapus Tugas Handler (Admin Only)
+        function hapusTugas(taskId) {
+            if(!isAdminLoggedIn) {
+                showToast('Akses ditolak! Hanya admin yang dapat menghapus tugas.', 'error');
+                return;
+            }
+            if(confirm('Apakah Anda yakin ingin menghapus penugasan ini beserta seluruh data pengumpulannya?')) {
+                deleteTaskFromCloud(taskId);
+                showToast('Penugasan berhasil dihapus permanen.');
+            }
+        }
+
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        if(menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Toast Notification Function
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            const toastIcon = document.getElementById('toast-icon');
+
+            if(!toast) return;
+            toastMsg.innerText = message;
+            if(type === 'success') {
+                toastIcon.className = "fa-solid fa-circle-check text-amber-400 text-lg";
+            } else {
+                toastIcon.className = "fa-solid fa-circle-exclamation text-amber-500 text-lg";
+            }
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3500);
+        }
+
+        // Modal Controls
+        function openModal(modalId) {
+            const el = document.getElementById(modalId);
+            if(el) el.classList.remove('hidden');
+        }
+
+        function closeModal(modalId) {
+            const el = document.getElementById(modalId);
+            if(el) el.classList.add('hidden');
+        }
+
+        // Kumpul Tugas Modal Dynamic Setup
+        let activeTaskId = null;
+        function openKumpulModal(taskId) {
+            activeTaskId = taskId;
+            const tugas = classTasks.find(t => t.id === taskId);
+            if(!tugas) return;
+
+            document.getElementById('modal-tugas-id').value = taskId;
+            document.getElementById('modal-judul-tugas').innerText = tugas.judul;
+            document.getElementById('modal-matkul').innerText = tugas.matkul;
+            
+            renderSubmissionList(tugas);
+            openModal('modal-kumpul');
+        }
+
+        function renderSubmissionList(tugas) {
+            const listContainer = document.getElementById('daftar-pengumpulan-list');
+            if(!listContainer) return;
+            
+            if(!isAdminLoggedIn) {
+                listContainer.innerHTML = `
+                    <div class="text-center py-4 space-y-1 bg-history-100 rounded-xl p-4">
+                        <i class="fa-solid fa-lock text-amber-700 text-xl mb-1"></i>
+                        <p class="font-bold text-history-900 text-xs">Daftar Pengumpulan Bersifat Rahasia</p>
+                        <p class="text-[11px] text-history-600">Hanya Admin / Dosen pengampu yang dapat melihat daftar mahasiswa yang sudah mengumpulkan tugas.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            if(!tugas.submissions || tugas.submissions.length === 0) {
+                listContainer.innerHTML = `<p class="text-gray-500 italic text-center py-2">Belum ada mahasiswa yang mengumpulkan tugas ini.</p>`;
+                return;
+            }
+
+            listContainer.innerHTML = '';
+            tugas.submissions.forEach((sub, idx) => {
+                const item = document.createElement('div');
+                item.className = "bg-white p-2.5 rounded-lg border border-history-200 flex items-center justify-between text-xs";
+                
+                let actionHtml = '';
+                if(sub.isFile && sub.fileData) {
+                    actionHtml = `<a href="${sub.fileData}" download="${sub.fileName}" class="bg-amber-100 hover:bg-amber-200 text-amber-900 px-2.5 py-1 rounded font-medium transition flex items-center space-x-1">
+                        <i class="fa-solid fa-download"></i>
+                        <span>Unduh File</span>
+                    </a>`;
+                } else if(sub.isFile) {
+                    actionHtml = `<span class="text-gray-500 italic">${sub.fileName || 'File Terlampir'}</span>`;
+                } else {
+                    actionHtml = `<a href="${sub.link}" target="_blank" class="bg-amber-100 hover:bg-amber-200 text-amber-900 px-2.5 py-1 rounded font-medium transition flex items-center space-x-1">
+                        <i class="fa-solid fa-link"></i>
+                        <span>Buka Link</span>
+                    </a>`;
+                }
+
+                item.innerHTML = `
+                    <div>
+                        <span class="font-bold text-history-900">${idx + 1}. ${sub.nama}</span> <span class="text-gray-500 font-mono">(${sub.nim})</span>
+                        <p class="text-history-600 text-[11px] truncate max-w-[180px] sm:max-w-xs mt-0.5">Catatan: ${sub.catatan || '-'}</p>
+                    </div>
+                    <div class="flex items-center space-x-2 flex-shrink-0">
+                        ${actionHtml}
+                    </div>
+                `;
+                listContainer.appendChild(item);
+            });
+        }
+
+        // Submit Tugas Handler with File / Link support
+        function submitTugas(e) {
+            e.preventDefault();
+            const nama = document.getElementById('nama-mhs').value;
+            const nim = document.getElementById('nim-mhs').value;
+            const catatan = document.getElementById('catatan-tugas').value;
+
+            if(!nama || !nim || !activeTaskId) {
+                showToast('Mohon lengkapi data mahasiswa!', 'error');
+                return;
+            }
+
+            const tugas = classTasks.find(t => t.id === activeTaskId);
+            if(!tugas) return;
+
+            if(!tugas.submissions) tugas.submissions = [];
+
+            if(submitMode === 'link') {
+                const link = document.getElementById('link-tugas').value;
+                if(!link) {
+                    showToast('Mohon masukkan tautan tugas!', 'error');
+                    return;
+                }
+                processAndSaveSubmission(tugas, { nama, nim, link, isFile: false, fileName: '', fileData: '', catatan, waktu: 'Baru saja' });
+            } else {
+                const fileInput = document.getElementById('tugas-file-input');
+                if(!fileInput.files || !fileInput.files[0]) {
+                    showToast('Mohon pilih file tugas (.pdf/.doc/.docx)!', 'error');
+                    return;
+                }
+                const file = fileInput.files[0];
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const fileData = event.target.result;
+                    processAndSaveSubmission(tugas, { nama, nim, link: '#', isFile: true, fileName: file.name, fileData, catatan, waktu: 'Baru saja' });
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function processAndSaveSubmission(tugas, subObj) {
+            const existingIndex = tugas.submissions.findIndex(s => s.nim === subObj.nim);
+            if(existingIndex >= 0) {
+                tugas.submissions[existingIndex] = subObj;
+            } else {
+                tugas.submissions.push(subObj);
+            }
+
+            saveTaskToCloud(tugas);
+            if(activeTaskId === tugas.id) {
+                renderSubmissionList(tugas);
+            }
+            
+            document.getElementById('form-kumpul').reset();
+            switchSubmitMode('file');
+            closeModal('modal-kumpul');
+            showToast(`Tugas berhasil dikumpulkan atas nama ${subObj.nama} (${subObj.nim})!`);
+        }
+
+        // Buat Tugas Baru Handler (PJ / Admin)
+        function buatTugasBaru(e) {
+            e.preventDefault();
+            const matkul = document.getElementById('new-matkul').value;
+            const judul = document.getElementById('new-judul').value;
+            const desk = document.getElementById('new-desk').value;
+            const deadline = document.getElementById('new-deadline').value;
+
+            const newTask = {
+                id: 'tugas-' + Date.now(),
+                matkul,
+                judul,
+                desk,
+                deadline,
+                status: 'Aktif',
+                submissions: []
+            };
+
+            classTasks.unshift(newTask);
+            saveTaskToCloud(newTask);
+
+            closeModal('modal-buat-tugas');
+            document.getElementById('form-buat-tugas').reset();
+            showToast('Tugas baru berhasil dipublikasikan!');
+        }
+
+        // File Input Label Updater
+        function updateFileLabel(input) {
+            const labelText = document.getElementById('file-label-text');
+            if(input.files && input.files[0]) {
+                labelText.innerText = `Terpilih: ${input.files[0].name}`;
+            } else {
+                labelText.innerText = "Klik untuk memilih file foto (PNG, JPG)";
+            }
+        }
+
+        // Upload Foto Kenangan Handler
+        function uploadFotoBaru(e) {
+            e.preventDefault();
+            const fileInput = document.getElementById('foto-file');
+            const ket = document.getElementById('foto-ket').value;
+            const kat = document.getElementById('foto-kat').value;
+
+            if(!fileInput.files || !fileInput.files[0]) {
+                showToast('Mohon pilih file foto terlebih dahulu!', 'error');
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(event) {
+                const imageUrl = event.target.result;
+                const newFoto = {
+                    id: 'foto-' + Date.now(),
+                    imageUrl,
+                    ket,
+                    kat,
+                    tanggal: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })
+                };
+
+                classGallery.unshift(newFoto);
+                savePhotoToCloud(newFoto);
+
+                closeModal('modal-upload-foto');
+                document.getElementById('form-upload-foto').reset();
+                const fileLabel = document.getElementById('file-label-text');
+                if(fileLabel) fileLabel.innerText = "Klik untuk memilih file foto (PNG, JPG)";
+                showToast('Foto kenangan berhasil diunggah dan tersimpan permanen di galeri kelas!');
+            };
+
+            reader.readAsDataURL(file);
+        }
+
+        // Initialize App on Load
+        window.onload = function() {
+            updateAdminUI();
+            if(typeof window.firebaseAppInit === 'function') {
+                window.firebaseAppInit();
+            } else {
+                window.initLocalStorageFallback();
+            }
+        };
+    </script>
+</body>
+</html>
