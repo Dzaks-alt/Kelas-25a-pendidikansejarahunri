@@ -122,11 +122,11 @@ background-attachment: fixed;
 <span id="admin-status-text">Mode Akses: <strong>Mahasiswa Umum</strong> (Tidak dapat melihat daftar tugas terkumpul milik orang lain)</span>
 </div>
 <div class="flex items-center space-x-2">
-<button id="admin-settings-btn" type="button" onclick="openModal('modal-admin-settings')" class="hidden bg-history-700 hover:bg-history-600 text-amber-200 px-3 py-1.5 rounded-lg font-semibold transition flex items-center space-x-1.5 shadow-sm cursor-pointer z-50 relative">
+<button id="admin-settings-btn" type="button" onclick="openModal('modal-admin-settings')" class="hidden bg-history-700 hover:bg-history-600 text-amber-200 px-3 py-1.5 rounded-lg font-semibold transition flex items-center space-x-1.5 shadow-sm cursor-pointer z-30 relative">
 <i class="fa-solid fa-gear"></i>
 <span>Pengaturan PIN</span>
 </button>
-<button id="admin-toggle-btn" type="button" onclick="toggleAdminMode()" class="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-lg font-semibold transition flex items-center space-x-1.5 shadow-sm cursor-pointer z-50 relative">
+<button id="admin-toggle-btn" type="button" onclick="toggleAdminMode()" class="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-lg font-semibold transition flex items-center space-x-1.5 shadow-sm cursor-pointer z-30 relative">
 <i class="fa-solid fa-key"></i>
 <span>Login Admin / Dosen</span>
 </button>
@@ -256,7 +256,7 @@ Portal resmi kelas dan pengumpulan tugas terintegrasi. Wadah kolaborasi digital 
 <h2 class="font-serif text-3xl sm:text-4xl font-bold text-history-900">Pengumpulan Tugas Kelas</h2>
 <p class="text-history-700 text-sm sm:text-base">Kumpulkan tugas mata kuliah Anda di sini secara sistematis layaknya Google Classroom. Data tersimpan real-time di perangkat.</p>
 </div>
-<button onclick="openModal('modal-buat-tugas')" class="mt-4 md:mt-0 bg-history-900 hover:bg-history-800 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition flex items-center space-x-2 shadow-md">
+<button type="button" onclick="openModal('modal-buat-tugas')" class="mt-4 md:mt-0 bg-history-900 hover:bg-history-800 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition flex items-center space-x-2 shadow-md cursor-pointer">
 <i class="fa-solid fa-plus-circle text-amber-400"></i>
 <span>Buat Tugas Baru (Penanggung Jawab)</span>
 </button>
@@ -276,7 +276,7 @@ Portal resmi kelas dan pengumpulan tugas terintegrasi. Wadah kolaborasi digital 
 <h2 class="font-serif text-3xl sm:text-4xl font-bold text-history-900">Galeri & Foto Kenangan</h2>
 <p class="text-history-700 text-sm sm:text-base">Momen kebersamaan, kegiatan lapangan, dan perkuliahan Pendidikan Sejarah 25A UNRI.</p>
 </div>
-<button onclick="openModal('modal-upload-foto')" class="mt-4 md:mt-0 bg-amber-600 hover:bg-amber-700 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition flex items-center space-x-2 shadow-md">
+<button type="button" onclick="openModal('modal-upload-foto')" class="mt-4 md:mt-0 bg-amber-600 hover:bg-amber-700 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition flex items-center space-x-2 shadow-md cursor-pointer">
 <i class="fa-solid fa-camera"></i>
 <span>Unggah Foto Kenangan</span>
 </button>
@@ -301,7 +301,7 @@ Portal resmi kelas dan pengumpulan tugas terintegrasi. Wadah kolaborasi digital 
 <p class="text-history-700 text-sm sm:text-base">Informasi penting seputar jadwal kuliah, dosen pengampu, dan kegiatan kemahasiswaan.</p>
 </div>
 <div id="admin-announcement-btn-container" class="hidden mt-4 md:mt-0">
-<button onclick="openModal('modal-buat-pengumuman')" class="bg-history-900 hover:bg-history-800 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition flex items-center space-x-2 shadow-md">
+<button type="button" onclick="openModal('modal-buat-pengumuman')" class="bg-history-900 hover:bg-history-800 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition flex items-center space-x-2 shadow-md cursor-pointer">
 <i class="fa-solid fa-bullhorn text-amber-400"></i>
 <span>Tambah Warta Kelas (Admin)</span>
 </button>
@@ -362,7 +362,7 @@ Universitas Riau, Kampus Bina Widya Simpang Baru, Pekanbaru.
 <span id="modal-matkul" class="text-xs font-bold text-amber-700 bg-amber-100 px-2.5 py-1 rounded-full uppercase">Mata Kuliah</span>
 <h3 id="modal-judul-tugas" class="font-serif font-bold text-xl text-history-900 mt-1">Judul Tugas</h3>
 </div>
-<button onclick="closeModal('modal-kumpul')" class="text-gray-400 hover:text-history-900 p-2 rounded-lg">
+<button type="button" onclick="closeModal('modal-kumpul')" class="text-gray-400 hover:text-history-900 p-2 rounded-lg cursor-pointer">
 <i class="fa-solid fa-xmark text-lg"></i>
 </button>
 </div>
@@ -380,11 +380,11 @@ Universitas Riau, Kampus Bina Widya Simpang Baru, Pekanbaru.
 <div class="space-y-2">
 <label class="block text-xs font-bold text-history-700 uppercase">Metode Pengiriman Tugas</label>
 <div class="grid grid-cols-2 gap-2">
-<button type="button" id="tab-btn-file" onclick="switchSubmitMode('file')" class="py-2 px-3 text-xs font-semibold rounded-xl border border-amber-600 bg-amber-600 text-white transition flex items-center justify-center space-x-1.5">
+<button type="button" id="tab-btn-file" onclick="switchSubmitMode('file')" class="py-2 px-3 text-xs font-semibold rounded-xl border border-amber-600 bg-amber-600 text-white transition flex items-center justify-center space-x-1.5 cursor-pointer">
 <i class="fa-solid fa-file-arrow-up"></i>
 <span>Upload File (PDF/Word)</span>
 </button>
-<button type="button" id="tab-btn-link" onclick="switchSubmitMode('link')" class="py-2 px-3 text-xs font-semibold rounded-xl border border-history-200 bg-history-50 text-history-700 transition flex items-center justify-center space-x-1.5">
+<button type="button" id="tab-btn-link" onclick="switchSubmitMode('link')" class="py-2 px-3 text-xs font-semibold rounded-xl border border-history-200 bg-history-50 text-history-700 transition flex items-center justify-center space-x-1.5 cursor-pointer">
 <i class="fa-brands fa-google-drive"></i>
 <span>Link Google Drive</span>
 </button>
@@ -419,8 +419,8 @@ Universitas Riau, Kampus Bina Widya Simpang Baru, Pekanbaru.
 </div>
 </div>
 ​<div class="flex items-center justify-end space-x-3 pt-2">
-<button type="button" onclick="closeModal('modal-kumpul')" class="px-5 py-2.5 rounded-xl border border-history-200 text-history-700 font-semibold text-sm hover:bg-history-50 transition">Tutup</button>
-<button type="submit" class="px-6 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-sm shadow-md transition flex items-center space-x-2">
+<button type="button" onclick="closeModal('modal-kumpul')" class="px-5 py-2.5 rounded-xl border border-history-200 text-history-700 font-semibold text-sm hover:bg-history-50 transition cursor-pointer">Tutup</button>
+<button type="submit" class="px-6 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-sm shadow-md transition flex items-center space-x-2 cursor-pointer">
 <i class="fa-solid fa-cloud-arrow-up"></i>
 <span>Kirim Tugas Saya</span>
 </button>
@@ -436,7 +436,7 @@ Universitas Riau, Kampus Bina Widya Simpang Baru, Pekanbaru.
 <span class="text-xs font-bold text-amber-700 bg-amber-100 px-2.5 py-1 rounded-full uppercase">Penanggung Jawab Kelas</span>
 <h3 class="font-serif font-bold text-xl text-history-900 mt-1">Tambah Penugasan Baru</h3>
 </div>
-<button onclick="closeModal('modal-buat-tugas')" class="text-gray-400 hover:text-history-900 p-2 rounded-lg">
+<button type="button" onclick="closeModal('modal-buat-tugas')" class="text-gray-400 hover:text-history-900 p-2 rounded-lg cursor-pointer">
 <i class="fa-solid fa-xmark text-lg"></i>
 </button>
 </div>
@@ -458,8 +458,8 @@ Universitas Riau, Kampus Bina Widya Simpang Baru, Pekanbaru.
 <input type="text" id="new-deadline" required placeholder="Contoh: Jumat, 23:59 WIB" class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-600 transition">
 </div>
 <div class="flex items-center justify-end space-x-3 pt-2">
-<button type="button" onclick="closeModal('modal-buat-tugas')" class="px-5 py-2.5 rounded-xl border border-history-200 text-history-700 font-semibold text-sm hover:bg-history-50 transition">Batal</button>
-<button type="submit" class="px-6 py-2.5 rounded-xl bg-history-900 hover:bg-history-800 text-white font-semibold text-sm shadow-md transition flex items-center space-x-2">
+<button type="button" onclick="closeModal('modal-buat-tugas')" class="px-5 py-2.5 rounded-xl border border-history-200 text-history-700 font-semibold text-sm hover:bg-history-50 transition cursor-pointer">Batal</button>
+<button type="submit" class="px-6 py-2.5 rounded-xl bg-history-900 hover:bg-history-800 text-white font-semibold text-sm shadow-md transition flex items-center space-x-2 cursor-pointer">
 <i class="fa-solid fa-plus"></i>
 <span>Publikasikan Tugas</span>
 </button>
@@ -475,7 +475,7 @@ Universitas Riau, Kampus Bina Widya Simpang Baru, Pekanbaru.
 <span class="text-xs font-bold text-amber-700 bg-amber-100 px-2.5 py-1 rounded-full uppercase">Warta Kelas</span>
 <h3 class="font-serif font-bold text-xl text-history-900 mt-1">Publikasi Pengumuman Baru</h3>
 </div>
-<button onclick="closeModal('modal-buat-pengumuman')" class="text-gray-400 hover:text-history-900 p-2 rounded-lg">
+<button type="button" onclick="closeModal('modal-buat-pengumuman')" class="text-gray-400 hover:text-history-900 p-2 rounded-lg cursor-pointer">
 <i class="fa-solid fa-xmark text-lg"></i>
 </button>
 </div>
@@ -498,8 +498,8 @@ Universitas Riau, Kampus Bina Widya Simpang Baru, Pekanbaru.
 <textarea id="ann-isi" rows="4" required placeholder="Tuliskan isi pengumuman secara lengkap..." class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-600 transition resize-none"></textarea>
 </div>
 <div class="flex items-center justify-end space-x-3 pt-2">
-<button type="button" onclick="closeModal('modal-buat-pengumuman')" class="px-5 py-2.5 rounded-xl border border-history-200 text-history-700 font-semibold text-sm hover:bg-history-50 transition">Batal</button>
-<button type="submit" class="px-6 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-sm shadow-md transition flex items-center space-x-2">
+<button type="button" onclick="closeModal('modal-buat-pengumuman')" class="px-5 py-2.5 rounded-xl border border-history-200 text-history-700 font-semibold text-sm hover:bg-history-50 transition cursor-pointer">Batal</button>
+<button type="submit" class="px-6 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-sm shadow-md transition flex items-center space-x-2 cursor-pointer">
 <i class="fa-solid fa-bullhorn"></i>
 <span>Publikasikan Warta</span>
 </button>
@@ -515,7 +515,7 @@ Universitas Riau, Kampus Bina Widya Simpang Baru, Pekanbaru.
 <span class="text-xs font-bold text-amber-700 bg-amber-100 px-2.5 py-1 rounded-full uppercase">Keamanan Sistem</span>
 <h3 class="font-serif font-bold text-xl text-history-900 mt-1">Masuk Admin</h3>
 </div>
-<button onclick="closeModal('modal-admin-login')" class="text-gray-400 hover:text-history-900 p-2 rounded-lg">
+<button type="button" onclick="closeModal('modal-admin-login')" class="text-gray-400 hover:text-history-900 p-2 rounded-lg cursor-pointer">
 <i class="fa-solid fa-xmark text-lg"></i>
 </button>
 </div>
@@ -523,13 +523,13 @@ Universitas Riau, Kampus Bina Widya Simpang Baru, Pekanbaru.
 <div>
 <label class="block text-xs font-bold text-history-700 uppercase mb-1">Kode Akses Admin / Dosen</label>
 <input type="password" id="admin-pass-input" required placeholder="Masukkan PIN rahasia..." class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-600 transition">
-<p class="text-[10px] text-history-500 mt-1">PIN Standar: <strong id="hint-default-pin" class="text-amber-700">sejarah25a</strong></p>
+<p class="text-[10px] text-history-500 mt-1">PIN Standar: <strong class="text-amber-700">sejarah25a</strong></p>
 </div>
 <div class="flex items-center justify-between pt-2">
-<button type="button" onclick="resetPinToDefault()" class="text-xs text-amber-700 hover:underline font-semibold">Lupa PIN? Reset</button>
+<button type="button" onclick="resetPinToDefault()" class="text-xs text-amber-700 hover:underline font-semibold cursor-pointer">Lupa PIN? Reset</button>
 <div class="flex space-x-2">
-<button type="button" onclick="closeModal('modal-admin-login')" class="px-3 py-2 rounded-xl border border-history-200 text-history-700 font-semibold text-xs hover:bg-history-50 transition">Batal</button>
-<button type="submit" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-xs shadow-md transition flex items-center space-x-1.5">
+<button type="button" onclick="closeModal('modal-admin-login')" class="px-3 py-2 rounded-xl border border-history-200 text-history-700 font-semibold text-xs hover:bg-history-50 transition cursor-pointer">Batal</button>
+<button type="submit" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-xs shadow-md transition flex items-center space-x-1.5 cursor-pointer">
 <i class="fa-solid fa-lock-open"></i>
 <span>Verifikasi</span>
 </button>
@@ -546,7 +546,7 @@ Universitas Riau, Kampus Bina Widya Simpang Baru, Pekanbaru.
 <span class="text-xs font-bold text-amber-700 bg-amber-100 px-2.5 py-1 rounded-full uppercase">Pengaturan Keamanan</span>
 <h3 class="font-serif font-bold text-xl text-history-900 mt-1">Ubah PIN Admin</h3>
 </div>
-<button onclick="closeModal('modal-admin-settings')" class="text-gray-400 hover:text-history-900 p-2 rounded-lg">
+<button type="button" onclick="closeModal('modal-admin-settings')" class="text-gray-400 hover:text-history-900 p-2 rounded-lg cursor-pointer">
 <i class="fa-solid fa-xmark text-lg"></i>
 </button>
 </div>
@@ -556,10 +556,10 @@ Universitas Riau, Kampus Bina Widya Simpang Baru, Pekanbaru.
 <input type="password" id="new-pin-input" required placeholder="Masukkan PIN baru..." class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-600 transition">
 </div>
 <div class="flex items-center justify-between pt-2">
-<button type="button" onclick="resetPinToDefaultFromSettings()" class="text-xs text-rose-700 hover:underline font-semibold">Reset ke Default</button>
+<button type="button" onclick="resetPinToDefaultFromSettings()" class="text-xs text-rose-700 hover:underline font-semibold cursor-pointer">Reset ke Default</button>
 <div class="flex space-x-2">
-<button type="button" onclick="closeModal('modal-admin-settings')" class="px-3 py-2 rounded-xl border border-history-200 text-history-700 font-semibold text-xs hover:bg-history-50 transition">Batal</button>
-<button type="submit" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-xs shadow-md transition flex items-center space-x-1.5">
+<button type="button" onclick="closeModal('modal-admin-settings')" class="px-3 py-2 rounded-xl border border-history-200 text-history-700 font-semibold text-xs hover:bg-history-50 transition cursor-pointer">Batal</button>
+<button type="submit" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-xs shadow-md transition flex items-center space-x-1.5 cursor-pointer">
 <i class="fa-solid fa-floppy-disk"></i>
 <span>Simpan PIN</span>
 </button>
@@ -576,7 +576,7 @@ Universitas Riau, Kampus Bina Widya Simpang Baru, Pekanbaru.
 <span class="text-xs font-bold text-amber-700 bg-amber-100 px-2.5 py-1 rounded-full uppercase">Galeri Kelas</span>
 <h3 class="font-serif font-bold text-xl text-history-900 mt-1">Unggah Foto Kenangan</h3>
 </div>
-<button onclick="closeModal('modal-upload-foto')" class="text-gray-400 hover:text-history-900 p-2 rounded-lg">
+<button type="button" onclick="closeModal('modal-upload-foto')" class="text-gray-400 hover:text-history-900 p-2 rounded-lg cursor-pointer">
 <i class="fa-solid fa-xmark text-lg"></i>
 </button>
 </div>
@@ -608,8 +608,8 @@ Universitas Riau, Kampus Bina Widya Simpang Baru, Pekanbaru.
 </select>
 </div>
 <div class="flex items-center justify-end space-x-3 pt-2">
-<button type="button" onclick="closeModal('modal-upload-foto')" class="px-5 py-2.5 rounded-xl border border-history-200 text-history-700 font-semibold text-sm hover:bg-history-50 transition">Batal</button>
-<button type="submit" class="px-6 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-sm shadow-md transition flex items-center space-x-2">
+<button type="button" onclick="closeModal('modal-upload-foto')" class="px-5 py-2.5 rounded-xl border border-history-200 text-history-700 font-semibold text-sm hover:bg-history-50 transition cursor-pointer">Batal</button>
+<button type="submit" class="px-6 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-sm shadow-md transition flex items-center space-x-2 cursor-pointer">
 <i class="fa-solid fa-cloud-arrow-up"></i>
 <span>Unggah Foto</span>
 </button>
@@ -777,7 +777,7 @@ const item = document.createElement('div');
 item.className = "group relative bg-white rounded-2xl overflow-hidden shadow-sm border border-history-200 hover:shadow-xl transition";
 ​let deleteBtnHtml = '';
 if(isAdminLoggedIn) {
-deleteBtnHtml = <button onclick="hapusFoto('${foto.id}')" title="Hapus Foto" class="absolute top-4 right-4 bg-rose-100 hover:bg-rose-600 text-rose-700 hover:text-white w-8 h-8 rounded-full flex items-center justify-center transition shadow-md cursor-pointer z-20"> <i class="fa-solid fa-trash text-xs"></i> </button>;
+deleteBtnHtml = <button type="button" onclick="hapusFoto('${foto.id}')" title="Hapus Foto" class="absolute top-4 right-4 bg-rose-100 hover:bg-rose-600 text-rose-700 hover:text-white w-9 h-9 rounded-full flex items-center justify-center transition shadow-md cursor-pointer z-20" aria-label="Hapus Foto"> <i class="fa-solid fa-trash text-xs"></i> </button>;
 }
 ​item.innerHTML = ${deleteBtnHtml} <div class="h-64 overflow-hidden relative"> <img src="${foto.imageUrl}" alt="${foto.ket}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x400/3d2817/f4ede2?text=Sejarah+25A'"> <div class="absolute inset-0 bg-gradient-to-t from-history-900/80 via-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6"> <p class="text-white text-sm font-medium">${foto.ket}</p> </div> </div> <div class="p-4 flex items-center justify-between text-xs text-history-600"> <span class="font-semibold text-history-900"><i class="fa-solid fa-calendar-days mr-1 text-amber-600"></i> ${foto.tanggal}</span> <span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-medium">${foto.kat}</span> </div>;
 container.appendChild(item);
@@ -808,7 +808,7 @@ const card = document.createElement('div');
 card.className = "bg-history-50 border border-history-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between relative";
 ​let deleteBtnHtml = '';
 if(isAdminLoggedIn) {
-deleteBtnHtml = <button onclick="hapusPengumuman('${ann.id}')" title="Hapus Pengumuman" class="absolute top-4 right-4 bg-rose-100 hover:bg-rose-600 text-rose-700 hover:text-white w-7 h-7 rounded-full flex items-center justify-center transition shadow-sm"> <i class="fa-solid fa-trash text-xs"></i> </button>;
+deleteBtnHtml = <button type="button" onclick="hapusPengumuman('${ann.id}')" title="Hapus Pengumuman" class="absolute top-4 right-4 bg-rose-100 hover:bg-rose-600 text-rose-700 hover:text-white w-9 h-9 rounded-full flex items-center justify-center transition shadow-md cursor-pointer z-20" aria-label="Hapus Pengumuman"> <i class="fa-solid fa-trash text-xs"></i> </button>;
 }
 ​card.innerHTML = ${deleteBtnHtml} <div> <div class="flex items-center space-x-2 mb-3"> <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">${ann.kategori}</span> <span class="text-xs text-history-500"><i class="fa-regular fa-clock mr-1"></i> ${ann.tanggal}</span> </div> <h3 class="font-serif font-bold text-lg text-history-900 mb-2 pr-6">${ann.judul}</h3> <p class="text-history-700 text-sm whitespace-pre-line leading-relaxed">${ann.isi}</p> </div> <div class="mt-4 pt-3 border-t border-history-200 text-[11px] text-history-500 flex items-center justify-between"> <span>Dipublikasikan oleh: <strong>Admin Kelas 25A</strong></span> </div>;
 container.appendChild(card);
@@ -848,13 +848,13 @@ const settingsBtn = document.getElementById('admin-settings-btn');
 ​if(isAdminLoggedIn) {
 statusIcon.className = "fa-solid fa-shield-halved text-emerald-400";
 statusText.innerHTML = Mode Akses: <strong class="text-emerald-300">ADMIN / DOSEN</strong> (Hak penuh mengelola tugas, galeri & warta);
-toggleBtn.className = "bg-rose-700 hover:bg-rose-800 text-white px-3 py-1.5 rounded-lg font-semibold transition flex items-center space-x-1.5 shadow-sm cursor-pointer z-50 relative";
+toggleBtn.className = "bg-rose-700 hover:bg-rose-800 text-white px-3 py-1.5 rounded-lg font-semibold transition flex items-center space-x-1.5 shadow-sm cursor-pointer z-30 relative";
 toggleBtn.innerHTML = <i class="fa-solid fa-lock"></i><span>Keluar Admin</span>;
 settingsBtn.classList.remove('hidden');
 } else {
 statusIcon.className = "fa-solid fa-shield text-amber-400";
 statusText.innerHTML = Mode Akses: <strong>Mahasiswa Umum</strong> (Tidak dapat melihat daftar tugas terkumpul milik orang lain);
-toggleBtn.className = "bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-lg font-semibold transition flex items-center space-x-1.5 shadow-sm cursor-pointer z-50 relative";
+toggleBtn.className = "bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-lg font-semibold transition flex items-center space-x-1.5 shadow-sm cursor-pointer z-30 relative";
 toggleBtn.innerHTML = <i class="fa-solid fa-key"></i><span>Login Admin / Dosen</span>;
 settingsBtn.classList.add('hidden');
 }
@@ -923,15 +923,15 @@ const boxLink = document.getElementById('container-link-input');
 const fileInput = document.getElementById('tugas-file-input');
 const linkInput = document.getElementById('link-tugas');
 ​if(mode === 'file') {
-btnFile.className = "py-2 px-3 text-xs font-semibold rounded-xl border border-amber-600 bg-amber-600 text-white transition flex items-center justify-center space-x-1.5";
-btnLink.className = "py-2 px-3 text-xs font-semibold rounded-xl border border-history-200 bg-history-50 text-history-700 transition flex items-center justify-center space-x-1.5";
+btnFile.className = "py-2 px-3 text-xs font-semibold rounded-xl border border-amber-600 bg-amber-600 text-white transition flex items-center justify-center space-x-1.5 cursor-pointer";
+btnLink.className = "py-2 px-3 text-xs font-semibold rounded-xl border border-history-200 bg-history-50 text-history-700 transition flex items-center justify-center space-x-1.5 cursor-pointer";
 boxFile.classList.remove('hidden');
 boxLink.classList.add('hidden');
 fileInput.required = true;
 linkInput.required = false;
 } else {
-btnLink.className = "py-2 px-3 text-xs font-semibold rounded-xl border border-amber-600 bg-amber-600 text-white transition flex items-center justify-center space-x-1.5";
-btnFile.className = "py-2 px-3 text-xs font-semibold rounded-xl border border-history-200 bg-history-50 text-history-700 transition flex items-center justify-center space-x-1.5";
+btnLink.className = "py-2 px-3 text-xs font-semibold rounded-xl border border-amber-600 bg-amber-600 text-white transition flex items-center justify-center space-x-1.5 cursor-pointer";
+btnFile.className = "py-2 px-3 text-xs font-semibold rounded-xl border border-history-200 bg-history-50 text-history-700 transition flex items-center justify-center space-x-1.5 cursor-pointer";
 boxLink.classList.remove('hidden');
 boxFile.classList.add('hidden');
 linkInput.required = true;
@@ -964,7 +964,7 @@ card.className = "bg-history-50 border border-history-200 rounded-2xl p-6 shadow
 if(isAdminLoggedIn) {
 deleteBtnHtml = <button type="button" onclick="hapusTugas('${tugas.id}')" title="Hapus Tugas" class="absolute top-4 right-4 bg-rose-100 hover:bg-rose-600 text-rose-700 hover:text-white w-9 h-9 rounded-full flex items-center justify-center transition shadow-md cursor-pointer z-20" aria-label="Hapus Tugas"> <i class="fa-solid fa-trash text-xs"></i> </button>;
 }
-​card.innerHTML = ${deleteBtnHtml} <div> <div class="flex items-center justify-between mb-4 pr-10"> <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full">${tugas.matkul}</span> <span class="text-xs ${isClosed ? 'text-gray-500' : 'text-red-600'} font-semibold flex items-center"> <i class="fa-regular fa-clock mr-1"></i> ${tugas.deadline} </span> </div> <h3 class="font-bold text-lg text-history-900 mb-2">${tugas.judul}</h3> <p class="text-history-700 text-sm mb-4 line-clamp-3">${tugas.desk}</p> </div> <div class="border-t border-history-200 pt-4 mt-2"> <div class="flex items-center justify-between text-xs text-history-600 mb-3"> <span>Terkumpul: <strong class="text-history-900">${isAdminLoggedIn ? subCount : 'Dirahasiakan'}</strong> ${isAdminLoggedIn ? 'Mahasiswa' : '(Terkunci)'}</span> <span class="${isClosed ? 'text-green-700' : 'text-amber-700'} font-semibold">${tugas.status}</span> </div> <button onclick="openKumpulModal('${tugas.id}')" class="w-full ${isClosed && !isAdminLoggedIn ? 'bg-history-300 hover:bg-history-400 text-history-800' : 'bg-amber-600 hover:bg-amber-700 text-white'} font-semibold py-2.5 rounded-xl text-sm transition flex items-center justify-center space-x-2 shadow-sm cursor-pointer"> <i class="${isAdminLoggedIn ? 'fa-solid fa-folder-open' : 'fa-solid fa-cloud-arrow-up'}"></i> <span>${isAdminLoggedIn ? 'Kelola & Lihat Tugas Terkumpul' : 'Kumpulkan Tugas Saya'}</span> </button> </div>;
+​card.innerHTML = ${deleteBtnHtml} <div> <div class="flex items-center justify-between mb-4 pr-10"> <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full">${tugas.matkul}</span> <span class="text-xs ${isClosed ? 'text-gray-500' : 'text-red-600'} font-semibold flex items-center"> <i class="fa-regular fa-clock mr-1"></i> ${tugas.deadline} </span> </div> <h3 class="font-bold text-lg text-history-900 mb-2">${tugas.judul}</h3> <p class="text-history-700 text-sm mb-4 line-clamp-3">${tugas.desk}</p> </div> <div class="border-t border-history-200 pt-4 mt-2"> <div class="flex items-center justify-between text-xs text-history-600 mb-3"> <span>Terkumpul: <strong class="text-history-900">${isAdminLoggedIn ? subCount : 'Dirahasiakan'}</strong> ${isAdminLoggedIn ? 'Mahasiswa' : '(Terkunci)'}</span> <span class="${isClosed ? 'text-green-700' : 'text-amber-700'} font-semibold">${tugas.status}</span> </div> <button type="button" onclick="openKumpulModal('${tugas.id}')" class="w-full ${isClosed && !isAdminLoggedIn ? 'bg-history-300 hover:bg-history-400 text-history-800' : 'bg-amber-600 hover:bg-amber-700 text-white'} font-semibold py-2.5 rounded-xl text-sm transition flex items-center justify-center space-x-2 shadow-sm cursor-pointer"> <i class="${isAdminLoggedIn ? 'fa-solid fa-folder-open' : 'fa-solid fa-cloud-arrow-up'}"></i> <span>${isAdminLoggedIn ? 'Kelola & Lihat Tugas Terkumpul' : 'Kumpulkan Tugas Saya'}</span> </button> </div>;
 container.appendChild(card);
 });
 }
@@ -1013,7 +1013,10 @@ toast.classList.add('translate-y-20', 'opacity-0');
 ​// Modal Controls
 function openModal(modalId) {
 const el = document.getElementById(modalId);
-if(el) el.classList.remove('hidden');
+if(el) {
+el.classList.remove('hidden');
+el.style.zIndex = '99999';
+}
 }
 ​function closeModal(modalId) {
 const el = document.getElementById(modalId);
