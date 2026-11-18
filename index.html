@@ -239,7 +239,7 @@
                 <div class="space-y-2">
                     <span class="text-amber-700 font-semibold text-xs tracking-widest uppercase bg-amber-100 px-3 py-1 rounded-full border border-amber-300/50">Album Angkatan</span>
                     <h2 class="font-serif text-3xl sm:text-4xl font-bold text-history-900">Galeri & Foto Kenangan</h2>
-                    <p class="text-history-700 text-sm sm:text-base">Momen kebersamaan, kegiatan lapangan, dan perkuliahan.</p>
+                    <p class="text-history-700 text-sm sm:text-base">Momen kebersamaan, kegiatan lapangan, dan perkuliahan. (Klik foto untuk memperbesar)</p>
                 </div>
                 <div class="flex flex-wrap gap-3 mt-4 md:mt-0">
                     <button onclick="openModal('modal-upload-foto')" class="bg-amber-600 hover:bg-amber-700 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition flex items-center space-x-2 shadow-md cursor-pointer">
@@ -315,7 +315,6 @@
             </div>
             
             <div class="space-y-4">
-                <!-- Tombol Opsi Upload Tugas untuk Mahasiswa -->
                 <div class="bg-amber-50 border border-amber-200 p-4 rounded-xl space-y-3">
                     <p class="text-xs font-bold text-history-900"><i class="fa-solid fa-cloud-arrow-up text-amber-600 mr-1"></i> Langkah 1: Unggah file tugas Anda</p>
                     <div class="flex gap-2">
@@ -325,7 +324,6 @@
                     </div>
                 </div>
 
-                <!-- Bagian Konfirmasi -->
                 <div class="border-t border-history-100 pt-2">
                     <h4 id="label-daftar-pengumpulan" class="text-xs font-bold text-history-800 uppercase mb-3">
                         <i class="fa-solid fa-users-viewfinder mr-1"></i> Daftar Mahasiswa Mengumpulkan:
@@ -333,7 +331,6 @@
                     <div id="daftar-pengumpulan-list" class="max-h-40 overflow-y-auto space-y-2 bg-history-50 p-3 rounded-xl border border-history-200 text-xs"></div>
                 </div>
 
-                <!-- Form Konfirmasi Pengiriman -->
                 <form id="form-kumpul" onsubmit="submitTugas(event)" class="space-y-3 border-t border-history-100 pt-3">
                     <input type="hidden" id="modal-tugas-id">
                     <p class="text-[11px] text-history-600 font-bold"><i class="fa-solid fa-circle-check text-amber-600 mr-1"></i> Langkah 2: Catat konfirmasi setelah file diunggah</p>
@@ -371,7 +368,7 @@
         </div>
     </div>
 
-    <!-- MODAL: Unggah Foto Kenangan (Mendukung Berbagai Format & Max 100MB dengan Kompresi Otomatis) -->
+    <!-- MODAL: Unggah Foto Kenangan -->
     <div id="modal-upload-foto" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-history-200 space-y-6 relative">
             <div class="flex items-center justify-between border-b border-history-100 pb-4">
@@ -400,6 +397,17 @@
                     <button type="submit" class="px-4 py-2 rounded-lg bg-amber-600 text-white font-semibold text-xs cursor-pointer">Unggah ke Galeri Publik</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- MODAL: Lihat Foto Ukuran Penuh (Lightbox) -->
+    <div id="modal-lightbox" class="fixed inset-0 z-50 hidden bg-black/90 backdrop-blur-md flex flex-col items-center justify-center p-4">
+        <button onclick="closeModal('modal-lightbox')" class="absolute top-5 right-5 text-white bg-white/20 hover:bg-white/40 w-12 h-12 rounded-full flex items-center justify-center text-xl cursor-pointer transition">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="max-w-4xl max-h-[85vh] flex flex-col items-center space-y-4">
+            <img id="lightbox-img" src="" class="max-w-full max-h-[70vh] object-contain rounded-xl shadow-2xl border border-white/10" alt="Foto Kenangan Penuh">
+            <p id="lightbox-ket" class="text-white text-center font-serif text-lg tracking-wide px-4 py-2 bg-black/50 rounded-xl backdrop-blur-sm"></p>
         </div>
     </div>
 
@@ -526,6 +534,13 @@
 
         window.openModal = function(id) { document.getElementById(id).classList.remove('hidden'); }
         window.closeModal = function(id) { document.getElementById(id).classList.add('hidden'); }
+
+        // Fungsi Membuka Modal Lightbox (Ukuran Penuh)
+        window.bukaLightbox = function(imageUrl, ket) {
+            document.getElementById('lightbox-img').src = imageUrl;
+            document.getElementById('lightbox-ket').innerText = ket;
+            openModal('modal-lightbox');
+        }
 
         window.toggleAdminMode = function() {
             if(isAdminLoggedIn) {
@@ -655,10 +670,11 @@
                     const highlightPhotos = galList.slice(0, 3);
                     const archivePhotos = galList.slice(3);
 
+                    // Menambahkan event klik onclick untuk membuka lightbox ukuran penuh
                     hBox.innerHTML = highlightPhotos.map(f => `
-                        <div class="bg-white rounded-2xl overflow-hidden border shadow-sm relative">
-                            ${isAdminLoggedIn ? `<button onclick="hapusFoto('${f.id}')" class="absolute top-3 right-3 bg-rose-700 text-white w-7 h-7 rounded-full flex items-center justify-center cursor-pointer z-10 shadow"><i class="fa-solid fa-trash text-xs"></i></button>` : ''}
-                            <img src="${f.imageUrl}" class="w-full h-56 object-cover" onerror="this.src='https://placehold.co/400x300/3d2817/ffffff?text=Foto+Kelas'">
+                        <div class="bg-white rounded-2xl overflow-hidden border shadow-sm relative group">
+                            ${isAdminLoggedIn ? `<button onclick="event.stopPropagation(); hapusFoto('${f.id}')" class="absolute top-3 right-3 bg-rose-700 text-white w-7 h-7 rounded-full flex items-center justify-center cursor-pointer z-10 shadow"><i class="fa-solid fa-trash text-xs"></i></button>` : ''}
+                            <img src="${f.imageUrl}" onclick="bukaLightbox('${f.imageUrl}', '${f.ket.replace(/'/g, "\\'")}')" class="w-full h-56 object-cover cursor-pointer hover:opacity-95 transition" title="Klik untuk memperbesar foto" onerror="this.src='https://placehold.co/400x300/3d2817/ffffff?text=Foto+Kelas'">
                             <div class="p-4 text-xs font-medium">${f.ket}</div>
                         </div>
                     `).join('');
@@ -666,9 +682,9 @@
                     if(archivePhotos.length > 0) {
                         archiveSec.classList.remove('hidden');
                         aBox.innerHTML = archivePhotos.map(f => `
-                            <div class="bg-white rounded-xl overflow-hidden border shadow-sm relative">
-                                ${isAdminLoggedIn ? `<button onclick="hapusFoto('${f.id}')" class="absolute top-2 right-2 bg-rose-700 text-white w-6 h-6 rounded-full flex items-center justify-center cursor-pointer z-10 shadow"><i class="fa-solid fa-trash text-[10px]'></i></button>` : ''}
-                                <img src="${f.imageUrl}" class="w-full h-32 object-cover" onerror="this.src='https://placehold.co/200x150/3d2817/ffffff?text=Foto'">
+                            <div class="bg-white rounded-xl overflow-hidden border shadow-sm relative group">
+                                ${isAdminLoggedIn ? `<button onclick="event.stopPropagation(); hapusFoto('${f.id}')" class="absolute top-2 right-2 bg-rose-700 text-white w-6 h-6 rounded-full flex items-center justify-center cursor-pointer z-10 shadow"><i class="fa-solid fa-trash text-[10px]'></i></button>` : ''}
+                                <img src="${f.imageUrl}" onclick="bukaLightbox('${f.imageUrl}', '${f.ket.replace(/'/g, "\\'")}')" class="w-full h-32 object-cover cursor-pointer hover:opacity-95 transition" title="Klik untuk memperbesar foto" onerror="this.src='https://placehold.co/200x150/3d2817/ffffff?text=Foto'">
                                 <div class="p-2 text-[11px] font-medium truncate">${f.ket}</div>
                             </div>
                         `).join('');
@@ -801,7 +817,6 @@
             }
         }
 
-        // Fungsi Upload & Kompres Otomatis agar aman masuk Database Firestore
         window.uploadFotoBaru = function(e) {
             e.preventDefault();
             const fileInput = document.getElementById('foto-file');
@@ -828,8 +843,8 @@
                     let width = img.width;
                     let height = img.height;
                     
-                    const MAX_WIDTH = 1024;
-                    const MAX_HEIGHT = 1024;
+                    const MAX_WIDTH = 1280;
+                    const MAX_HEIGHT = 1280;
                     if (width > height) {
                         if (width > MAX_WIDTH) {
                             height *= MAX_WIDTH / width;
@@ -847,7 +862,7 @@
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0, width, height);
                     
-                    const imageUrl = canvas.toDataURL('image/jpeg', 0.7);
+                    const imageUrl = canvas.toDataURL('image/jpeg', 0.8);
 
                     try {
                         await addDoc(collection(db, "galeri"), { 
