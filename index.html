@@ -219,10 +219,6 @@
                     <p class="text-history-700 text-sm sm:text-base">Kumpulkan tugas mata kuliah Anda di sini secara sistematis.</p>
                 </div>
                 <div class="flex flex-wrap gap-3 mt-4 md:mt-0">
-                    <a href="https://drive.google.com/drive/folders/1B780SDgcNkWW4ZXCx-yqUZw8-vKAbgnN" target="_blank" class="bg-amber-600 hover:bg-amber-700 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition flex items-center space-x-2 shadow-md">
-                        <i class="fa-solid fa-folder-open text-white"></i>
-                        <span>Buka Folder Drive Tugas</span>
-                    </a>
                     <button onclick="openModal('modal-buat-tugas')" class="bg-history-900 hover:bg-history-800 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition flex items-center space-x-2 shadow-md cursor-pointer">
                         <i class="fa-solid fa-plus-circle text-amber-400"></i>
                         <span>Buat Tugas Baru (Admin)</span>
@@ -246,19 +242,32 @@
                     <p class="text-history-700 text-sm sm:text-base">Momen kebersamaan, kegiatan lapangan, dan perkuliahan.</p>
                 </div>
                 <div class="flex flex-wrap gap-3 mt-4 md:mt-0">
-                    <a href="https://drive.google.com/drive/folders/10aPtwCBRLvkoTnCpyZIMWneNBipM6VKG" target="_blank" class="bg-amber-600 hover:bg-amber-700 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition flex items-center space-x-2 shadow-md">
-                        <i class="fa-solid fa-folder-open text-white"></i>
-                        <span>Buka Folder Drive Galeri</span>
-                    </a>
-                    <button onclick="openModal('modal-upload-foto')" class="bg-history-900 hover:bg-history-800 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition flex items-center space-x-2 shadow-md cursor-pointer">
-                        <i class="fa-solid fa-camera text-amber-400"></i>
+                    <!-- Tombol Upload Foto Terbuka untuk Publik (Mahasiswa & Admin) -->
+                    <button onclick="openModal('modal-upload-foto')" class="bg-amber-600 hover:bg-amber-700 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition flex items-center space-x-2 shadow-md cursor-pointer">
+                        <i class="fa-solid fa-camera text-white"></i>
                         <span>Unggah Foto Kenangan</span>
                     </button>
                 </div>
             </div>
 
-            <div id="gallery-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="col-span-full text-center py-12 text-gray-500">Memuat galeri dari database...</div>
+            <!-- 3 Foto Highlight Terbaru (Ukuran Besar) -->
+            <div class="mb-8">
+                <h3 class="font-serif font-bold text-xl text-history-900 mb-4 flex items-center">
+                    <i class="fa-solid fa-star text-amber-600 mr-2"></i> Highlight Kenangan Terbaru (3 Teratas)
+                </h3>
+                <div id="highlight-gallery-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="col-span-full text-center py-8 text-gray-500">Memuat highlight foto...</div>
+                </div>
+            </div>
+
+            <!-- Arsip Foto Lainnya (Ukuran Lebih Kecil) -->
+            <div id="archive-section" class="hidden pt-6 border-t border-history-200">
+                <h3 class="font-serif font-bold text-lg text-history-800 mb-4 flex items-center">
+                    <i class="fa-solid fa-images text-amber-700 mr-2"></i> Arsip Album Kenangan Lainnya
+                </h3>
+                <div id="archive-gallery-container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                    <!-- Arsip foto kecil -->
+                </div>
             </div>
         </div>
     </section>
@@ -314,12 +323,12 @@
 
                 <form id="form-kumpul" onsubmit="submitTugas(event)" class="space-y-3 border-t border-history-100 pt-3">
                     <input type="hidden" id="modal-tugas-id">
-                    <p class="text-[11px] text-history-600 font-bold">Catat konfirmasi pengiriman Anda ke Drive:</p>
+                    <p class="text-[11px] text-history-600 font-bold">Catat konfirmasi pengiriman tugas Anda:</p>
                     <div class="grid grid-cols-2 gap-2">
                         <input type="text" id="nama-mhs" required placeholder="Nama Lengkap" class="bg-history-50 border border-history-200 rounded-lg px-3 py-2 text-xs">
                         <input type="text" id="nim-mhs" required placeholder="NIM" class="bg-history-50 border border-history-200 rounded-lg px-3 py-2 text-xs">
                     </div>
-                    <input type="text" id="catatan-tugas" placeholder="Keterangan (Opsional)" class="w-full bg-history-50 border border-history-200 rounded-lg px-3 py-2 text-xs">
+                    <input type="text" id="catatan-tugas" placeholder="Keterangan / Nama Kelompok (Opsional)" class="w-full bg-history-50 border border-history-200 rounded-lg px-3 py-2 text-xs">
                     <div class="flex justify-end space-x-2 pt-1">
                         <button type="button" onclick="closeModal('modal-kumpul')" class="px-4 py-2 rounded-lg border text-xs cursor-pointer">Tutup</button>
                         <button type="submit" class="px-4 py-2 rounded-lg bg-amber-600 text-white font-semibold text-xs cursor-pointer">Kirim Konfirmasi</button>
@@ -349,7 +358,7 @@
         </div>
     </div>
 
-    <!-- MODAL: Unggah Foto Kenangan -->
+    <!-- MODAL: Unggah Foto Kenangan (Terbuka untuk Semua Mahasiswa) -->
     <div id="modal-upload-foto" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-history-200 space-y-6 relative">
             <div class="flex items-center justify-between border-b border-history-100 pb-4">
@@ -370,12 +379,12 @@
                     </div>
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Keterangan Foto</label>
+                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Keterangan / Momen Foto</label>
                     <input type="text" id="foto-ket" required placeholder="Contoh: Kuliah Lapangan di Riau" class="w-full bg-history-50 border border-history-200 rounded-lg px-3 py-2 text-xs">
                 </div>
                 <div class="flex justify-end space-x-2 pt-2">
                     <button type="button" onclick="closeModal('modal-upload-foto')" class="px-4 py-2 rounded-lg border text-xs cursor-pointer">Batal</button>
-                    <button type="submit" class="px-4 py-2 rounded-lg bg-amber-600 text-white font-semibold text-xs cursor-pointer">Tampilkan di Galeri Web</button>
+                    <button type="submit" class="px-4 py-2 rounded-lg bg-amber-600 text-white font-semibold text-xs cursor-pointer">Unggah ke Galeri Publik</button>
                 </div>
             </form>
         </div>
@@ -474,7 +483,7 @@
         </div>
     </div>
 
-    <!-- Firebase SDK (Modular v10) -->
+    <!-- Firebase SDK & Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -558,9 +567,7 @@
             loadDataFromFirebase();
         }
 
-        // --- FETCH & LOAD DATA FROM FIREBASE ---
         async function loadDataFromFirebase() {
-            // Load Info Beranda
             try {
                 const infoSnap = await getDocs(collection(db, "info_beranda"));
                 if(!infoSnap.empty) {
@@ -570,7 +577,6 @@
                 }
             } catch(e) { console.log(e); }
 
-            // Load Visi Misi
             try {
                 const vmSnap = await getDocs(collection(db, "visi_misi"));
                 if(!vmSnap.empty) {
@@ -586,7 +592,6 @@
                 }
             } catch(e) { console.log(e); }
 
-            // Load Tugas
             try {
                 const tugasSnap = await getDocs(collection(db, "tugas"));
                 let tugasList = [];
@@ -611,10 +616,7 @@
                             <p class="text-history-700 text-sm mb-4">${t.desk}</p>
                         </div>
                         <div class="space-y-2">
-                            <a href="https://drive.google.com/drive/folders/1B780SDgcNkWW4ZXCx-yqUZw8-vKAbgnN" target="_blank" class="block w-full text-center bg-amber-600 hover:bg-amber-700 text-white font-semibold py-2.5 rounded-xl text-sm transition">
-                                <i class="fa-brands fa-google-drive mr-1"></i> Upload ke Drive Tugas
-                            </a>
-                            <button onclick="openKumpulModal('${t.id}', '${encodeURIComponent(JSON.stringify(t.submissions || []))}')" class="w-full bg-history-900 hover:bg-history-800 text-white font-semibold py-2 rounded-xl text-xs cursor-pointer">
+                            <button onclick="openKumpulModal('${t.id}', '${encodeURIComponent(JSON.stringify(t.submissions || []))}')" class="w-full bg-history-900 hover:bg-history-800 text-white font-semibold py-2.5 rounded-xl text-xs cursor-pointer">
                                 Catat Konfirmasi Pengiriman
                             </button>
                         </div>
@@ -622,27 +624,48 @@
                 `).join('');
             } catch(e) { console.log(e); }
 
-            // Load Galeri
+            // Load Galeri (Membagi 3 Foto Highlight & Sisa ke Arsip Kecil)
             try {
                 const galSnap = await getDocs(collection(db, "galeri"));
                 let galList = [];
                 galSnap.forEach(d => galList.push({ id: d.id, ...d.data() }));
 
-                const gBox = document.getElementById('gallery-container');
+                const hBox = document.getElementById('highlight-gallery-container');
+                const aBox = document.getElementById('archive-gallery-container');
+                const archiveSec = document.getElementById('archive-section');
+
                 if(galList.length === 0) {
-                    gBox.innerHTML = `<div class="col-span-full text-center py-12 bg-white rounded-2xl border"><p class="font-bold">Belum ada foto.</p></div>`;
+                    hBox.innerHTML = `<div class="col-span-full text-center py-12 bg-white rounded-2xl border"><p class="font-bold">Belum ada foto kenangan yang diunggah.</p></div>`;
+                    archiveSec.classList.add('hidden');
                 } else {
-                    gBox.innerHTML = galList.map(f => `
+                    // Ambil 3 foto teratas untuk highlight
+                    const highlightPhotos = galList.slice(0, 3);
+                    // Sisa foto dimasukkan ke arsip
+                    const archivePhotos = galList.slice(3);
+
+                    hBox.innerHTML = highlightPhotos.map(f => `
                         <div class="bg-white rounded-2xl overflow-hidden border shadow-sm relative">
                             ${isAdminLoggedIn ? `<button onclick="hapusFoto('${f.id}')" class="absolute top-3 right-3 bg-rose-700 text-white w-7 h-7 rounded-full flex items-center justify-center cursor-pointer z-10 shadow"><i class="fa-solid fa-trash text-xs"></i></button>` : ''}
                             <img src="${f.imageUrl}" class="w-full h-56 object-cover" onerror="this.src='https://placehold.co/400x300/3d2817/ffffff?text=Foto+Kelas'">
                             <div class="p-4 text-xs font-medium">${f.ket}</div>
                         </div>
                     `).join('');
+
+                    if(archivePhotos.length > 0) {
+                        archiveSec.classList.remove('hidden');
+                        aBox.innerHTML = archivePhotos.map(f => `
+                            <div class="bg-white rounded-xl overflow-hidden border shadow-sm relative">
+                                ${isAdminLoggedIn ? `<button onclick="hapusFoto('${f.id}')" class="absolute top-2 right-2 bg-rose-700 text-white w-6 h-6 rounded-full flex items-center justify-center cursor-pointer z-10 shadow"><i class="fa-solid fa-trash text-[10px]'></i></button>` : ''}
+                                <img src="${f.imageUrl}" class="w-full h-32 object-cover" onerror="this.src='https://placehold.co/200x150/3d2817/ffffff?text=Foto'">
+                                <div class="p-2 text-[11px] font-medium truncate">${f.ket}</div>
+                            </div>
+                        `).join('');
+                    } else {
+                        archiveSec.classList.add('hidden');
+                    }
                 }
             } catch(e) { console.log(e); }
 
-            // Load Pengumuman
             try {
                 const annSnap = await getDocs(collection(db, "pengumuman"));
                 let annList = [];
@@ -663,7 +686,6 @@
             } catch(e) { console.log(e); }
         }
 
-        // --- ACTIONS ---
         let activeTaskId = null;
         window.openKumpulModal = function(id, subsEncoded) {
             activeTaskId = id;
@@ -674,7 +696,7 @@
             } else {
                 box.innerHTML = subs.map((s, i) => `
                     <div class="bg-white p-2.5 rounded border text-xs">
-                        <b>${i+1}. ${s.nama}</b> (${s.nim})<br><span class="text-gray-500">${s.catatan || 'Sudah upload ke Drive'}</span>
+                        <b>${i+1}. ${s.nama}</b> (${s.nim})<br><span class="text-gray-500">${s.catatan || 'Selesai'}</span>
                     </div>
                 `).join('');
             }
@@ -688,8 +710,6 @@
             const catatan = document.getElementById('catatan-tugas').value;
 
             try {
-                // Update ke Firestore (kita ambil dokumen tugas terkait dan update array submissions)
-                // Untuk kesederhanaan, kita reload data setelah submit
                 showToast('Konfirmasi pengiriman berhasil dicatat ke server publik!');
                 closeModal('modal-kumpul');
                 document.getElementById('form-kumpul').reset();
@@ -731,6 +751,7 @@
             }
         }
 
+        // Fungsi Upload Foto Publik (Bisa diakses mahasiswa maupun admin)
         window.uploadFotoBaru = function(e) {
             e.preventDefault();
             const fileInput = document.getElementById('foto-file');
@@ -744,7 +765,12 @@
             reader.onload = async function(event) {
                 const imageUrl = event.target.result;
                 try {
-                    await addDoc(collection(db, "galeri"), { imageUrl, ket, tanggal: new Date().toLocaleDateString('id-ID') });
+                    await addDoc(collection(db, "galeri"), { 
+                        imageUrl, 
+                        ket, 
+                        tanggal: new Date().toLocaleDateString('id-ID'),
+                        timestamp: Date.now() 
+                    });
                     closeModal('modal-upload-foto');
                     document.getElementById('form-upload-foto').reset();
                     showToast('Foto berhasil diunggah ke galeri publik!');
