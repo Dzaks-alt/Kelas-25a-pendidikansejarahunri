@@ -301,7 +301,7 @@
         </div>
     </footer>
 
-    <!-- MODAL 1: Kumpul Tugas (Dengan Upload File Langsung) -->
+    <!-- MODAL 1: Kumpul Tugas (Dengan Tombol Unduh File untuk Admin) -->
     <div id="modal-kumpul" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-history-200 space-y-6 relative max-h-[90vh] overflow-y-auto">
             <div class="flex items-center justify-between border-b border-history-100 pb-4">
@@ -533,9 +533,9 @@
                 return;
             }
             box.innerHTML = t.submissions.map((s, i) => `
-                <div class="bg-white p-2 rounded border flex justify-between items-center text-xs">
-                    <div><b>${i+1}. ${s.nama}</b> (${s.nim})<br><span class="text-amber-800 font-semibold">${s.fileName}</span></div>
-                    <span class="text-gray-500">${s.catatan || '-'}</span>
+                <div class="bg-white p-2.5 rounded border flex justify-between items-center text-xs">
+                    <div><b>${i+1}. ${s.nama}</b> (${s.nim})<br><span class="text-amber-800 font-semibold">${s.fileName}</span><br><span class="text-[10px] text-gray-500">${s.catatan || ''}</span></div>
+                    ${s.fileData ? `<a href="${s.fileData}" download="${s.fileName}" class="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded font-semibold transition flex items-center space-x-1 cursor-pointer"><i class="fa-solid fa-download"></i><span>Unduh</span></a>` : `<span class="text-gray-400 italic">File tidak tersedia</span>`}
                 </div>
             `).join('');
         }
@@ -552,16 +552,30 @@
                 return;
             }
 
-            const fileName = fileInput.files[0].name;
-            const t = classTasks.find(x => x.id === activeTaskId);
-            if(!t.submissions) t.submissions = [];
-            t.submissions.push({ nama, nim, fileName, catatan });
+            const file = fileInput.files[0];
+            const reader = new FileReader();
 
-            localStorage.setItem('sejarah_25a_tugas', JSON.stringify(classTasks));
-            closeModal('modal-kumpul');
-            document.getElementById('form-kumpul').reset();
-            showToast('Tugas berhasil dikirim!');
-            renderTugas();
+            reader.onload = function(event) {
+                const fileData = event.target.result; // Base64 Data URL
+                const t = classTasks.find(x => x.id === activeTaskId);
+                if(!t.submissions) t.submissions = [];
+                
+                // Cek jika NIM sudah pernah mengumpul, timpa dengan yang baru
+                const existingIdx = t.submissions.findIndex(s => s.nim === nim);
+                if(existingIdx >= 0) {
+                    t.submissions[existingIdx] = { nama, nim, fileName: file.name, fileData, catatan };
+                } else {
+                    t.submissions.push({ nama, nim, fileName: file.name, fileData, catatan });
+                }
+
+                localStorage.setItem('sejarah_25a_tugas', JSON.stringify(classTasks));
+                closeModal('modal-kumpul');
+                document.getElementById('form-kumpul').reset();
+                showToast('Tugas berhasil dikirim!');
+                renderTugas();
+            };
+
+            reader.readAsDataURL(file);
         }
 
         function buatTugasBaru(e) {
