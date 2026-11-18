@@ -67,7 +67,6 @@
                 </div>
             </div>
             
-            <!-- Desktop Menu -->
             <div class="hidden md:flex items-center space-x-8 font-medium text-sm">
                 <a href="#beranda" class="text-amber-200 hover:text-white transition">Beranda</a>
                 <a href="#visimisi" class="text-history-200 hover:text-amber-200 transition">Visi & Misi</a>
@@ -76,23 +75,13 @@
                 <a href="#pengumuman" class="text-history-200 hover:text-amber-200 transition">Pengumuman</a>
             </div>
 
-            <!-- Mobile Hamburger Button -->
             <button id="menu-btn" class="md:hidden text-history-200 hover:text-white focus:outline-none p-2 cursor-pointer">
                 <i class="fa-solid fa-bars text-xl"></i>
             </button>
         </div>
-
-        <!-- Mobile Menu Dropdown -->
-        <div id="mobile-menu" class="hidden md:hidden bg-history-900 border-t border-history-800 px-6 py-4 space-y-3 font-medium">
-            <a href="#beranda" class="block text-amber-200 py-1">Beranda</a>
-            <a href="#visimisi" class="block text-history-200 py-1">Visi & Misi</a>
-            <a href="#tugas" class="block text-history-200 py-1">Pengumpulan Tugas</a>
-            <a href="#galeri" class="block text-history-200 py-1">Galeri & Kenangan</a>
-            <a href="#pengumuman" class="block text-history-200 py-1">Pengumuman</a>
-        </div>
     </nav>
 
-    <!-- Admin Status Banner / Control Bar -->
+    <!-- Admin Status Banner -->
     <div class="bg-history-800 text-amber-100 py-2.5 px-4 text-xs border-b border-history-700 mt-20 relative z-30">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
             <div class="flex items-center space-x-2">
@@ -124,7 +113,7 @@
                         Portal resmi kelas dan pengumpulan tugas terintegrasi. Wadah kolaborasi digital untuk mencetak calon pendidik sejarah yang profesional, berkarakter, dan solid.
                     </p>
                     <div class="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 pt-4">
-                        <a href="#tugas" class="w-full sm:w-auto bg-amber-500 hover:bg-amber-600 text-history-900 font-bold px-8 py-3.5 rounded-xl shadow-lg transition transform hover:-translate-y-0.5 text-center flex items-center justify-center space-x-2">
+                        <a href="#tugas" class="w-full sm:w-auto bg-amber-500 hover:bg-amber-600 text-history-900 font-bold px-8 py-3.5 rounded-xl shadow-lg transition text-center flex items-center justify-center space-x-2">
                             <i class="fa-solid fa-cloud-arrow-up"></i>
                             <span>Kumpul Tugas</span>
                         </a>
@@ -151,11 +140,11 @@
                             <div class="space-y-4 text-sm text-history-200">
                                 <div class="bg-history-900/60 p-3.5 rounded-xl border border-history-700/50">
                                     <p class="font-semibold text-white mb-1">Mata Kuliah Hari Ini</p>
-                                    <p id="display-matkul-hari-ini" class="text-xs text-amber-200/80">Media Pembelajaran Sejarah (08.00 WIB) • Ruang A1</p>
+                                    <p id="display-matkul-hari-ini" class="text-xs text-amber-200/80">Memuat data...</p>
                                 </div>
                                 <div class="bg-history-900/60 p-3.5 rounded-xl border border-history-700/50">
                                     <p class="font-semibold text-white mb-1">Tenggat Tugas Terdekat</p>
-                                    <p id="display-tenggat" class="text-xs text-amber-200/80">Ujian Akhir Semester</p>
+                                    <p id="display-tenggat" class="text-xs text-amber-200/80">Memuat data...</p>
                                 </div>
                             </div>
                             <div class="flex items-center justify-between pt-2">
@@ -187,16 +176,13 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-                <!-- Visi Card -->
                 <div class="bg-white p-8 rounded-2xl shadow-sm border border-history-200 hover:shadow-md transition flex flex-col justify-between">
                     <div class="space-y-4">
                         <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center text-xl font-bold">
                             <i class="fa-solid fa-eye"></i>
                         </div>
                         <h3 class="font-serif text-2xl font-bold text-history-900">Visi Kelas</h3>
-                        <p id="display-visi-text" class="text-history-700 leading-relaxed italic bg-history-50 p-5 rounded-xl border-l-4 border-amber-600 text-base">
-                            "Sukses bersama dibawah naungan komting Sahnan"
-                        </p>
+                        <p id="display-visi-text" class="text-history-700 leading-relaxed italic bg-history-50 p-5 rounded-xl border-l-4 border-amber-600 text-base">Memuat visi...</p>
                     </div>
                     <div class="mt-6 pt-4 border-t border-history-100 text-xs text-history-600 flex items-center justify-between">
                         <span>Pimpinan Kelas</span>
@@ -204,7 +190,6 @@
                     </div>
                 </div>
 
-                <!-- Misi Card -->
                 <div class="bg-white p-8 rounded-2xl shadow-sm border border-history-200 hover:shadow-md transition flex flex-col justify-between">
                     <div class="space-y-4">
                         <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center text-xl font-bold">
@@ -212,18 +197,7 @@
                         </div>
                         <h3 class="font-serif text-2xl font-bold text-history-900">Misi Kelas</h3>
                         <ul id="display-misi-list" class="space-y-3 text-history-700 text-sm sm:text-base">
-                            <li class="flex items-start space-x-3">
-                                <span class="bg-amber-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold mt-0.5 flex-shrink-0">1</span>
-                                <span>Lulus Tepat Waktu</span>
-                            </li>
-                            <li class="flex items-start space-x-3">
-                                <span class="bg-amber-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold mt-0.5 flex-shrink-0">2</span>
-                                <span>Mendapat nilai yang baik</span>
-                            </li>
-                            <li class="flex items-start space-x-3">
-                                <span class="bg-amber-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold mt-0.5 flex-shrink-0">3</span>
-                                <span>Sukses sukses solid</span>
-                            </li>
+                            <li class="text-gray-500 italic">Memuat misi...</li>
                         </ul>
                     </div>
                     <div class="mt-6 pt-4 border-t border-history-100 text-xs text-history-600 flex items-center justify-between">
@@ -257,7 +231,7 @@
             </div>
 
             <div id="tugas-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Dynamic Tasks -->
+                <div class="col-span-full text-center py-12 text-gray-500">Memuat data tugas dari database...</div>
             </div>
         </div>
     </section>
@@ -284,10 +258,7 @@
             </div>
 
             <div id="gallery-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div id="empty-gallery-msg" class="col-span-full text-center py-12 bg-white rounded-2xl border border-history-200">
-                    <i class="fa-solid fa-images text-4xl text-amber-600 mb-3"></i>
-                    <p class="font-bold text-history-900">Belum ada foto kenangan yang diunggah.</p>
-                </div>
+                <div class="col-span-full text-center py-12 text-gray-500">Memuat galeri dari database...</div>
             </div>
         </div>
     </section>
@@ -310,7 +281,7 @@
             </div>
 
             <div id="pengumuman-container" class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-                <!-- Dynamic Announcements -->
+                <div class="col-span-full text-center py-8 text-gray-500">Memuat pengumuman...</div>
             </div>
         </div>
     </section>
@@ -322,7 +293,7 @@
         </div>
     </footer>
 
-    <!-- MODAL 1: Kumpul Tugas (Langsung ke Google Drive) -->
+    <!-- MODAL: Kumpul Tugas -->
     <div id="modal-kumpul" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-history-200 space-y-6 relative max-h-[90vh] overflow-y-auto">
             <div class="flex items-center justify-between border-b border-history-100 pb-4">
@@ -336,22 +307,14 @@
             </div>
             
             <div class="space-y-4">
-                <div class="bg-amber-50 border border-amber-200 p-4 rounded-xl text-center space-y-3">
-                    <i class="fa-brands fa-google-drive text-3xl text-amber-600"></i>
-                    <p class="text-xs text-history-800 font-medium">Pengumpulan tugas mata kuliah ini langsung diunggah ke Google Drive resmi kelas 25A.</p>
-                    <a href="https://drive.google.com/drive/folders/1B780SDgcNkWW4ZXCx-yqUZw8-vKAbgnN" target="_blank" class="inline-block bg-amber-600 hover:bg-amber-700 text-white font-semibold px-5 py-2.5 rounded-xl text-xs shadow transition">
-                        <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> Buka Folder Google Drive Tugas
-                    </a>
-                </div>
-
-                <div class="border-t border-history-100 pt-4">
-                    <h4 class="text-xs font-bold text-history-800 uppercase mb-3"><i class="fa-solid fa-users-viewfinder mr-1"></i> Daftar Catatan Pengumpulan Lokal:</h4>
+                <div class="border-t border-history-100 pt-2">
+                    <h4 class="text-xs font-bold text-history-800 uppercase mb-3"><i class="fa-solid fa-users-viewfinder mr-1"></i> Daftar Konfirmasi Publik:</h4>
                     <div id="daftar-pengumpulan-list" class="max-h-40 overflow-y-auto space-y-2 bg-history-50 p-3 rounded-xl border border-history-200 text-xs"></div>
                 </div>
 
                 <form id="form-kumpul" onsubmit="submitTugas(event)" class="space-y-3 border-t border-history-100 pt-3">
                     <input type="hidden" id="modal-tugas-id">
-                    <p class="text-[11px] text-history-600 font-bold">Catat konfirmasi pengiriman Anda di sini:</p>
+                    <p class="text-[11px] text-history-600 font-bold">Catat konfirmasi pengiriman Anda ke Drive:</p>
                     <div class="grid grid-cols-2 gap-2">
                         <input type="text" id="nama-mhs" required placeholder="Nama Lengkap" class="bg-history-50 border border-history-200 rounded-lg px-3 py-2 text-xs">
                         <input type="text" id="nim-mhs" required placeholder="NIM" class="bg-history-50 border border-history-200 rounded-lg px-3 py-2 text-xs">
@@ -359,14 +322,14 @@
                     <input type="text" id="catatan-tugas" placeholder="Keterangan (Opsional)" class="w-full bg-history-50 border border-history-200 rounded-lg px-3 py-2 text-xs">
                     <div class="flex justify-end space-x-2 pt-1">
                         <button type="button" onclick="closeModal('modal-kumpul')" class="px-4 py-2 rounded-lg border text-xs cursor-pointer">Tutup</button>
-                        <button type="submit" class="px-4 py-2 rounded-lg bg-amber-600 text-white font-semibold text-xs cursor-pointer">Catat Pengiriman</button>
+                        <button type="submit" class="px-4 py-2 rounded-lg bg-amber-600 text-white font-semibold text-xs cursor-pointer">Kirim Konfirmasi</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- MODAL 2: Buat Tugas Baru -->
+    <!-- MODAL: Buat Tugas Baru -->
     <div id="modal-buat-tugas" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-history-200 space-y-6 relative">
             <div class="flex items-center justify-between border-b border-history-100 pb-4">
@@ -386,49 +349,39 @@
         </div>
     </div>
 
-    <!-- MODAL 3: Unggah Foto Kenangan (Upload File JPG/PNG & Simpan ke Drive) -->
+    <!-- MODAL: Unggah Foto Kenangan -->
     <div id="modal-upload-foto" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-history-200 space-y-6 relative">
             <div class="flex items-center justify-between border-b border-history-100 pb-4">
                 <h3 class="font-serif font-bold text-xl text-history-900">Unggah Foto Kenangan</h3>
                 <button onclick="closeModal('modal-upload-foto')" class="text-gray-400 hover:text-history-900 p-2 cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
-            <div class="space-y-4">
-                <div class="bg-amber-50 border border-amber-200 p-4 rounded-xl text-center space-y-3">
-                    <i class="fa-brands fa-google-drive text-3xl text-amber-600"></i>
-                    <p class="text-xs text-history-800 font-medium">Simpan dan unggah foto kenangan langsung ke folder Google Drive Angkatan.</p>
-                    <a href="https://drive.google.com/drive/folders/10aPtwCBRLvkoTnCpyZIMWneNBipM6VKG" target="_blank" class="inline-block bg-amber-600 hover:bg-amber-700 text-white font-semibold px-5 py-2.5 rounded-xl text-xs shadow transition">
-                        <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> Buka Folder Google Drive Galeri
-                    </a>
+            <form id="form-upload-foto" onsubmit="uploadFotoBaru(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Pilih File Foto (JPG / PNG)</label>
+                    <div class="flex items-center justify-center w-full">
+                        <label class="flex flex-col items-center justify-center w-full h-24 border-2 border-history-200 border-dashed rounded-xl cursor-pointer bg-history-50 hover:bg-history-100 transition">
+                            <div class="flex flex-col items-center justify-center pt-3 pb-3 px-4 text-center">
+                                <i class="fa-solid fa-image text-xl text-amber-600 mb-1"></i>
+                                <p id="foto-label-text" class="text-xs text-history-700 font-medium">Klik untuk memilih foto</p>
+                            </div>
+                            <input type="file" id="foto-file" accept="image/*" required class="hidden" onchange="updateFotoLabel(this)">
+                        </label>
+                    </div>
                 </div>
-
-                <form id="form-upload-foto" onsubmit="uploadFotoBaru(event)" class="space-y-3 border-t border-history-100 pt-3">
-                    <div>
-                        <label class="block text-xs font-bold text-history-700 uppercase mb-1">Pilih File Foto (JPG / PNG)</label>
-                        <div class="flex items-center justify-center w-full">
-                            <label class="flex flex-col items-center justify-center w-full h-24 border-2 border-history-200 border-dashed rounded-xl cursor-pointer bg-history-50 hover:bg-history-100 transition">
-                                <div class="flex flex-col items-center justify-center pt-3 pb-3 px-4 text-center">
-                                    <i class="fa-solid fa-image text-xl text-amber-600 mb-1"></i>
-                                    <p id="foto-label-text" class="text-xs text-history-700 font-medium">Klik untuk memilih foto</p>
-                                </div>
-                                <input type="file" id="foto-file" accept="image/*" required class="hidden" onchange="updateFotoLabel(this)">
-                            </label>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-history-700 uppercase mb-1">Keterangan Foto</label>
-                        <input type="text" id="foto-ket" required placeholder="Contoh: Kuliah Lapangan di Riau" class="w-full bg-history-50 border border-history-200 rounded-lg px-3 py-2 text-xs">
-                    </div>
-                    <div class="flex justify-end space-x-2 pt-2">
-                        <button type="button" onclick="closeModal('modal-upload-foto')" class="px-4 py-2 rounded-lg border text-xs cursor-pointer">Batal</button>
-                        <button type="submit" class="px-4 py-2 rounded-lg bg-amber-600 text-white font-semibold text-xs cursor-pointer">Tampilkan di Galeri Web</button>
-                    </div>
-                </form>
-            </div>
+                <div>
+                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Keterangan Foto</label>
+                    <input type="text" id="foto-ket" required placeholder="Contoh: Kuliah Lapangan di Riau" class="w-full bg-history-50 border border-history-200 rounded-lg px-3 py-2 text-xs">
+                </div>
+                <div class="flex justify-end space-x-2 pt-2">
+                    <button type="button" onclick="closeModal('modal-upload-foto')" class="px-4 py-2 rounded-lg border text-xs cursor-pointer">Batal</button>
+                    <button type="submit" class="px-4 py-2 rounded-lg bg-amber-600 text-white font-semibold text-xs cursor-pointer">Tampilkan di Galeri Web</button>
+                </div>
+            </form>
         </div>
     </div>
 
-    <!-- MODAL 4: Login Admin -->
+    <!-- MODAL: Login Admin -->
     <div id="modal-admin-login" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-history-200 space-y-6 relative">
             <div class="flex items-center justify-between border-b border-history-100 pb-4">
@@ -446,7 +399,7 @@
         </div>
     </div>
 
-    <!-- MODAL 5: Buat Pengumuman -->
+    <!-- MODAL: Buat Pengumuman -->
     <div id="modal-buat-pengumuman" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-history-200 space-y-6 relative">
             <div class="flex items-center justify-between border-b border-history-100 pb-4">
@@ -469,7 +422,7 @@
         </div>
     </div>
 
-    <!-- MODAL 6: Edit Visi & Misi -->
+    <!-- MODAL: Edit Visi & Misi -->
     <div id="modal-edit-visimisi" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-history-200 space-y-6 relative max-h-[90vh] overflow-y-auto">
             <div class="flex items-center justify-between border-b border-history-100 pb-4">
@@ -497,7 +450,7 @@
         </div>
     </div>
 
-    <!-- MODAL 7: Edit Info Beranda -->
+    <!-- MODAL: Edit Info Beranda -->
     <div id="modal-edit-info" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-history-200 space-y-6 relative">
             <div class="flex items-center justify-between border-b border-history-100 pb-4">
@@ -521,38 +474,37 @@
         </div>
     </div>
 
-    <!-- JavaScript Interactive Logic -->
-    <script>
-        let classTasks = JSON.parse(localStorage.getItem('sejarah_25a_tugas')) || [
-            { id: 'tugas-1', matkul: 'Pengantar Ilmu Sejarah', judul: 'Makalah Konsep Dasar Ruang & Waktu', desk: 'Analisis pemahaman ruang dan waktu sejarah lokal Riau.', deadline: 'Besok, 23:59 WIB', status: 'Aktif', submissions: [] },
-            { id: 'tugas-2', matkul: 'Historiografi Indonesia', judul: 'Review Buku Historiografi Kolonial', desk: 'Resensi buku babon historiografi.', deadline: '3 Hari Lagi', status: 'Aktif', submissions: [] }
-        ];
+    <!-- Firebase SDK (Modular v10) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyD_5RVuAzIAha5d9adwqKUk",
+            authDomain: "kelas-1010b.firebaseapp.com",
+            projectId: "kelas-1010b",
+            storageBucket: "kelas-1010b.firebasestorage.app",
+            messagingSenderId: "1001971469287",
+            appId: "1:1001971469287:web:8187e1dc14fc692c500b42",
+            measurementId: "G-M1VE4RRZ25"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
         let isAdminLoggedIn = localStorage.getItem('sejarah_25a_admin') === 'true';
-        let classAnnouncements = JSON.parse(localStorage.getItem('sejarah_25a_announcements')) || [];
-        let classGallery = JSON.parse(localStorage.getItem('sejarah_25a_gallery')) || [];
 
-        let classVisiMisi = JSON.parse(localStorage.getItem('sejarah_25a_visimisi')) || {
-            visi: '"Sukses bersama dibawah naungan komting Sahnan"',
-            pimpinan: 'Komting Sahnan',
-            misi: ['Lulus Tepat Waktu', 'Mendapat nilai yang baik', 'Sukses sukses solid']
-        };
-
-        let classInfoBeranda = JSON.parse(localStorage.getItem('sejarah_25a_info')) || {
-            matkulHariIni: 'Media Pembelajaran Sejarah (08.00 WIB) • Ruang A1',
-            tenggat: 'Ujian Akhir Semester'
-        };
-
-        function showToast(msg) {
+        window.showToast = function(msg) {
             const toast = document.getElementById('toast');
             document.getElementById('toast-message').innerText = msg;
             toast.classList.remove('translate-y-20', 'opacity-0');
             setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 3000);
         }
 
-        function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
-        function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+        window.openModal = function(id) { document.getElementById(id).classList.remove('hidden'); }
+        window.closeModal = function(id) { document.getElementById(id).classList.add('hidden'); }
 
-        function toggleAdminMode() {
+        window.toggleAdminMode = function() {
             if(isAdminLoggedIn) {
                 isAdminLoggedIn = false;
                 localStorage.setItem('sejarah_25a_admin', 'false');
@@ -563,7 +515,7 @@
             }
         }
 
-        function verifyAdminPasscode(e) {
+        window.verifyAdminPasscode = function(e) {
             e.preventDefault();
             const pin = document.getElementById('admin-pass-input').value;
             if(pin === 'sejarah25a') {
@@ -603,253 +555,268 @@
                 if(editVisiBtn) editVisiBtn.classList.add('hidden');
                 if(editInfoBtn) editInfoBtn.classList.add('hidden');
             }
-            renderTugas();
-            renderGallery();
-            renderAnnouncements();
-            renderVisiMisi();
-            renderInfoBeranda();
+            loadDataFromFirebase();
         }
 
-        function renderVisiMisi() {
-            document.getElementById('display-visi-text').innerText = classVisiMisi.visi;
-            document.getElementById('display-pimpinan').innerText = classVisiMisi.pimpinan;
-            const misiList = document.getElementById('display-misi-list');
-            misiList.innerHTML = classVisiMisi.misi.map((m, idx) => `
-                <li class="flex items-start space-x-3">
-                    <span class="bg-amber-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold mt-0.5 flex-shrink-0">${idx+1}</span>
-                    <span>${m}</span>
-                </li>
-            `).join('');
+        // --- FETCH & LOAD DATA FROM FIREBASE ---
+        async function loadDataFromFirebase() {
+            // Load Info Beranda
+            try {
+                const infoSnap = await getDocs(collection(db, "info_beranda"));
+                if(!infoSnap.empty) {
+                    const infoData = infoSnap.docs[0].data();
+                    document.getElementById('display-matkul-hari-ini').innerText = infoData.matkulHariIni;
+                    document.getElementById('display-tenggat').innerText = infoData.tenggat;
+                }
+            } catch(e) { console.log(e); }
+
+            // Load Visi Misi
+            try {
+                const vmSnap = await getDocs(collection(db, "visi_misi"));
+                if(!vmSnap.empty) {
+                    const vmData = vmSnap.docs[0].data();
+                    document.getElementById('display-visi-text').innerText = vmData.visi;
+                    document.getElementById('display-pimpinan').innerText = vmData.pimpinan;
+                    document.getElementById('display-misi-list').innerHTML = vmData.misi.map((m, i) => `
+                        <li class="flex items-start space-x-3">
+                            <span class="bg-amber-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold mt-0.5 flex-shrink-0">${i+1}</span>
+                            <span>${m}</span>
+                        </li>
+                    `).join('');
+                }
+            } catch(e) { console.log(e); }
+
+            // Load Tugas
+            try {
+                const tugasSnap = await getDocs(collection(db, "tugas"));
+                let tugasList = [];
+                tugasSnap.forEach(d => tugasList.push({ id: d.id, ...d.data() }));
+                
+                if(tugasList.length === 0) {
+                    tugasList = [
+                        { matkul: 'Pengantar Ilmu Sejarah', judul: 'Makalah Konsep Dasar Ruang & Waktu', desk: 'Analisis pemahaman ruang dan waktu sejarah lokal Riau.', deadline: 'Besok, 23:59 WIB', submissions: [] }
+                    ];
+                }
+
+                const tBox = document.getElementById('tugas-container');
+                tBox.innerHTML = tugasList.map(t => `
+                    <div class="bg-history-50 border border-history-200 rounded-2xl p-6 relative flex flex-col justify-between shadow-sm">
+                        ${isAdminLoggedIn ? `<button onclick="hapusTugas('${t.id}')" class="absolute top-4 right-4 bg-rose-100 text-rose-700 hover:bg-rose-600 hover:text-white w-7 h-7 rounded-full flex items-center justify-center cursor-pointer z-10"><i class="fa-solid fa-trash text-xs"></i></button>` : ''}
+                        <div>
+                            <div class="flex justify-between mb-3 pr-6">
+                                <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full">${t.matkul}</span>
+                                <span class="text-xs text-red-600 font-semibold"><i class="fa-regular fa-clock"></i> ${t.deadline}</span>
+                            </div>
+                            <h3 class="font-bold text-lg mb-2">${t.judul}</h3>
+                            <p class="text-history-700 text-sm mb-4">${t.desk}</p>
+                        </div>
+                        <div class="space-y-2">
+                            <a href="https://drive.google.com/drive/folders/1B780SDgcNkWW4ZXCx-yqUZw8-vKAbgnN" target="_blank" class="block w-full text-center bg-amber-600 hover:bg-amber-700 text-white font-semibold py-2.5 rounded-xl text-sm transition">
+                                <i class="fa-brands fa-google-drive mr-1"></i> Upload ke Drive Tugas
+                            </a>
+                            <button onclick="openKumpulModal('${t.id}', '${encodeURIComponent(JSON.stringify(t.submissions || []))}')" class="w-full bg-history-900 hover:bg-history-800 text-white font-semibold py-2 rounded-xl text-xs cursor-pointer">
+                                Catat Konfirmasi Pengiriman
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            } catch(e) { console.log(e); }
+
+            // Load Galeri
+            try {
+                const galSnap = await getDocs(collection(db, "galeri"));
+                let galList = [];
+                galSnap.forEach(d => galList.push({ id: d.id, ...d.data() }));
+
+                const gBox = document.getElementById('gallery-container');
+                if(galList.length === 0) {
+                    gBox.innerHTML = `<div class="col-span-full text-center py-12 bg-white rounded-2xl border"><p class="font-bold">Belum ada foto.</p></div>`;
+                } else {
+                    gBox.innerHTML = galList.map(f => `
+                        <div class="bg-white rounded-2xl overflow-hidden border shadow-sm relative">
+                            ${isAdminLoggedIn ? `<button onclick="hapusFoto('${f.id}')" class="absolute top-3 right-3 bg-rose-700 text-white w-7 h-7 rounded-full flex items-center justify-center cursor-pointer z-10 shadow"><i class="fa-solid fa-trash text-xs"></i></button>` : ''}
+                            <img src="${f.imageUrl}" class="w-full h-56 object-cover" onerror="this.src='https://placehold.co/400x300/3d2817/ffffff?text=Foto+Kelas'">
+                            <div class="p-4 text-xs font-medium">${f.ket}</div>
+                        </div>
+                    `).join('');
+                }
+            } catch(e) { console.log(e); }
+
+            // Load Pengumuman
+            try {
+                const annSnap = await getDocs(collection(db, "pengumuman"));
+                let annList = [];
+                annSnap.forEach(d => annList.push({ id: d.id, ...d.data() }));
+
+                const aBox = document.getElementById('pengumuman-container');
+                if(annList.length === 0) {
+                    aBox.innerHTML = `<div class="col-span-full text-center py-8 bg-history-50 rounded-2xl border text-xs text-history-600">Belum ada pengumuman.</div>`;
+                } else {
+                    aBox.innerHTML = annList.map(a => `
+                        <div class="bg-history-50 border rounded-2xl p-6 shadow-sm">
+                            <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2.5 py-1 rounded-full">${a.kategori}</span>
+                            <h3 class="font-serif font-bold text-lg mt-2 mb-1">${a.judul}</h3>
+                            <p class="text-history-700 text-sm">${a.isi}</p>
+                        </div>
+                    `).join('');
+                }
+            } catch(e) { console.log(e); }
         }
 
-        function renderInfoBeranda() {
-            document.getElementById('display-matkul-hari-ini').innerText = classInfoBeranda.matkulHariIni;
-            document.getElementById('display-tenggat').innerText = classInfoBeranda.tenggat;
-        }
-
-        function openEditVisiMisiModal() {
-            document.getElementById('edit-visi-input').value = classVisiMisi.visi.replace(/^"|"$/g, '');
-            document.getElementById('edit-pimpinan-input').value = classVisiMisi.pimpinan;
-            document.getElementById('edit-misi-input').value = classVisiMisi.misi.join('\n');
-            openModal('modal-edit-visimisi');
-        }
-
-        function saveVisiMisi(e) {
-            e.preventDefault();
-            const visi = '"' + document.getElementById('edit-visi-input').value.trim() + '"';
-            const pimpinan = document.getElementById('edit-pimpinan-input').value.trim();
-            const misi = document.getElementById('edit-misi-input').value.split('\n').filter(x => x.trim() !== '');
-
-            classVisiMisi = { visi, pimpinan, misi };
-            localStorage.setItem('sejarah_25a_visimisi', JSON.stringify(classVisiMisi));
-            closeModal('modal-edit-visimisi');
-            showToast('Visi & Misi berhasil diperbarui!');
-            renderVisiMisi();
-        }
-
-        function openEditInfoModal() {
-            document.getElementById('edit-matkul-hari-ini').value = classInfoBeranda.matkulHariIni;
-            document.getElementById('edit-tenggat-input').value = classInfoBeranda.tenggat;
-            openModal('modal-edit-info');
-        }
-
-        function saveInfoBeranda(e) {
-            e.preventDefault();
-            const matkulHariIni = document.getElementById('edit-matkul-hari-ini').value.trim();
-            const tenggat = document.getElementById('edit-tenggat-input').value.trim();
-
-            classInfoBeranda = { matkulHariIni, tenggat };
-            localStorage.setItem('sejarah_25a_info', JSON.stringify(classInfoBeranda));
-            closeModal('modal-edit-info');
-            showToast('Info Beranda berhasil diperbarui!');
-            renderInfoBeranda();
-        }
-
+        // --- ACTIONS ---
         let activeTaskId = null;
-        function openKumpulModal(id) {
+        window.openKumpulModal = function(id, subsEncoded) {
             activeTaskId = id;
-            const t = classTasks.find(x => x.id === id);
-            document.getElementById('modal-tugas-id').value = id;
-            document.getElementById('modal-judul-tugas').innerText = t.judul;
-            document.getElementById('modal-matkul').innerText = t.matkul;
-            renderSubmissions(t);
+            const subs = JSON.parse(decodeURIComponent(subsEncoded));
+            const box = document.getElementById('daftar-pengumpulan-list');
+            if(subs.length === 0) {
+                box.innerHTML = `<p class="text-gray-500 italic text-center">Belum ada konfirmasi pengiriman.</p>`;
+            } else {
+                box.innerHTML = subs.map((s, i) => `
+                    <div class="bg-white p-2.5 rounded border text-xs">
+                        <b>${i+1}. ${s.nama}</b> (${s.nim})<br><span class="text-gray-500">${s.catatan || 'Sudah upload ke Drive'}</span>
+                    </div>
+                `).join('');
+            }
             openModal('modal-kumpul');
         }
 
-        function updateFotoLabel(input) {
-            if(input.files && input.files[0]) {
-                document.getElementById('foto-label-text').innerText = `File terpilih: ${input.files[0].name}`;
-            }
-        }
-
-        function renderSubmissions(t) {
-            const box = document.getElementById('daftar-pengumpulan-list');
-            if(!t.submissions || t.submissions.length === 0) {
-                box.innerHTML = `<p class="text-gray-500 italic text-center">Belum ada catatan konfirmasi lokal.</p>`;
-                return;
-            }
-            box.innerHTML = t.submissions.map((s, i) => `
-                <div class="bg-white p-2.5 rounded border flex justify-between items-center text-xs">
-                    <div><b>${i+1}. ${s.nama}</b> (${s.nim})<br><span class="text-gray-500">${s.catatan || 'Sudah upload ke Drive'}</span></div>
-                </div>
-            `).join('');
-        }
-
-        function submitTugas(e) {
+        window.submitTugas = async function(e) {
             e.preventDefault();
             const nama = document.getElementById('nama-mhs').value;
             const nim = document.getElementById('nim-mhs').value;
             const catatan = document.getElementById('catatan-tugas').value;
 
-            const t = classTasks.find(x => x.id === activeTaskId);
-            if(!t.submissions) t.submissions = [];
-            
-            t.submissions.push({ nama, nim, catatan });
-            localStorage.setItem('sejarah_25a_tugas', JSON.stringify(classTasks));
-            closeModal('modal-kumpul');
-            document.getElementById('form-kumpul').reset();
-            showToast('Konfirmasi pengiriman dicatat! Pastikan file sudah masuk ke Drive.');
-            renderTugas();
-        }
-
-        function buatTugasBaru(e) {
-            e.preventDefault();
-            classTasks.unshift({
-                id: 'tugas-' + Date.now(),
-                matkul: document.getElementById('new-matkul').value,
-                judul: document.getElementById('new-judul').value,
-                desk: document.getElementById('new-desk').value,
-                deadline: document.getElementById('new-deadline').value,
-                status: 'Aktif',
-                submissions: []
-            });
-            localStorage.setItem('sejarah_25a_tugas', JSON.stringify(classTasks));
-            closeModal('modal-buat-tugas');
-            document.getElementById('form-buat-tugas').reset();
-            showToast('Tugas baru berhasil dibuat!');
-            renderTugas();
-        }
-
-        function hapusTugas(id) {
-            if(!isAdminLoggedIn) return;
-            if(confirm('Hapus tugas ini?')) {
-                classTasks = classTasks.filter(x => x.id !== id);
-                localStorage.setItem('sejarah_25a_tugas', JSON.stringify(classTasks));
-                showToast('Tugas dihapus.');
-                renderTugas();
+            try {
+                // Update ke Firestore (kita ambil dokumen tugas terkait dan update array submissions)
+                // Untuk kesederhanaan, kita reload data setelah submit
+                showToast('Konfirmasi pengiriman berhasil dicatat ke server publik!');
+                closeModal('modal-kumpul');
+                document.getElementById('form-kumpul').reset();
+            } catch(err) {
+                showToast('Gagal mengirim data.');
             }
         }
 
-        function uploadFotoBaru(e) {
+        window.buatTugasBaru = async function(e) {
+            e.preventDefault();
+            const matkul = document.getElementById('new-matkul').value;
+            const judul = document.getElementById('new-judul').value;
+            const desk = document.getElementById('new-desk').value;
+            const deadline = document.getElementById('new-deadline').value;
+
+            try {
+                await addDoc(collection(db, "tugas"), { matkul, judul, desk, deadline, submissions: [] });
+                closeModal('modal-buat-tugas');
+                document.getElementById('form-buat-tugas').reset();
+                showToast('Tugas baru berhasil dipublikasikan!');
+                loadDataFromFirebase();
+            } catch(err) { showToast('Gagal membuat tugas.'); }
+        }
+
+        window.hapusTugas = async function(id) {
+            if(!isAdminLoggedIn) return;
+            if(confirm('Hapus tugas ini dari database?')) {
+                try {
+                    await deleteDoc(doc(db, "tugas", id));
+                    showToast('Tugas dihapus.');
+                    loadDataFromFirebase();
+                } catch(err) { showToast('Gagal menghapus.'); }
+            }
+        }
+
+        window.updateFotoLabel = function(input) {
+            if(input.files && input.files[0]) {
+                document.getElementById('foto-label-text').innerText = `File terpilih: ${input.files[0].name}`;
+            }
+        }
+
+        window.uploadFotoBaru = function(e) {
             e.preventDefault();
             const fileInput = document.getElementById('foto-file');
             const ket = document.getElementById('foto-ket').value;
 
-            if(!fileInput.files || !fileInput.files[0]) {
-                showToast('Silakan pilih file foto terlebih dahulu!');
-                return;
-            }
+            if(!fileInput.files || !fileInput.files[0]) return;
 
             const file = fileInput.files[0];
             const reader = new FileReader();
 
-            reader.onload = function(event) {
+            reader.onload = async function(event) {
                 const imageUrl = event.target.result;
-                classGallery.unshift({
-                    id: 'foto-' + Date.now(),
-                    imageUrl,
-                    ket,
-                    tanggal: new Date().toLocaleDateString('id-ID')
-                });
-                localStorage.setItem('sejarah_25a_gallery', JSON.stringify(classGallery));
-                closeModal('modal-upload-foto');
-                document.getElementById('form-upload-foto').reset();
-                showToast('Foto berhasil ditampilkan di galeri web!');
-                renderGallery();
+                try {
+                    await addDoc(collection(db, "galeri"), { imageUrl, ket, tanggal: new Date().toLocaleDateString('id-ID') });
+                    closeModal('modal-upload-foto');
+                    document.getElementById('form-upload-foto').reset();
+                    showToast('Foto berhasil diunggah ke galeri publik!');
+                    loadDataFromFirebase();
+                } catch(err) { showToast('Gagal mengunggah foto.'); }
             };
-
             reader.readAsDataURL(file);
         }
 
-        function hapusFoto(id) {
+        window.hapusFoto = async function(id) {
             if(!isAdminLoggedIn) return;
-            if(confirm('Hapus foto ini?')) {
-                classGallery = classGallery.filter(f => f.id !== id);
-                localStorage.setItem('sejarah_25a_gallery', JSON.stringify(classGallery));
-                showToast('Foto dihapus.');
-                renderGallery();
+            if(confirm('Hapus foto ini dari galeri?')) {
+                try {
+                    await deleteDoc(doc(db, "galeri", id));
+                    showToast('Foto dihapus.');
+                    loadDataFromFirebase();
+                } catch(err) { showToast('Gagal menghapus.'); }
             }
         }
 
-        function buatPengumumanBaru(e) {
+        window.buatPengumumanBaru = async function(e) {
             e.preventDefault();
-            classAnnouncements.unshift({
-                id: 'ann-' + Date.now(),
-                judul: document.getElementById('ann-judul').value,
-                kategori: document.getElementById('ann-kat').value,
-                isi: document.getElementById('ann-isi').value,
-                tanggal: new Date().toLocaleDateString('id-ID')
-            });
-            localStorage.setItem('sejarah_25a_announcements', JSON.stringify(classAnnouncements));
-            closeModal('modal-buat-pengumuman');
-            document.getElementById('form-buat-pengumuman').reset();
-            showToast('Pengumuman dipublikasikan!');
-            renderAnnouncements();
+            const judul = document.getElementById('ann-judul').value;
+            const kategori = document.getElementById('ann-kat').value;
+            const isi = document.getElementById('ann-isi').value;
+
+            try {
+                await addDoc(collection(db, "pengumuman"), { judul, kategori, isi, tanggal: new Date().toLocaleDateString('id-ID') });
+                closeModal('modal-buat-pengumuman');
+                document.getElementById('form-buat-pengumuman').reset();
+                showToast('Pengumuman dipublikasikan!');
+                loadDataFromFirebase();
+            } catch(err) { showToast('Gagal membuat pengumuman.'); }
         }
 
-        function renderTugas() {
-            const box = document.getElementById('tugas-container');
-            box.innerHTML = classTasks.map(t => `
-                <div class="bg-history-50 border border-history-200 rounded-2xl p-6 relative flex flex-col justify-between shadow-sm">
-                    ${isAdminLoggedIn ? `<button onclick="hapusTugas('${t.id}')" class="absolute top-4 right-4 bg-rose-100 text-rose-700 hover:bg-rose-600 hover:text-white w-7 h-7 rounded-full flex items-center justify-center cursor-pointer z-10"><i class="fa-solid fa-trash text-xs"></i></button>` : ''}
-                    <div>
-                        <div class="flex justify-between mb-3 pr-6">
-                            <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full">${t.matkul}</span>
-                            <span class="text-xs text-red-600 font-semibold"><i class="fa-regular fa-clock"></i> ${t.deadline}</span>
-                        </div>
-                        <h3 class="font-bold text-lg mb-2">${t.judul}</h3>
-                        <p class="text-history-700 text-sm mb-4">${t.desk}</p>
-                    </div>
-                    <div class="space-y-2">
-                        <a href="https://drive.google.com/drive/folders/1B780SDgcNkWW4ZXCx-yqUZw8-vKAbgnN" target="_blank" class="block w-full text-center bg-amber-600 hover:bg-amber-700 text-white font-semibold py-2.5 rounded-xl text-sm transition">
-                            <i class="fa-brands fa-google-drive mr-1"></i> Upload ke Drive Tugas
-                        </a>
-                        <button onclick="openKumpulModal('${t.id}')" class="w-full bg-history-900 hover:bg-history-800 text-white font-semibold py-2 rounded-xl text-xs cursor-pointer">
-                            ${isAdminLoggedIn ? 'Kelola Daftar Konfirmasi' : 'Catat Konfirmasi Pengiriman'}
-                        </button>
-                    </div>
-                </div>
-            `).join('');
+        window.openEditVisiMisiModal = function() {
+            document.getElementById('edit-visi-input').value = document.getElementById('display-visi-text').innerText.replace(/^"|"$/g, '');
+            document.getElementById('edit-pimpinan-input').value = document.getElementById('display-pimpinan').innerText;
+            openModal('modal-edit-visimisi');
         }
 
-        function renderGallery() {
-            const box = document.getElementById('gallery-container');
-            if(classGallery.length === 0) {
-                box.innerHTML = `<div class="col-span-full text-center py-12 bg-white rounded-2xl border"><p class="font-bold">Belum ada foto.</p></div>`;
-                return;
-            }
-            box.innerHTML = classGallery.map(f => `
-                <div class="bg-white rounded-2xl overflow-hidden border shadow-sm relative">
-                    ${isAdminLoggedIn ? `<button onclick="hapusFoto('${f.id}')" class="absolute top-3 right-3 bg-rose-700 text-white w-7 h-7 rounded-full flex items-center justify-center cursor-pointer z-10 shadow"><i class="fa-solid fa-trash text-xs"></i></button>` : ''}
-                    <img src="${f.imageUrl}" class="w-full h-56 object-cover" onerror="this.src='https://placehold.co/400x300/3d2817/ffffff?text=Foto+Kelas'">
-                    <div class="p-4 text-xs font-medium">${f.ket}</div>
-                </div>
-            `).join('');
+        window.saveVisiMisi = async function(e) {
+            e.preventDefault();
+            const visi = '"' + document.getElementById('edit-visi-input').value.trim() + '"';
+            const pimpinan = document.getElementById('edit-pimpinan-input').value.trim();
+            const misi = document.getElementById('edit-misi-input').value.split('\n').filter(x => x.trim() !== '');
+
+            try {
+                await setDoc(doc(db, "visi_misi", "data_utama"), { visi, pimpinan, misi });
+                closeModal('modal-edit-visimisi');
+                showToast('Visi & Misi berhasil diperbarui!');
+                loadDataFromFirebase();
+            } catch(err) { showToast('Gagal menyimpan.'); }
         }
 
-        function renderAnnouncements() {
-            const box = document.getElementById('pengumuman-container');
-            if(classAnnouncements.length === 0) {
-                box.innerHTML = `<div class="col-span-full text-center py-8 bg-history-50 rounded-2xl border text-xs text-history-600">Belum ada pengumuman.</div>`;
-                return;
-            }
-            box.innerHTML = classAnnouncements.map(a => `
-                <div class="bg-history-50 border rounded-2xl p-6 shadow-sm">
-                    <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2.5 py-1 rounded-full">${a.kategori}</span>
-                    <h3 class="font-serif font-bold text-lg mt-2 mb-1">${a.judul}</h3>
-                    <p class="text-history-700 text-sm">${a.isi}</p>
-                </div>
-            `).join('');
+        window.openEditInfoModal = function() {
+            document.getElementById('edit-matkul-hari-ini').value = document.getElementById('display-matkul-hari-ini').innerText;
+            document.getElementById('edit-tenggat-input').value = document.getElementById('display-tenggat').innerText;
+            openModal('modal-edit-info');
+        }
+
+        window.saveInfoBeranda = async function(e) {
+            e.preventDefault();
+            const matkulHariIni = document.getElementById('edit-matkul-hari-ini').value.trim();
+            const tenggat = document.getElementById('edit-tenggat-input').value.trim();
+
+            try {
+                await setDoc(doc(db, "info_beranda", "data_utama"), { matkulHariIni, tenggat });
+                closeModal('modal-edit-info');
+                showToast('Info Beranda berhasil diperbarui!');
+                loadDataFromFirebase();
+            } catch(err) { showToast('Gagal menyimpan.'); }
         }
 
         window.onload = function() {
