@@ -301,7 +301,7 @@
         </div>
     </footer>
 
-    <!-- MODAL 1: Kumpul Tugas -->
+    <!-- MODAL 1: Kumpul Tugas (Dengan Upload File Langsung) -->
     <div id="modal-kumpul" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-history-200 space-y-6 relative max-h-[90vh] overflow-y-auto">
             <div class="flex items-center justify-between border-b border-history-100 pb-4">
@@ -325,9 +325,17 @@
                     <input type="text" id="nim-mhs" required placeholder="Contoh: 2505112001" class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-600 transition">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Link File Tugas (Google Drive / PDF)</label>
-                    <input type="url" id="link-tugas" required placeholder="https://drive.google.com/..." class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-600 transition">
-                    <p class="text-[10px] text-amber-700 mt-1">Simpan file di <a href="https://drive.google.com/drive/folders/13usJC_eMNo0xeldGETmGjEyKepZbc7nv" target="_blank" class="underline font-bold">Google Drive Kelas 25A</a></p>
+                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Unggah File Tugas (.pdf, .doc, .docx, .zip)</label>
+                    <div class="flex items-center justify-center w-full">
+                        <label class="flex flex-col items-center justify-center w-full h-28 border-2 border-history-200 border-dashed rounded-xl cursor-pointer bg-history-50 hover:bg-history-100 transition">
+                            <div class="flex flex-col items-center justify-center pt-4 pb-4 px-4 text-center">
+                                <i class="fa-solid fa-file-arrow-up text-2xl text-amber-600 mb-1"></i>
+                                <p id="file-label-text" class="text-xs text-history-700 font-medium">Klik untuk memilih file tugas</p>
+                                <p class="text-[10px] text-history-500 mt-0.5">Format: PDF, Word, ZIP (Maks. 10MB)</p>
+                            </div>
+                            <input type="file" id="tugas-file" accept=".pdf,.doc,.docx,.zip,.rar" required class="hidden" onchange="updateFileLabel(this)">
+                        </label>
+                    </div>
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-history-700 uppercase mb-1">Catatan (Opsional)</label>
@@ -503,8 +511,15 @@
             document.getElementById('modal-tugas-id').value = id;
             document.getElementById('modal-judul-tugas').innerText = t.judul;
             document.getElementById('modal-matkul').innerText = t.matkul;
+            document.getElementById('file-label-text').innerText = "Klik untuk memilih file tugas";
             renderSubmissions(t);
             openModal('modal-kumpul');
+        }
+
+        function updateFileLabel(input) {
+            if(input.files && input.files[0]) {
+                document.getElementById('file-label-text').innerText = `File terpilih: ${input.files[0].name}`;
+            }
         }
 
         function renderSubmissions(t) {
@@ -519,7 +534,7 @@
             }
             box.innerHTML = t.submissions.map((s, i) => `
                 <div class="bg-white p-2 rounded border flex justify-between items-center text-xs">
-                    <div><b>${i+1}. ${s.nama}</b> (${s.nim})<br><a href="${s.link}" target="_blank" class="text-amber-700 underline">Buka File</a></div>
+                    <div><b>${i+1}. ${s.nama}</b> (${s.nim})<br><span class="text-amber-800 font-semibold">${s.fileName}</span></div>
                     <span class="text-gray-500">${s.catatan || '-'}</span>
                 </div>
             `).join('');
@@ -529,17 +544,23 @@
             e.preventDefault();
             const nama = document.getElementById('nama-mhs').value;
             const nim = document.getElementById('nim-mhs').value;
-            const link = document.getElementById('link-tugas').value;
+            const fileInput = document.getElementById('tugas-file');
             const catatan = document.getElementById('catatan-tugas').value;
 
+            if(!fileInput.files || !fileInput.files[0]) {
+                showToast('Silakan pilih file tugas terlebih dahulu!');
+                return;
+            }
+
+            const fileName = fileInput.files[0].name;
             const t = classTasks.find(x => x.id === activeTaskId);
             if(!t.submissions) t.submissions = [];
-            t.submissions.push({ nama, nim, link, catatan });
+            t.submissions.push({ nama, nim, fileName, catatan });
 
             localStorage.setItem('sejarah_25a_tugas', JSON.stringify(classTasks));
             closeModal('modal-kumpul');
             document.getElementById('form-kumpul').reset();
-            showToast('Tugas berhasil dikumpulkan!');
+            showToast('Tugas berhasil dikirim!');
             renderTugas();
         }
 
