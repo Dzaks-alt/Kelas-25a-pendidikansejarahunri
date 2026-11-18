@@ -301,7 +301,7 @@
         </div>
     </footer>
 
-    <!-- MODAL: Kumpul Tugas (Dilengkapi Pilihan Tombol Upload Tugas / Link Drive) -->
+    <!-- MODAL: Kumpul Tugas -->
     <div id="modal-kumpul" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-history-200 space-y-6 relative max-h-[90vh] overflow-y-auto">
             <div class="flex items-center justify-between border-b border-history-100 pb-4">
@@ -320,12 +320,12 @@
                     <p class="text-xs font-bold text-history-900"><i class="fa-solid fa-cloud-arrow-up text-amber-600 mr-1"></i> Langkah 1: Unggah file tugas Anda</p>
                     <div class="flex gap-2">
                         <a id="btn-link-drive" href="https://drive.google.com/drive/folders/1B780SDgcNkWW4ZXCx-yqUZw8-vKAbgnN" target="_blank" class="flex-1 text-center bg-amber-600 hover:bg-amber-700 text-white font-semibold py-2 px-3 rounded-lg text-xs transition shadow">
-                            <i class="fa-brands fa-google-drive mr-1"></i> Upload ke Google Drive
+                            <i class="fa-brands fa-google-drive mr-1"></i> Upload ke Google Drive Kelas
                         </a>
                     </div>
                 </div>
 
-                <!-- Bagian Konfirmasi (Mahasiswa isi, Admin bisa melihat list lengkap) -->
+                <!-- Bagian Konfirmasi -->
                 <div class="border-t border-history-100 pt-2">
                     <h4 id="label-daftar-pengumpulan" class="text-xs font-bold text-history-800 uppercase mb-3">
                         <i class="fa-solid fa-users-viewfinder mr-1"></i> Daftar Mahasiswa Mengumpulkan:
@@ -371,7 +371,7 @@
         </div>
     </div>
 
-    <!-- MODAL: Unggah Foto Kenangan -->
+    <!-- MODAL: Unggah Foto Kenangan (Dengan Batasan 100MB) -->
     <div id="modal-upload-foto" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-history-200 space-y-6 relative">
             <div class="flex items-center justify-between border-b border-history-100 pb-4">
@@ -380,12 +380,12 @@
             </div>
             <form id="form-upload-foto" onsubmit="uploadFotoBaru(event)" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Pilih File Foto (JPG / PNG)</label>
+                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Pilih File Foto (Maksimal 100MB)</label>
                     <div class="flex items-center justify-center w-full">
                         <label class="flex flex-col items-center justify-center w-full h-24 border-2 border-history-200 border-dashed rounded-xl cursor-pointer bg-history-50 hover:bg-history-100 transition">
                             <div class="flex flex-col items-center justify-center pt-3 pb-3 px-4 text-center">
                                 <i class="fa-solid fa-image text-xl text-amber-600 mb-1"></i>
-                                <p id="foto-label-text" class="text-xs text-history-700 font-medium">Klik untuk memilih foto</p>
+                                <p id="foto-label-text" class="text-xs text-history-700 font-medium">Klik untuk memilih foto (Max 100MB)</p>
                             </div>
                             <input type="file" id="foto-file" accept="image/*" required class="hidden" onchange="updateFotoLabel(this)">
                         </label>
@@ -711,7 +711,6 @@
             const box = document.getElementById('daftar-pengumpulan-list');
             const labelDaftar = document.getElementById('label-daftar-pengumpulan');
 
-            // HAK AKSES PRIVASI: Hanya Admin yang bisa melihat daftar mahasiswa yang mengumpulkan
             if(isAdminLoggedIn) {
                 labelDaftar.style.display = 'block';
                 box.style.display = 'block';
@@ -726,7 +725,6 @@
                     `).join('');
                 }
             } else {
-                // Sembunyikan daftar pengumpulan dari mahasiswa biasa agar tetap privat
                 labelDaftar.style.display = 'none';
                 box.style.display = 'none';
             }
@@ -789,9 +787,20 @@
             }
         }
 
+        // Validasi Ukuran File Maksimal 100MB
         window.updateFotoLabel = function(input) {
             if(input.files && input.files[0]) {
-                document.getElementById('foto-label-text').innerText = `File terpilih: ${input.files[0].name}`;
+                const file = input.files[0];
+                const maxSize = 100 * 1024 * 1024; // 100MB dalam bytes
+
+                if(file.size > maxSize) {
+                    showToast('Peringatan: Ukuran file melebihi 100MB!');
+                    input.value = ''; // Reset input file
+                    document.getElementById('foto-label-text').innerText = 'Klik untuk memilih foto (Max 100MB)';
+                    return;
+                }
+
+                document.getElementById('foto-label-text').innerText = `File terpilih: ${file.name} (${(file.size / (1024*1024)).toFixed(1)} MB)`;
             }
         }
 
@@ -803,6 +812,13 @@
             if(!fileInput.files || !fileInput.files[0]) return;
 
             const file = fileInput.files[0];
+            const maxSize = 100 * 1024 * 1024;
+
+            if(file.size > maxSize) {
+                showToast('Gagal: Ukuran file foto tidak boleh lebih dari 100MB.');
+                return;
+            }
+
             const reader = new FileReader();
 
             reader.onload = async function(event) {
@@ -815,6 +831,7 @@
                     });
                     closeModal('modal-upload-foto');
                     document.getElementById('form-upload-foto').reset();
+                    document.getElementById('foto-label-text').innerText = 'Klik untuk memilih foto (Max 100MB)';
                     showToast('Foto berhasil diunggah ke galeri publik!');
                     loadDataFromFirebase();
                 } catch(err) { showToast('Gagal mengunggah foto.'); }
