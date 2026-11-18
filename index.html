@@ -371,7 +371,7 @@
         </div>
     </div>
 
-    <!-- MODAL: Unggah Foto Kenangan (Mendukung Berbagai Format & Max 100MB) -->
+    <!-- MODAL: Unggah Foto Kenangan (Mendukung Berbagai Format & Max 100MB dengan Kompresi Otomatis) -->
     <div id="modal-upload-foto" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-history-200 space-y-6 relative">
             <div class="flex items-center justify-between border-b border-history-100 pb-4">
@@ -385,9 +385,8 @@
                         <label class="flex flex-col items-center justify-center w-full h-24 border-2 border-history-200 border-dashed rounded-xl cursor-pointer bg-history-50 hover:bg-history-100 transition">
                             <div class="flex flex-col items-center justify-center pt-3 pb-3 px-4 text-center">
                                 <i class="fa-solid fa-image text-xl text-amber-600 mb-1"></i>
-                                <p id="foto-label-text" class="text-xs text-history-700 font-medium">Klik untuk memilih file (JPG, PNG, HEIC, WEBP, dll)</p>
+                                <p id="foto-label-text" class="text-xs text-history-700 font-medium">Klik untuk memilih file (Max 100MB)</p>
                             </div>
-                            <!-- Atribut accept diubah agar mengizinkan semua jenis gambar/file umum -->
                             <input type="file" id="foto-file" accept="image/*,.heic,.heif,.webp" required class="hidden" onchange="updateFotoLabel(this)">
                         </label>
                     </div>
@@ -786,7 +785,6 @@
             }
         }
 
-        // Validasi Ukuran File (Maksimal 100MB)
         window.updateFotoLabel = function(input) {
             if(input.files && input.files[0]) {
                 const file = input.files[0];
@@ -803,6 +801,7 @@
             }
         }
 
+        // Fungsi Upload & Kompres Otomatis agar aman masuk Database Firestore
         window.uploadFotoBaru = function(e) {
             e.preventDefault();
             const fileInput = document.getElementById('foto-file');
@@ -818,24 +817,52 @@
                 return;
             }
 
-            const reader = new FileReader();
+            showToast('Memproses & mengompres foto...');
 
-            reader.onload = async function(event) {
-                const imageUrl = event.target.result;
-                try {
-                    await addDoc(collection(db, "galeri"), { 
-                        imageUrl, 
-                        ket, 
-                        tanggal: new Date().toLocaleDateString('id-ID') 
-                    });
-                    closeModal('modal-upload-foto');
-                    document.getElementById('form-upload-foto').reset();
-                    document.getElementById('foto-label-text').innerText = 'Klik untuk memilih file (Max 100MB)';
-                    showToast('Foto berhasil diunggah ke galeri publik!');
-                    loadDataFromFirebase();
-                } catch(err) { 
-                    // Jika gagal karena Firestore membatasi ukuran data dokumen (> 1MB)
-                    showToast('Gagal: File terlalu besar untuk database Firestore (Maks 1MB). Pilih foto yang ukurannya lebih kecil.'); 
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = new Image();
+                img.src = event.target.result;
+                img.onload = async function() {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+                    
+                    const MAX_WIDTH = 1024;
+                    const MAX_HEIGHT = 1024;
+                    if (width > height) {
+                        if (width > MAX_WIDTH) {
+                            height *= MAX_WIDTH / width;
+                            width = MAX_WIDTH;
+                        }
+                    } else {
+                        if (height > MAX_HEIGHT) {
+                            width *= MAX_HEIGHT / height;
+                            height = MAX_HEIGHT;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    
+                    const imageUrl = canvas.toDataURL('image/jpeg', 0.7);
+
+                    try {
+                        await addDoc(collection(db, "galeri"), { 
+                            imageUrl, 
+                            ket, 
+                            tanggal: new Date().toLocaleDateString('id-ID') 
+                        });
+                        closeModal('modal-upload-foto');
+                        document.getElementById('form-upload-foto').reset();
+                        document.getElementById('foto-label-text').innerText = 'Klik untuk memilih file (Max 100MB)';
+                        showToast('Foto berhasil diunggah ke galeri publik!');
+                        loadDataFromFirebase();
+                    } catch(err) { 
+                        showToast('Gagal menyimpan ke database.'); 
+                    }
                 }
             };
             reader.readAsDataURL(file);
