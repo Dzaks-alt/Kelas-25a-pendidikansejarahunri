@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pendidikan Sejarah 25A UNRI | Portal Kelas Resmi</title>
     <!-- Tailwind CSS -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -245,10 +244,16 @@
                     <h2 class="font-serif text-3xl sm:text-4xl font-bold text-history-900">Pengumpulan Tugas Kelas</h2>
                     <p class="text-history-700 text-sm sm:text-base">Kumpulkan tugas mata kuliah Anda di sini secara sistematis.</p>
                 </div>
-                <button onclick="openModal('modal-buat-tugas')" class="mt-4 md:mt-0 bg-history-900 hover:bg-history-800 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition flex items-center space-x-2 shadow-md cursor-pointer">
-                    <i class="fa-solid fa-plus-circle text-amber-400"></i>
-                    <span>Buat Tugas Baru (Penanggung Jawab)</span>
-                </button>
+                <div class="flex flex-wrap gap-3 mt-4 md:mt-0">
+                    <a href="https://drive.google.com/drive/folders/1B780SDgcNkWW4ZXCx-yqUZw8-vKAbgnN" target="_blank" class="bg-amber-600 hover:bg-amber-700 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition flex items-center space-x-2 shadow-md">
+                        <i class="fa-solid fa-folder-open text-white"></i>
+                        <span>Buka Folder Drive Tugas</span>
+                    </a>
+                    <button onclick="openModal('modal-buat-tugas')" class="bg-history-900 hover:bg-history-800 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition flex items-center space-x-2 shadow-md cursor-pointer">
+                        <i class="fa-solid fa-plus-circle text-amber-400"></i>
+                        <span>Buat Tugas Baru (Admin)</span>
+                    </button>
+                </div>
             </div>
 
             <div id="tugas-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -266,10 +271,16 @@
                     <h2 class="font-serif text-3xl sm:text-4xl font-bold text-history-900">Galeri & Foto Kenangan</h2>
                     <p class="text-history-700 text-sm sm:text-base">Momen kebersamaan, kegiatan lapangan, dan perkuliahan.</p>
                 </div>
-                <button onclick="openModal('modal-upload-foto')" class="mt-4 md:mt-0 bg-amber-600 hover:bg-amber-700 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition flex items-center space-x-2 shadow-md cursor-pointer">
-                    <i class="fa-solid fa-camera"></i>
-                    <span>Unggah Foto Kenangan</span>
-                </button>
+                <div class="flex flex-wrap gap-3 mt-4 md:mt-0">
+                    <a href="https://drive.google.com/drive/folders/10aPtwCBRLvkoTnCpyZIMWneNBipM6VKG" target="_blank" class="bg-amber-600 hover:bg-amber-700 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition flex items-center space-x-2 shadow-md">
+                        <i class="fa-solid fa-folder-open text-white"></i>
+                        <span>Buka Folder Drive Galeri</span>
+                    </a>
+                    <button onclick="openModal('modal-upload-foto')" class="bg-history-900 hover:bg-history-800 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition flex items-center space-x-2 shadow-md cursor-pointer">
+                        <i class="fa-solid fa-camera text-amber-400"></i>
+                        <span>Unggah Foto Kenangan</span>
+                    </button>
+                </div>
             </div>
 
             <div id="gallery-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -311,7 +322,7 @@
         </div>
     </footer>
 
-    <!-- MODAL 1: Kumpul Tugas -->
+    <!-- MODAL 1: Kumpul Tugas (Langsung ke Google Drive) -->
     <div id="modal-kumpul" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-history-200 space-y-6 relative max-h-[90vh] overflow-y-auto">
             <div class="flex items-center justify-between border-b border-history-100 pb-4">
@@ -324,44 +335,34 @@
                 </button>
             </div>
             
-            <form id="form-kumpul" onsubmit="submitTugas(event)" class="space-y-4">
-                <input type="hidden" id="modal-tugas-id">
-                <div>
-                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Nama Lengkap Mahasiswa</label>
-                    <input type="text" id="nama-mhs" required placeholder="Contoh: Muhammad Rizki" class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-600 transition">
+            <div class="space-y-4">
+                <div class="bg-amber-50 border border-amber-200 p-4 rounded-xl text-center space-y-3">
+                    <i class="fa-brands fa-google-drive text-3xl text-amber-600"></i>
+                    <p class="text-xs text-history-800 font-medium">Pengumpulan tugas mata kuliah ini langsung diunggah ke Google Drive resmi kelas 25A.</p>
+                    <a href="https://drive.google.com/drive/folders/1B780SDgcNkWW4ZXCx-yqUZw8-vKAbgnN" target="_blank" class="inline-block bg-amber-600 hover:bg-amber-700 text-white font-semibold px-5 py-2.5 rounded-xl text-xs shadow transition">
+                        <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> Buka Folder Google Drive Tugas
+                    </a>
                 </div>
-                <div>
-                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">NIM</label>
-                    <input type="text" id="nim-mhs" required placeholder="Contoh: 2505112001" class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-600 transition">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Unggah File Tugas (.pdf, .doc, .docx, .zip)</label>
-                    <div class="flex items-center justify-center w-full">
-                        <label class="flex flex-col items-center justify-center w-full h-28 border-2 border-history-200 border-dashed rounded-xl cursor-pointer bg-history-50 hover:bg-history-100 transition">
-                            <div class="flex flex-col items-center justify-center pt-4 pb-4 px-4 text-center">
-                                <i class="fa-solid fa-file-arrow-up text-2xl text-amber-600 mb-1"></i>
-                                <p id="file-label-text" class="text-xs text-history-700 font-medium">Klik untuk memilih file tugas</p>
-                                <p class="text-[10px] text-history-500 mt-0.5">Format: PDF, Word, ZIP (Maks. 10MB)</p>
-                            </div>
-                            <input type="file" id="tugas-file" accept=".pdf,.doc,.docx,.zip,.rar" required class="hidden" onchange="updateFileLabel(this)">
-                        </label>
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Catatan (Opsional)</label>
-                    <textarea id="catatan-tugas" rows="2" placeholder="Keterangan..." class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-600 transition resize-none"></textarea>
-                </div>
-                
+
                 <div class="border-t border-history-100 pt-4">
-                    <h4 class="text-xs font-bold text-history-800 uppercase mb-3"><i class="fa-solid fa-users-viewfinder mr-1"></i> Daftar Pengumpulan:</h4>
+                    <h4 class="text-xs font-bold text-history-800 uppercase mb-3"><i class="fa-solid fa-users-viewfinder mr-1"></i> Daftar Catatan Pengumpulan Lokal:</h4>
                     <div id="daftar-pengumpulan-list" class="max-h-40 overflow-y-auto space-y-2 bg-history-50 p-3 rounded-xl border border-history-200 text-xs"></div>
                 </div>
 
-                <div class="flex items-center justify-end space-x-3 pt-2">
-                    <button type="button" onclick="closeModal('modal-kumpul')" class="px-5 py-2.5 rounded-xl border border-history-200 text-history-700 font-semibold text-sm cursor-pointer">Tutup</button>
-                    <button type="submit" class="px-6 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-sm shadow-md cursor-pointer">Kirim Tugas</button>
-                </div>
-            </form>
+                <form id="form-kumpul" onsubmit="submitTugas(event)" class="space-y-3 border-t border-history-100 pt-3">
+                    <input type="hidden" id="modal-tugas-id">
+                    <p class="text-[11px] text-history-600 font-bold">Catat konfirmasi pengiriman Anda di sini:</p>
+                    <div class="grid grid-cols-2 gap-2">
+                        <input type="text" id="nama-mhs" required placeholder="Nama Lengkap" class="bg-history-50 border border-history-200 rounded-lg px-3 py-2 text-xs">
+                        <input type="text" id="nim-mhs" required placeholder="NIM" class="bg-history-50 border border-history-200 rounded-lg px-3 py-2 text-xs">
+                    </div>
+                    <input type="text" id="catatan-tugas" placeholder="Keterangan (Opsional)" class="w-full bg-history-50 border border-history-200 rounded-lg px-3 py-2 text-xs">
+                    <div class="flex justify-end space-x-2 pt-1">
+                        <button type="button" onclick="closeModal('modal-kumpul')" class="px-4 py-2 rounded-lg border text-xs cursor-pointer">Tutup</button>
+                        <button type="submit" class="px-4 py-2 rounded-lg bg-amber-600 text-white font-semibold text-xs cursor-pointer">Catat Pengiriman</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -385,36 +386,45 @@
         </div>
     </div>
 
-    <!-- MODAL 3: Unggah Foto Kenangan (Upload File JPG/PNG Langsung) -->
+    <!-- MODAL 3: Unggah Foto Kenangan (Upload File JPG/PNG & Simpan ke Drive) -->
     <div id="modal-upload-foto" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-history-200 space-y-6 relative">
             <div class="flex items-center justify-between border-b border-history-100 pb-4">
                 <h3 class="font-serif font-bold text-xl text-history-900">Unggah Foto Kenangan</h3>
                 <button onclick="closeModal('modal-upload-foto')" class="text-gray-400 hover:text-history-900 p-2 cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
-            <form id="form-upload-foto" onsubmit="uploadFotoBaru(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Pilih File Foto (JPG / PNG)</label>
-                    <div class="flex items-center justify-center w-full">
-                        <label class="flex flex-col items-center justify-center w-full h-28 border-2 border-history-200 border-dashed rounded-xl cursor-pointer bg-history-50 hover:bg-history-100 transition">
-                            <div class="flex flex-col items-center justify-center pt-4 pb-4 px-4 text-center">
-                                <i class="fa-solid fa-image text-2xl text-amber-600 mb-1"></i>
-                                <p id="foto-label-text" class="text-xs text-history-700 font-medium">Klik untuk memilih foto</p>
-                                <p class="text-[10px] text-history-500 mt-0.5">Format: JPG, PNG, WEBP</p>
-                            </div>
-                            <input type="file" id="foto-file" accept="image/*" required class="hidden" onchange="updateFotoLabel(this)">
-                        </label>
+            <div class="space-y-4">
+                <div class="bg-amber-50 border border-amber-200 p-4 rounded-xl text-center space-y-3">
+                    <i class="fa-brands fa-google-drive text-3xl text-amber-600"></i>
+                    <p class="text-xs text-history-800 font-medium">Simpan dan unggah foto kenangan langsung ke folder Google Drive Angkatan.</p>
+                    <a href="https://drive.google.com/drive/folders/10aPtwCBRLvkoTnCpyZIMWneNBipM6VKG" target="_blank" class="inline-block bg-amber-600 hover:bg-amber-700 text-white font-semibold px-5 py-2.5 rounded-xl text-xs shadow transition">
+                        <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> Buka Folder Google Drive Galeri
+                    </a>
+                </div>
+
+                <form id="form-upload-foto" onsubmit="uploadFotoBaru(event)" class="space-y-3 border-t border-history-100 pt-3">
+                    <div>
+                        <label class="block text-xs font-bold text-history-700 uppercase mb-1">Pilih File Foto (JPG / PNG)</label>
+                        <div class="flex items-center justify-center w-full">
+                            <label class="flex flex-col items-center justify-center w-full h-24 border-2 border-history-200 border-dashed rounded-xl cursor-pointer bg-history-50 hover:bg-history-100 transition">
+                                <div class="flex flex-col items-center justify-center pt-3 pb-3 px-4 text-center">
+                                    <i class="fa-solid fa-image text-xl text-amber-600 mb-1"></i>
+                                    <p id="foto-label-text" class="text-xs text-history-700 font-medium">Klik untuk memilih foto</p>
+                                </div>
+                                <input type="file" id="foto-file" accept="image/*" required class="hidden" onchange="updateFotoLabel(this)">
+                            </label>
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Keterangan Foto</label>
-                    <input type="text" id="foto-ket" required placeholder="Contoh: Kuliah Lapangan di Riau" class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm">
-                </div>
-                <div class="flex justify-end space-x-3 pt-2">
-                    <button type="button" onclick="closeModal('modal-upload-foto')" class="px-5 py-2.5 rounded-xl border text-sm cursor-pointer">Batal</button>
-                    <button type="submit" class="px-6 py-2.5 rounded-xl bg-amber-600 text-white font-semibold text-sm cursor-pointer">Unggah</button>
-                </div>
-            </form>
+                    <div>
+                        <label class="block text-xs font-bold text-history-700 uppercase mb-1">Keterangan Foto</label>
+                        <input type="text" id="foto-ket" required placeholder="Contoh: Kuliah Lapangan di Riau" class="w-full bg-history-50 border border-history-200 rounded-lg px-3 py-2 text-xs">
+                    </div>
+                    <div class="flex justify-end space-x-2 pt-2">
+                        <button type="button" onclick="closeModal('modal-upload-foto')" class="px-4 py-2 rounded-lg border text-xs cursor-pointer">Batal</button>
+                        <button type="submit" class="px-4 py-2 rounded-lg bg-amber-600 text-white font-semibold text-xs cursor-pointer">Tampilkan di Galeri Web</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -487,7 +497,7 @@
         </div>
     </div>
 
-    <!-- MODAL 7: Edit Info Beranda (Matkul & Tenggat) -->
+    <!-- MODAL 7: Edit Info Beranda -->
     <div id="modal-edit-info" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-history-200 space-y-6 relative">
             <div class="flex items-center justify-between border-b border-history-100 pb-4">
@@ -521,7 +531,6 @@
         let classAnnouncements = JSON.parse(localStorage.getItem('sejarah_25a_announcements')) || [];
         let classGallery = JSON.parse(localStorage.getItem('sejarah_25a_gallery')) || [];
 
-        // Data Visi Misi & Info Beranda
         let classVisiMisi = JSON.parse(localStorage.getItem('sejarah_25a_visimisi')) || {
             visi: '"Sukses bersama dibawah naungan komting Sahnan"',
             pimpinan: 'Komting Sahnan',
@@ -663,37 +672,25 @@
             document.getElementById('modal-tugas-id').value = id;
             document.getElementById('modal-judul-tugas').innerText = t.judul;
             document.getElementById('modal-matkul').innerText = t.matkul;
-            document.getElementById('file-label-text').innerText = "Klik untuk memilih file tugas";
             renderSubmissions(t);
             openModal('modal-kumpul');
         }
 
-        function updateFileLabel(input) {
-            if(input.files && input.files[0]) {
-                document.getElementById('file-label-text').innerText = `File terpilih: ${input.files[0].name}`;
-            }
-        }
-
         function updateFotoLabel(input) {
             if(input.files && input.files[0]) {
-                document.getElementById('foto-label-text').innerText = `Foto terpilih: ${input.files[0].name}`;
+                document.getElementById('foto-label-text').innerText = `File terpilih: ${input.files[0].name}`;
             }
         }
 
         function renderSubmissions(t) {
             const box = document.getElementById('daftar-pengumpulan-list');
-            if(!isAdminLoggedIn) {
-                box.innerHTML = `<p class="text-gray-500 italic text-center">Daftar pengumpulan bersifat rahasia (Khusus Admin).</p>`;
-                return;
-            }
             if(!t.submissions || t.submissions.length === 0) {
-                box.innerHTML = `<p class="text-gray-500 italic text-center">Belum ada tugas terkumpul.</p>`;
+                box.innerHTML = `<p class="text-gray-500 italic text-center">Belum ada catatan konfirmasi lokal.</p>`;
                 return;
             }
             box.innerHTML = t.submissions.map((s, i) => `
                 <div class="bg-white p-2.5 rounded border flex justify-between items-center text-xs">
-                    <div><b>${i+1}. ${s.nama}</b> (${s.nim})<br><span class="text-amber-800 font-semibold">${s.fileName}</span><br><span class="text-[10px] text-gray-500">${s.catatan || ''}</span></div>
-                    ${s.fileData ? `<a href="${s.fileData}" download="${s.fileName}" class="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded font-semibold transition flex items-center space-x-1 cursor-pointer"><i class="fa-solid fa-download"></i><span>Unduh</span></a>` : `<span class="text-gray-400 italic">File tidak tersedia</span>`}
+                    <div><b>${i+1}. ${s.nama}</b> (${s.nim})<br><span class="text-gray-500">${s.catatan || 'Sudah upload ke Drive'}</span></div>
                 </div>
             `).join('');
         }
@@ -702,37 +699,17 @@
             e.preventDefault();
             const nama = document.getElementById('nama-mhs').value;
             const nim = document.getElementById('nim-mhs').value;
-            const fileInput = document.getElementById('tugas-file');
             const catatan = document.getElementById('catatan-tugas').value;
 
-            if(!fileInput.files || !fileInput.files[0]) {
-                showToast('Silakan pilih file tugas terlebih dahulu!');
-                return;
-            }
-
-            const file = fileInput.files[0];
-            const reader = new FileReader();
-
-            reader.onload = function(event) {
-                const fileData = event.target.result;
-                const t = classTasks.find(x => x.id === activeTaskId);
-                if(!t.submissions) t.submissions = [];
-                
-                const existingIdx = t.submissions.findIndex(s => s.nim === nim);
-                if(existingIdx >= 0) {
-                    t.submissions[existingIdx] = { nama, nim, fileName: file.name, fileData, catatan };
-                } else {
-                    t.submissions.push({ nama, nim, fileName: file.name, fileData, catatan });
-                }
-
-                localStorage.setItem('sejarah_25a_tugas', JSON.stringify(classTasks));
-                closeModal('modal-kumpul');
-                document.getElementById('form-kumpul').reset();
-                showToast('Tugas berhasil dikirim!');
-                renderTugas();
-            };
-
-            reader.readAsDataURL(file);
+            const t = classTasks.find(x => x.id === activeTaskId);
+            if(!t.submissions) t.submissions = [];
+            
+            t.submissions.push({ nama, nim, catatan });
+            localStorage.setItem('sejarah_25a_tugas', JSON.stringify(classTasks));
+            closeModal('modal-kumpul');
+            document.getElementById('form-kumpul').reset();
+            showToast('Konfirmasi pengiriman dicatat! Pastikan file sudah masuk ke Drive.');
+            renderTugas();
         }
 
         function buatTugasBaru(e) {
@@ -787,7 +764,7 @@
                 localStorage.setItem('sejarah_25a_gallery', JSON.stringify(classGallery));
                 closeModal('modal-upload-foto');
                 document.getElementById('form-upload-foto').reset();
-                showToast('Foto berhasil diunggah!');
+                showToast('Foto berhasil ditampilkan di galeri web!');
                 renderGallery();
             };
 
@@ -833,9 +810,14 @@
                         <h3 class="font-bold text-lg mb-2">${t.judul}</h3>
                         <p class="text-history-700 text-sm mb-4">${t.desk}</p>
                     </div>
-                    <button onclick="openKumpulModal('${t.id}')" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-semibold py-2.5 rounded-xl text-sm cursor-pointer">
-                        ${isAdminLoggedIn ? 'Kelola & Lihat Tugas' : 'Kumpulkan Tugas Saya'}
-                    </button>
+                    <div class="space-y-2">
+                        <a href="https://drive.google.com/drive/folders/1B780SDgcNkWW4ZXCx-yqUZw8-vKAbgnN" target="_blank" class="block w-full text-center bg-amber-600 hover:bg-amber-700 text-white font-semibold py-2.5 rounded-xl text-sm transition">
+                            <i class="fa-brands fa-google-drive mr-1"></i> Upload ke Drive Tugas
+                        </a>
+                        <button onclick="openKumpulModal('${t.id}')" class="w-full bg-history-900 hover:bg-history-800 text-white font-semibold py-2 rounded-xl text-xs cursor-pointer">
+                            ${isAdminLoggedIn ? 'Kelola Daftar Konfirmasi' : 'Catat Konfirmasi Pengiriman'}
+                        </button>
+                    </div>
                 </div>
             `).join('');
         }
