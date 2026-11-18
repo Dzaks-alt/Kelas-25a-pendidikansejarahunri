@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pendidikan Sejarah 25A UNRI | Portal Kelas Resmi</title>
     <!-- Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -84,11 +85,11 @@
 
         <!-- Mobile Menu Dropdown -->
         <div id="mobile-menu" class="hidden md:hidden bg-history-900 border-t border-history-800 px-6 py-4 space-y-3 font-medium">
-            <a href="#beranda" class="block text-amber-200 py-1 mobile-link">Beranda</a>
-            <a href="#visimisi" class="block text-history-200 py-1 mobile-link">Visi & Misi</a>
-            <a href="#tugas" class="block text-history-200 py-1 mobile-link">Pengumpulan Tugas</a>
-            <a href="#galeri" class="block text-history-200 py-1 mobile-link">Galeri & Kenangan</a>
-            <a href="#pengumuman" class="block text-history-200 py-1 mobile-link">Pengumuman</a>
+            <a href="#beranda" class="block text-amber-200 py-1">Beranda</a>
+            <a href="#visimisi" class="block text-history-200 py-1">Visi & Misi</a>
+            <a href="#tugas" class="block text-history-200 py-1">Pengumpulan Tugas</a>
+            <a href="#galeri" class="block text-history-200 py-1">Galeri & Kenangan</a>
+            <a href="#pengumuman" class="block text-history-200 py-1">Pengumuman</a>
         </div>
     </nav>
 
@@ -97,7 +98,7 @@
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
             <div class="flex items-center space-x-2">
                 <i id="admin-status-icon" class="fa-solid fa-shield text-amber-400"></i>
-                <span id="admin-status-text">Mode Akses: <strong>Mahasiswa Umum</strong> (Tidak dapat melihat daftar tugas terkumpul milik orang lain)</span>
+                <span id="admin-status-text">Mode Akses: <strong>Mahasiswa Umum</strong></span>
             </div>
             <div>
                 <button id="admin-toggle-btn" type="button" onclick="toggleAdminMode()" class="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-lg font-semibold transition flex items-center space-x-1.5 shadow-sm cursor-pointer relative z-50 pointer-events-auto">
@@ -151,15 +152,18 @@
                             <div class="space-y-4 text-sm text-history-200">
                                 <div class="bg-history-900/60 p-3.5 rounded-xl border border-history-700/50">
                                     <p class="font-semibold text-white mb-1">Mata Kuliah Hari Ini</p>
-                                    <p class="text-xs text-amber-200/80">Media Pembelajaran Sejarah (08.00 WIB) • Ruang A1</p>
+                                    <p id="display-matkul-hari-ini" class="text-xs text-amber-200/80">Media Pembelajaran Sejarah (08.00 WIB) • Ruang A1</p>
                                 </div>
                                 <div class="bg-history-900/60 p-3.5 rounded-xl border border-history-700/50">
                                     <p class="font-semibold text-white mb-1">Tenggat Tugas Terdekat</p>
-                                    <p class="text-xs text-amber-200/80">Ujian Akhir Semester</p>
+                                    <p id="display-tenggat" class="text-xs text-amber-200/80">Ujian Akhir Semester</p>
                                 </div>
                             </div>
-                            <div class="text-center pt-2">
-                                <span class="text-xs text-history-300 italic"><i class="fa-solid fa-shield-halved mr-1"></i> Dikelola oleh Pengurus Kelas 25A</span>
+                            <div class="flex items-center justify-between pt-2">
+                                <span class="text-xs text-history-300 italic"><i class="fa-solid fa-shield-halved mr-1"></i> Pengurus Kelas 25A</span>
+                                <button id="btn-edit-info" onclick="openEditInfoModal()" class="hidden bg-amber-600 hover:bg-amber-700 text-white text-[10px] px-2.5 py-1 rounded-lg font-semibold cursor-pointer">
+                                    <i class="fa-solid fa-pen-to-square mr-1"></i> Edit Info
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -169,12 +173,18 @@
     </section>
 
     <!-- Visi & Misi Section -->
-    <section id="visimisi" class="py-20 bg-history-100/70 border-b border-history-200">
+    <section id="visimisi" class="py-20 bg-history-100/70 border-b border-history-200 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
-                <span class="text-amber-700 font-semibold text-xs tracking-widest uppercase bg-amber-100 px-3 py-1 rounded-full border border-amber-300/50">Arah & Tujuan</span>
-                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-history-900">Visi & Misi Kelas 25A</h2>
-                <p class="text-history-700 text-sm sm:text-base">Komitmen bersama civitas akademik Pendidikan Sejarah 25A UNRI di bawah kepemimpinan Komting Sahnan.</p>
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
+                <div class="space-y-3">
+                    <span class="text-amber-700 font-semibold text-xs tracking-widest uppercase bg-amber-100 px-3 py-1 rounded-full border border-amber-300/50">Arah & Tujuan</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-history-900">Visi & Misi Kelas 25A</h2>
+                    <p class="text-history-700 text-sm sm:text-base">Komitmen bersama civitas akademik Pendidikan Sejarah 25A UNRI.</p>
+                </div>
+                <button id="btn-edit-visimisi" onclick="openEditVisiMisiModal()" class="hidden mt-4 md:mt-0 bg-history-900 hover:bg-history-800 text-white px-4 py-2 rounded-xl text-xs font-semibold cursor-pointer flex items-center space-x-1.5 shadow">
+                    <i class="fa-solid fa-pen-to-square text-amber-400"></i>
+                    <span>Edit Visi & Misi (Admin)</span>
+                </button>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
@@ -185,13 +195,13 @@
                             <i class="fa-solid fa-eye"></i>
                         </div>
                         <h3 class="font-serif text-2xl font-bold text-history-900">Visi Kelas</h3>
-                        <p class="text-history-700 leading-relaxed italic bg-history-50 p-5 rounded-xl border-l-4 border-amber-600 text-base">
+                        <p id="display-visi-text" class="text-history-700 leading-relaxed italic bg-history-50 p-5 rounded-xl border-l-4 border-amber-600 text-base">
                             "Sukses bersama dibawah naungan komting Sahnan"
                         </p>
                     </div>
                     <div class="mt-6 pt-4 border-t border-history-100 text-xs text-history-600 flex items-center justify-between">
                         <span>Pimpinan Kelas</span>
-                        <span class="font-semibold text-history-900">Komting Sahnan</span>
+                        <span id="display-pimpinan" class="font-semibold text-history-900">Komting Sahnan</span>
                     </div>
                 </div>
 
@@ -202,7 +212,7 @@
                             <i class="fa-solid fa-bullseye"></i>
                         </div>
                         <h3 class="font-serif text-2xl font-bold text-history-900">Misi Kelas</h3>
-                        <ul class="space-y-3 text-history-700 text-sm sm:text-base">
+                        <ul id="display-misi-list" class="space-y-3 text-history-700 text-sm sm:text-base">
                             <li class="flex items-start space-x-3">
                                 <span class="bg-amber-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold mt-0.5 flex-shrink-0">1</span>
                                 <span>Lulus Tepat Waktu</span>
@@ -301,7 +311,7 @@
         </div>
     </footer>
 
-    <!-- MODAL 1: Kumpul Tugas (Dengan Tombol Unduh File untuk Admin) -->
+    <!-- MODAL 1: Kumpul Tugas -->
     <div id="modal-kumpul" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-history-200 space-y-6 relative max-h-[90vh] overflow-y-auto">
             <div class="flex items-center justify-between border-b border-history-100 pb-4">
@@ -375,7 +385,7 @@
         </div>
     </div>
 
-    <!-- MODAL 3: Unggah Foto Kenangan -->
+    <!-- MODAL 3: Unggah Foto Kenangan (Upload File JPG/PNG Langsung) -->
     <div id="modal-upload-foto" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-history-200 space-y-6 relative">
             <div class="flex items-center justify-between border-b border-history-100 pb-4">
@@ -383,8 +393,23 @@
                 <button onclick="closeModal('modal-upload-foto')" class="text-gray-400 hover:text-history-900 p-2 cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <form id="form-upload-foto" onsubmit="uploadFotoBaru(event)" class="space-y-4">
-                <input type="url" id="foto-url" required placeholder="Link Gambar Foto (URL / Drive Direct Link)" class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm">
-                <input type="text" id="foto-ket" required placeholder="Keterangan Foto" class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm">
+                <div>
+                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Pilih File Foto (JPG / PNG)</label>
+                    <div class="flex items-center justify-center w-full">
+                        <label class="flex flex-col items-center justify-center w-full h-28 border-2 border-history-200 border-dashed rounded-xl cursor-pointer bg-history-50 hover:bg-history-100 transition">
+                            <div class="flex flex-col items-center justify-center pt-4 pb-4 px-4 text-center">
+                                <i class="fa-solid fa-image text-2xl text-amber-600 mb-1"></i>
+                                <p id="foto-label-text" class="text-xs text-history-700 font-medium">Klik untuk memilih foto</p>
+                                <p class="text-[10px] text-history-500 mt-0.5">Format: JPG, PNG, WEBP</p>
+                            </div>
+                            <input type="file" id="foto-file" accept="image/*" required class="hidden" onchange="updateFotoLabel(this)">
+                        </label>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Keterangan Foto</label>
+                    <input type="text" id="foto-ket" required placeholder="Contoh: Kuliah Lapangan di Riau" class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm">
+                </div>
                 <div class="flex justify-end space-x-3 pt-2">
                     <button type="button" onclick="closeModal('modal-upload-foto')" class="px-5 py-2.5 rounded-xl border text-sm cursor-pointer">Batal</button>
                     <button type="submit" class="px-6 py-2.5 rounded-xl bg-amber-600 text-white font-semibold text-sm cursor-pointer">Unggah</button>
@@ -434,6 +459,58 @@
         </div>
     </div>
 
+    <!-- MODAL 6: Edit Visi & Misi -->
+    <div id="modal-edit-visimisi" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-history-200 space-y-6 relative max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between border-b border-history-100 pb-4">
+                <h3 class="font-serif font-bold text-xl text-history-900">Edit Visi & Misi Kelas</h3>
+                <button onclick="closeModal('modal-edit-visimisi')" class="text-gray-400 hover:text-history-900 p-2 cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <form onsubmit="saveVisiMisi(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Teks Visi Kelas</label>
+                    <textarea id="edit-visi-input" rows="3" required class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm resize-none"></textarea>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Pimpinan Kelas</label>
+                    <input type="text" id="edit-pimpinan-input" required class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Poin Misi (Satu per baris)</label>
+                    <textarea id="edit-misi-input" rows="4" required class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm resize-none"></textarea>
+                </div>
+                <div class="flex justify-end space-x-3 pt-2">
+                    <button type="button" onclick="closeModal('modal-edit-visimisi')" class="px-5 py-2.5 rounded-xl border text-sm cursor-pointer">Batal</button>
+                    <button type="submit" class="px-6 py-2.5 rounded-xl bg-amber-600 text-white font-semibold text-sm cursor-pointer">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 7: Edit Info Beranda (Matkul & Tenggat) -->
+    <div id="modal-edit-info" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-history-200 space-y-6 relative">
+            <div class="flex items-center justify-between border-b border-history-100 pb-4">
+                <h3 class="font-serif font-bold text-xl text-history-900">Edit Info Beranda</h3>
+                <button onclick="closeModal('modal-edit-info')" class="text-gray-400 hover:text-history-900 p-2 cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <form onsubmit="saveInfoBeranda(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Mata Kuliah Hari Ini</label>
+                    <input type="text" id="edit-matkul-hari-ini" required class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Tenggat Tugas Terdekat</label>
+                    <input type="text" id="edit-tenggat-input" required class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm">
+                </div>
+                <div class="flex justify-end space-x-3 pt-2">
+                    <button type="button" onclick="closeModal('modal-edit-info')" class="px-5 py-2.5 rounded-xl border text-sm cursor-pointer">Batal</button>
+                    <button type="submit" class="px-6 py-2.5 rounded-xl bg-amber-600 text-white font-semibold text-sm cursor-pointer">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- JavaScript Interactive Logic -->
     <script>
         let classTasks = JSON.parse(localStorage.getItem('sejarah_25a_tugas')) || [
@@ -443,6 +520,18 @@
         let isAdminLoggedIn = localStorage.getItem('sejarah_25a_admin') === 'true';
         let classAnnouncements = JSON.parse(localStorage.getItem('sejarah_25a_announcements')) || [];
         let classGallery = JSON.parse(localStorage.getItem('sejarah_25a_gallery')) || [];
+
+        // Data Visi Misi & Info Beranda
+        let classVisiMisi = JSON.parse(localStorage.getItem('sejarah_25a_visimisi')) || {
+            visi: '"Sukses bersama dibawah naungan komting Sahnan"',
+            pimpinan: 'Komting Sahnan',
+            misi: ['Lulus Tepat Waktu', 'Mendapat nilai yang baik', 'Sukses sukses solid']
+        };
+
+        let classInfoBeranda = JSON.parse(localStorage.getItem('sejarah_25a_info')) || {
+            matkulHariIni: 'Media Pembelajaran Sejarah (08.00 WIB) • Ruang A1',
+            tenggat: 'Ujian Akhir Semester'
+        };
 
         function showToast(msg) {
             const toast = document.getElementById('toast');
@@ -485,6 +574,8 @@
             const statusText = document.getElementById('admin-status-text');
             const toggleBtn = document.getElementById('admin-toggle-btn');
             const annBtn = document.getElementById('admin-announcement-btn-container');
+            const editVisiBtn = document.getElementById('btn-edit-visimisi');
+            const editInfoBtn = document.getElementById('btn-edit-info');
 
             if(isAdminLoggedIn) {
                 statusIcon.className = "fa-solid fa-shield-halved text-emerald-400";
@@ -492,16 +583,77 @@
                 toggleBtn.className = "bg-rose-700 text-white px-3 py-1.5 rounded-lg font-semibold cursor-pointer relative z-50 pointer-events-auto";
                 toggleBtn.innerHTML = `<i class="fa-solid fa-lock"></i><span>Keluar Admin</span>`;
                 if(annBtn) annBtn.classList.remove('hidden');
+                if(editVisiBtn) editVisiBtn.classList.remove('hidden');
+                if(editInfoBtn) editInfoBtn.classList.remove('hidden');
             } else {
                 statusIcon.className = "fa-solid fa-shield text-amber-400";
                 statusText.innerHTML = `Mode Akses: <strong>Mahasiswa Umum</strong>`;
                 toggleBtn.className = "bg-amber-600 text-white px-3 py-1.5 rounded-lg font-semibold cursor-pointer relative z-50 pointer-events-auto";
                 toggleBtn.innerHTML = `<i class="fa-solid fa-key"></i><span>Login Admin / Dosen</span>`;
                 if(annBtn) annBtn.classList.add('hidden');
+                if(editVisiBtn) editVisiBtn.classList.add('hidden');
+                if(editInfoBtn) editInfoBtn.classList.add('hidden');
             }
             renderTugas();
             renderGallery();
             renderAnnouncements();
+            renderVisiMisi();
+            renderInfoBeranda();
+        }
+
+        function renderVisiMisi() {
+            document.getElementById('display-visi-text').innerText = classVisiMisi.visi;
+            document.getElementById('display-pimpinan').innerText = classVisiMisi.pimpinan;
+            const misiList = document.getElementById('display-misi-list');
+            misiList.innerHTML = classVisiMisi.misi.map((m, idx) => `
+                <li class="flex items-start space-x-3">
+                    <span class="bg-amber-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold mt-0.5 flex-shrink-0">${idx+1}</span>
+                    <span>${m}</span>
+                </li>
+            `).join('');
+        }
+
+        function renderInfoBeranda() {
+            document.getElementById('display-matkul-hari-ini').innerText = classInfoBeranda.matkulHariIni;
+            document.getElementById('display-tenggat').innerText = classInfoBeranda.tenggat;
+        }
+
+        function openEditVisiMisiModal() {
+            document.getElementById('edit-visi-input').value = classVisiMisi.visi.replace(/^"|"$/g, '');
+            document.getElementById('edit-pimpinan-input').value = classVisiMisi.pimpinan;
+            document.getElementById('edit-misi-input').value = classVisiMisi.misi.join('\n');
+            openModal('modal-edit-visimisi');
+        }
+
+        function saveVisiMisi(e) {
+            e.preventDefault();
+            const visi = '"' + document.getElementById('edit-visi-input').value.trim() + '"';
+            const pimpinan = document.getElementById('edit-pimpinan-input').value.trim();
+            const misi = document.getElementById('edit-misi-input').value.split('\n').filter(x => x.trim() !== '');
+
+            classVisiMisi = { visi, pimpinan, misi };
+            localStorage.setItem('sejarah_25a_visimisi', JSON.stringify(classVisiMisi));
+            closeModal('modal-edit-visimisi');
+            showToast('Visi & Misi berhasil diperbarui!');
+            renderVisiMisi();
+        }
+
+        function openEditInfoModal() {
+            document.getElementById('edit-matkul-hari-ini').value = classInfoBeranda.matkulHariIni;
+            document.getElementById('edit-tenggat-input').value = classInfoBeranda.tenggat;
+            openModal('modal-edit-info');
+        }
+
+        function saveInfoBeranda(e) {
+            e.preventDefault();
+            const matkulHariIni = document.getElementById('edit-matkul-hari-ini').value.trim();
+            const tenggat = document.getElementById('edit-tenggat-input').value.trim();
+
+            classInfoBeranda = { matkulHariIni, tenggat };
+            localStorage.setItem('sejarah_25a_info', JSON.stringify(classInfoBeranda));
+            closeModal('modal-edit-info');
+            showToast('Info Beranda berhasil diperbarui!');
+            renderInfoBeranda();
         }
 
         let activeTaskId = null;
@@ -519,6 +671,12 @@
         function updateFileLabel(input) {
             if(input.files && input.files[0]) {
                 document.getElementById('file-label-text').innerText = `File terpilih: ${input.files[0].name}`;
+            }
+        }
+
+        function updateFotoLabel(input) {
+            if(input.files && input.files[0]) {
+                document.getElementById('foto-label-text').innerText = `Foto terpilih: ${input.files[0].name}`;
             }
         }
 
@@ -556,11 +714,10 @@
             const reader = new FileReader();
 
             reader.onload = function(event) {
-                const fileData = event.target.result; // Base64 Data URL
+                const fileData = event.target.result;
                 const t = classTasks.find(x => x.id === activeTaskId);
                 if(!t.submissions) t.submissions = [];
                 
-                // Cek jika NIM sudah pernah mengumpul, timpa dengan yang baru
                 const existingIdx = t.submissions.findIndex(s => s.nim === nim);
                 if(existingIdx >= 0) {
                     t.submissions[existingIdx] = { nama, nim, fileName: file.name, fileData, catatan };
@@ -608,17 +765,43 @@
 
         function uploadFotoBaru(e) {
             e.preventDefault();
-            classGallery.unshift({
-                id: 'foto-' + Date.now(),
-                imageUrl: document.getElementById('foto-url').value,
-                ket: document.getElementById('foto-ket').value,
-                tanggal: new Date().toLocaleDateString('id-ID')
-            });
-            localStorage.setItem('sejarah_25a_gallery', JSON.stringify(classGallery));
-            closeModal('modal-upload-foto');
-            document.getElementById('form-upload-foto').reset();
-            showToast('Foto berhasil diunggah!');
-            renderGallery();
+            const fileInput = document.getElementById('foto-file');
+            const ket = document.getElementById('foto-ket').value;
+
+            if(!fileInput.files || !fileInput.files[0]) {
+                showToast('Silakan pilih file foto terlebih dahulu!');
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(event) {
+                const imageUrl = event.target.result;
+                classGallery.unshift({
+                    id: 'foto-' + Date.now(),
+                    imageUrl,
+                    ket,
+                    tanggal: new Date().toLocaleDateString('id-ID')
+                });
+                localStorage.setItem('sejarah_25a_gallery', JSON.stringify(classGallery));
+                closeModal('modal-upload-foto');
+                document.getElementById('form-upload-foto').reset();
+                showToast('Foto berhasil diunggah!');
+                renderGallery();
+            };
+
+            reader.readAsDataURL(file);
+        }
+
+        function hapusFoto(id) {
+            if(!isAdminLoggedIn) return;
+            if(confirm('Hapus foto ini?')) {
+                classGallery = classGallery.filter(f => f.id !== id);
+                localStorage.setItem('sejarah_25a_gallery', JSON.stringify(classGallery));
+                showToast('Foto dihapus.');
+                renderGallery();
+            }
         }
 
         function buatPengumumanBaru(e) {
@@ -664,7 +847,8 @@
                 return;
             }
             box.innerHTML = classGallery.map(f => `
-                <div class="bg-white rounded-2xl overflow-hidden border shadow-sm">
+                <div class="bg-white rounded-2xl overflow-hidden border shadow-sm relative">
+                    ${isAdminLoggedIn ? `<button onclick="hapusFoto('${f.id}')" class="absolute top-3 right-3 bg-rose-700 text-white w-7 h-7 rounded-full flex items-center justify-center cursor-pointer z-10 shadow"><i class="fa-solid fa-trash text-xs"></i></button>` : ''}
                     <img src="${f.imageUrl}" class="w-full h-56 object-cover" onerror="this.src='https://placehold.co/400x300/3d2817/ffffff?text=Foto+Kelas'">
                     <div class="p-4 text-xs font-medium">${f.ket}</div>
                 </div>
