@@ -371,7 +371,7 @@
         </div>
     </div>
 
-    <!-- MODAL: Unggah Foto Kenangan (Dengan Batasan 100MB) -->
+    <!-- MODAL: Unggah Foto Kenangan (Mendukung Berbagai Format & Max 100MB) -->
     <div id="modal-upload-foto" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-history-200 space-y-6 relative">
             <div class="flex items-center justify-between border-b border-history-100 pb-4">
@@ -380,14 +380,15 @@
             </div>
             <form id="form-upload-foto" onsubmit="uploadFotoBaru(event)" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Pilih File Foto (Maksimal 100MB)</label>
+                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Pilih File Foto / Gambar (Semua Format, Max 100MB)</label>
                     <div class="flex items-center justify-center w-full">
                         <label class="flex flex-col items-center justify-center w-full h-24 border-2 border-history-200 border-dashed rounded-xl cursor-pointer bg-history-50 hover:bg-history-100 transition">
                             <div class="flex flex-col items-center justify-center pt-3 pb-3 px-4 text-center">
                                 <i class="fa-solid fa-image text-xl text-amber-600 mb-1"></i>
-                                <p id="foto-label-text" class="text-xs text-history-700 font-medium">Klik untuk memilih foto (Max 100MB)</p>
+                                <p id="foto-label-text" class="text-xs text-history-700 font-medium">Klik untuk memilih file (JPG, PNG, HEIC, WEBP, dll)</p>
                             </div>
-                            <input type="file" id="foto-file" accept="image/*" required class="hidden" onchange="updateFotoLabel(this)">
+                            <!-- Atribut accept diubah agar mengizinkan semua jenis gambar/file umum -->
+                            <input type="file" id="foto-file" accept="image/*,.heic,.heif,.webp" required class="hidden" onchange="updateFotoLabel(this)">
                         </label>
                     </div>
                 </div>
@@ -606,7 +607,6 @@
                 }
             } catch(e) { console.log(e); }
 
-            // Load Tugas
             try {
                 const tugasSnap = await getDocs(collection(db, "tugas"));
                 cachedTasks = [];
@@ -640,7 +640,6 @@
                 `).join('');
             } catch(e) { console.log(e); }
 
-            // Load Galeri (3 Highlight & Sisa Arsip)
             try {
                 const galSnap = await getDocs(collection(db, "galeri"));
                 let galList = [];
@@ -787,16 +786,16 @@
             }
         }
 
-        // Validasi Ukuran File Maksimal 100MB
+        // Validasi Ukuran File (Maksimal 100MB)
         window.updateFotoLabel = function(input) {
             if(input.files && input.files[0]) {
                 const file = input.files[0];
-                const maxSize = 100 * 1024 * 1024; // 100MB dalam bytes
+                const maxSize = 100 * 1024 * 1024; // 100MB
 
                 if(file.size > maxSize) {
                     showToast('Peringatan: Ukuran file melebihi 100MB!');
-                    input.value = ''; // Reset input file
-                    document.getElementById('foto-label-text').innerText = 'Klik untuk memilih foto (Max 100MB)';
+                    input.value = '';
+                    document.getElementById('foto-label-text').innerText = 'Klik untuk memilih file (Max 100MB)';
                     return;
                 }
 
@@ -831,10 +830,13 @@
                     });
                     closeModal('modal-upload-foto');
                     document.getElementById('form-upload-foto').reset();
-                    document.getElementById('foto-label-text').innerText = 'Klik untuk memilih foto (Max 100MB)';
+                    document.getElementById('foto-label-text').innerText = 'Klik untuk memilih file (Max 100MB)';
                     showToast('Foto berhasil diunggah ke galeri publik!');
                     loadDataFromFirebase();
-                } catch(err) { showToast('Gagal mengunggah foto.'); }
+                } catch(err) { 
+                    // Jika gagal karena Firestore membatasi ukuran data dokumen (> 1MB)
+                    showToast('Gagal: File terlalu besar untuk database Firestore (Maks 1MB). Pilih foto yang ukurannya lebih kecil.'); 
+                }
             };
             reader.readAsDataURL(file);
         }
