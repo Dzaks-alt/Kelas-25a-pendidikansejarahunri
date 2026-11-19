@@ -71,7 +71,7 @@
                 <a href="#beranda" class="text-amber-200 hover:text-white transition">Beranda</a>
                 <a href="#visimisi" class="text-history-200 hover:text-amber-200 transition">Visi & Misi</a>
                 <a href="#tugas" class="text-history-200 hover:text-amber-200 transition">Pengumpulan Tugas</a>
-                <a href="#galeri" class="text-history-200 hover:text-amber-200 transition">Galeri & Kenangan</a>
+                <a href="#galeri" class="text-history-200 hover:text-amber-200 transition">Album Kelas</a>
                 <a href="#pengumuman" class="text-history-200 hover:text-amber-200 transition">Pengumuman</a>
             </div>
 
@@ -139,18 +139,24 @@
                             </div>
                             <div class="space-y-4 text-sm text-history-200">
                                 <div class="bg-history-900/60 p-3.5 rounded-xl border border-history-700/50">
-                                    <p class="font-semibold text-white mb-1">Mata Kuliah Hari Ini</p>
-                                    <p id="display-matkul-hari-ini" class="text-xs text-amber-200/80">Memuat data...</p>
+                                    <div class="flex justify-between items-center mb-1">
+                                        <p class="font-semibold text-white text-xs uppercase tracking-wider text-amber-300">Mata Kuliah Hari Ini</p>
+                                        <span id="display-hari-ini" class="text-[10px] bg-amber-600/40 text-amber-200 px-2 py-0.5 rounded font-bold">Memuat...</span>
+                                    </div>
+                                    <!-- Tempat menampung banyak mata kuliah secara otomatis -->
+                                    <div id="display-matkul-hari-ini" class="space-y-1 text-xs text-amber-100">
+                                        <p>Memuat jadwal...</p>
+                                    </div>
                                 </div>
                                 <div class="bg-history-900/60 p-3.5 rounded-xl border border-history-700/50">
-                                    <p class="font-semibold text-white mb-1">Tenggat Tugas Terdekat</p>
+                                    <p class="font-semibold text-white mb-1 text-xs uppercase tracking-wider text-amber-300">Tenggat Tugas Terdekat</p>
                                     <p id="display-tenggat" class="text-xs text-amber-200/80">Memuat data...</p>
                                 </div>
                             </div>
                             <div class="flex items-center justify-between pt-2">
                                 <span class="text-xs text-history-300 italic"><i class="fa-solid fa-shield-halved mr-1"></i> Pengurus Kelas 25A</span>
-                                <button id="btn-edit-info" onclick="openEditInfoModal()" class="hidden bg-amber-600 hover:bg-amber-700 text-white text-[10px] px-2.5 py-1 rounded-lg font-semibold cursor-pointer">
-                                    <i class="fa-solid fa-pen-to-square mr-1"></i> Edit Info
+                                <button id="btn-edit-info" onclick="openEditJadwalModal()" class="hidden bg-amber-600 hover:bg-amber-700 text-white text-[10px] px-2.5 py-1 rounded-lg font-semibold cursor-pointer">
+                                    <i class="fa-solid fa-calendar-days mr-1"></i> Atur Jadwal Mingguan
                                 </button>
                             </div>
                         </div>
@@ -237,7 +243,6 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
                 <div class="space-y-2">
-                    <!-- Ubah tulisan album angkatan menjadi album kelas -->
                     <span class="text-amber-700 font-semibold text-xs tracking-widest uppercase bg-amber-100 px-3 py-1 rounded-full border border-amber-300/50">Album Kelas</span>
                     <h2 class="font-serif text-3xl sm:text-4xl font-bold text-history-900">Galeri & Foto Kenangan</h2>
                     <p class="text-history-700 text-sm sm:text-base">Momen kebersamaan, kegiatan lapangan, dan perkuliahan. (Klik foto untuk memperbesar)</p>
@@ -475,31 +480,56 @@
                 </div>
                 <div class="flex justify-end space-x-3 pt-2">
                     <button type="button" onclick="closeModal('modal-edit-visimisi')" class="px-5 py-2.5 rounded-xl border text-sm cursor-pointer">Batal</button>
-                    <button type="submit" class="px-6 py-2.5 rounded-xl bg-amber-600 text-white font-semibold text-sm cursor-pointer">Simpan Perubahan</button>
+                    <button type="submit" class="px-6 py-2.5 rounded-xl bg-amber-600 text-white font-semibold text-xs cursor-pointer">Simpan Perubahan</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- MODAL: Edit Info Beranda -->
-    <div id="modal-edit-info" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-history-200 space-y-6 relative">
+    <!-- MODAL: Atur Jadwal Kuliah Mingguan (Multi-Matkul per Hari) -->
+    <div id="modal-edit-jadwal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-xl w-full p-6 shadow-2xl border border-history-200 space-y-6 relative max-h-[90vh] overflow-y-auto">
             <div class="flex items-center justify-between border-b border-history-100 pb-4">
-                <h3 class="font-serif font-bold text-xl text-history-900">Edit Info Beranda</h3>
-                <button onclick="closeModal('modal-edit-info')" class="text-gray-400 hover:text-history-900 p-2 cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
-            </div>
-            <form onsubmit="saveInfoBeranda(event)" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Mata Kuliah Hari Ini</label>
-                    <input type="text" id="edit-matkul-hari-ini" required class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm">
+                    <h3 class="font-serif font-bold text-xl text-history-900">Atur Jadwal Kuliah Mingguan</h3>
+                    <p class="text-xs text-gray-500">Masukkan jadwal per hari (bisa lebih dari 1 matkul, pisahkan dengan koma atau baris baru).</p>
+                </div>
+                <button onclick="closeModal('modal-edit-jadwal')" class="text-gray-400 hover:text-history-900 p-2 cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <form onsubmit="saveJadwalMingguan(event)" class="space-y-4 text-xs">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div class="bg-history-50 p-3 rounded-xl border">
+                        <label class="block font-bold text-history-900 mb-1">Senin</label>
+                        <textarea id="jadwal-senin" rows="2" placeholder="Contoh: Sejarah Indonesia (08.00) - J10, Sejarah Lokal (13.00) - J12" class="w-full bg-white border rounded-lg p-2 text-xs"></textarea>
+                    </div>
+                    <div class="bg-history-50 p-3 rounded-xl border">
+                        <label class="block font-bold text-history-900 mb-1">Selasa</label>
+                        <textarea id="jadwal-selasa" rows="2" placeholder="Contoh: Strategi Pembelajaran (10.00) - Gedung B" class="w-full bg-white border rounded-lg p-2 text-xs"></textarea>
+                    </div>
+                    <div class="bg-history-50 p-3 rounded-xl border">
+                        <label class="block font-bold text-history-900 mb-1">Rabu</label>
+                        <textarea id="jadwal-rabu" rows="2" placeholder="Contoh: Sejarah Asia, Metodologi Penelitian" class="w-full bg-white border rounded-lg p-2 text-xs"></textarea>
+                    </div>
+                    <div class="bg-history-50 p-3 rounded-xl border">
+                        <label class="block font-bold text-history-900 mb-1">Kamis</label>
+                        <textarea id="jadwal-kamis" rows="2" placeholder="Contoh: Filsafat Sejarah" class="w-full bg-white border rounded-lg p-2 text-xs"></textarea>
+                    </div>
+                    <div class="bg-history-50 p-3 rounded-xl border">
+                        <label class="block font-bold text-history-900 mb-1">Jumat</label>
+                        <textarea id="jadwal-jumat" rows="2" placeholder="Contoh: Seminar Sejarah" class="w-full bg-white border rounded-lg p-2 text-xs"></textarea>
+                    </div>
+                    <div class="bg-history-50 p-3 rounded-xl border">
+                        <label class="block font-bold text-history-900 mb-1">Sabtu / Minggu (Libur)</label>
+                        <textarea id="jadwal-libur" rows="2" placeholder="Contoh: Tidak ada jadwal kuliah" class="w-full bg-white border rounded-lg p-2 text-xs"></textarea>
+                    </div>
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-history-700 uppercase mb-1">Tenggat Tugas Terdekat</label>
-                    <input type="text" id="edit-tenggat-input" required class="w-full bg-history-50 border border-history-200 rounded-xl px-4 py-3 text-sm">
+                    <label class="block font-bold text-history-900 mb-1">Tenggat Tugas Terdekat (Tetap)</label>
+                    <input type="text" id="edit-tenggat-input" required class="w-full bg-history-50 border rounded-lg p-2.5 text-xs">
                 </div>
                 <div class="flex justify-end space-x-3 pt-2">
-                    <button type="button" onclick="closeModal('modal-edit-info')" class="px-5 py-2.5 rounded-xl border text-sm cursor-pointer">Batal</button>
-                    <button type="submit" class="px-6 py-2.5 rounded-xl bg-amber-600 text-white font-semibold text-sm cursor-pointer">Simpan Perubahan</button>
+                    <button type="button" onclick="closeModal('modal-edit-jadwal')" class="px-4 py-2 rounded-xl border text-xs cursor-pointer">Batal</button>
+                    <button type="submit" class="px-5 py-2 rounded-xl bg-amber-600 text-white font-semibold text-xs cursor-pointer">Simpan Jadwal</button>
                 </div>
             </form>
         </div>
@@ -525,6 +555,7 @@
 
         let isAdminLoggedIn = localStorage.getItem('sejarah_25a_admin') === 'true';
         let cachedTasks = [];
+        let globalJadwal = {};
 
         window.showToast = function(msg) {
             const toast = document.getElementById('toast');
@@ -601,8 +632,41 @@
                 const infoSnap = await getDocs(collection(db, "info_beranda"));
                 if(!infoSnap.empty) {
                     const infoData = infoSnap.docs[0].data();
-                    document.getElementById('display-matkul-hari-ini').innerText = infoData.matkulHariIni;
-                    document.getElementById('display-tenggat').innerText = infoData.tenggat;
+                    globalJadwal = infoData.jadwalMingguan || {
+                        "Senin": "Sejarah Pendidikan (10.00 WIB) - J10",
+                        "Selasa": "Tidak ada jadwal",
+                        "Rabu": "Tidak ada jadwal",
+                        "Kamis": "Tidak ada jadwal",
+                        "Jumat": "Tidak ada jadwal",
+                        "Libur": "Libur Akhir Pekan"
+                    };
+
+                    // Deteksi Hari Otomatis Berdasarkan Waktu Komputer/HP Klien
+                    const days = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+                    const todayIndex = new Date().getDay();
+                    const namaHariIni = days[todayIndex];
+
+                    document.getElementById('display-hari-ini').innerText = namaHariIni;
+
+                    // Ambil jadwal sesuai hari ini
+                    let rawMatkul = globalJadwal[namaHariIni] || (namaHariIni === "Minggu" || namaHariIni === "Sabtu" ? globalJadwal["Libur"] : "Tidak ada jadwal kuliah hari ini.");
+                    
+                    // Mendukung multi mata kuliah (jika dipisah koma atau baris baru)
+                    const listMatkul = rawMatkul.split(/,|\n/).map(x => x.trim()).filter(x => x !== '');
+
+                    const matkulContainer = document.getElementById('display-matkul-hari-ini');
+                    if(listMatkul.length === 0) {
+                        matkulContainer.innerHTML = `<p class="italic">Tidak ada jadwal kuliah hari ini.</p>`;
+                    } else {
+                        matkulContainer.innerHTML = listMatkul.map((m, i) => `
+                            <div class="flex items-start space-x-1.5">
+                                <i class="fa-solid fa-book-open text-amber-300 mt-0.5 text-[10px]"></i>
+                                <span class="font-medium">${m}</span>
+                            </div>
+                        `).join('');
+                    }
+
+                    document.getElementById('display-tenggat').innerText = infoData.tenggat || 'Ujian Akhir Semester';
                 }
             } catch(e) { console.log(e); }
 
@@ -928,23 +992,35 @@
             } catch(err) { showToast('Gagal menyimpan.'); }
         }
 
-        window.openEditInfoModal = function() {
-            document.getElementById('edit-matkul-hari-ini').value = document.getElementById('display-matkul-hari-ini').innerText;
+        window.openEditJadwalModal = function() {
+            document.getElementById('jadwal-senin').value = globalJadwal["Senin"] || '';
+            document.getElementById('jadwal-selasa').value = globalJadwal["Selasa"] || '';
+            document.getElementById('jadwal-rabu').value = globalJadwal["Rabu"] || '';
+            document.getElementById('jadwal-kamis').value = globalJadwal["Kamis"] || '';
+            document.getElementById('jadwal-jumat').value = globalJadwal["Jumat"] || '';
+            document.getElementById('jadwal-libur').value = globalJadwal["Libur"] || '';
             document.getElementById('edit-tenggat-input').value = document.getElementById('display-tenggat').innerText;
-            openModal('modal-edit-info');
+            openModal('modal-edit-jadwal');
         }
 
-        window.saveInfoBeranda = async function(e) {
+        window.saveJadwalMingguan = async function(e) {
             e.preventDefault();
-            const matkulHariIni = document.getElementById('edit-matkul-hari-ini').value.trim();
+            const jadwalMingguan = {
+                "Senin": document.getElementById('jadwal-senin').value.trim(),
+                "Selasa": document.getElementById('jadwal-selasa').value.trim(),
+                "Rabu": document.getElementById('jadwal-rabu').value.trim(),
+                "Kamis": document.getElementById('jadwal-kamis').value.trim(),
+                "Jumat": document.getElementById('jadwal-jumat').value.trim(),
+                "Libur": document.getElementById('jadwal-libur').value.trim()
+            };
             const tenggat = document.getElementById('edit-tenggat-input').value.trim();
 
             try {
-                await setDoc(doc(db, "info_beranda", "data_utama"), { matkulHariIni, tenggat });
-                closeModal('modal-edit-info');
-                showToast('Info Beranda berhasil diperbarui!');
+                await setDoc(doc(db, "info_beranda", "data_utama"), { jadwalMingguan, tenggat });
+                closeModal('modal-edit-jadwal');
+                showToast('Jadwal mingguan berhasil diperbarui!');
                 loadDataFromFirebase();
-            } catch(err) { showToast('Gagal menyimpan.'); }
+            } catch(err) { showToast('Gagal menyimpan jadwal.'); }
         }
 
         window.onload = function() {
